@@ -1,0 +1,8170 @@
+{
+  "meta": {
+    "region": "中国（高等数学）",
+    "standards": [
+      "高等数学教材目录知识点映射（A/B 合并）"
+    ],
+    "schema_version": "v1.0-gaoshu",
+    "node_types": [
+      "concept",
+      "formula",
+      "method",
+      "theorem",
+      "skill"
+    ],
+    "subject": "高等数学",
+    "edition": "A+B",
+    "source_outline_file": "gaoshu/*.json"
+  },
+  "taxonomy_tree": {
+    "高等数学A": {
+      "第1章 函数": [
+        "gaoshu.a.n1.n1.第1章-函数",
+        "gaoshu.a.n1.n1.n1.实数与实数集",
+        "gaoshu.a.n1.n1.n1.n1.集合",
+        "gaoshu.a.n1.n1.n1.n2.集合的运算",
+        "gaoshu.a.n1.n1.n1.n3.区间和邻域",
+        "gaoshu.a.n1.n1.n2.函数及其表示法",
+        "gaoshu.a.n1.n1.n2.n1.函数的概念",
+        "gaoshu.a.n1.n1.n2.n2.函数的表示法",
+        "gaoshu.a.n1.n1.n2.n3.建立函数关系举例",
+        "gaoshu.a.n1.n1.n2.n4.函数的一些特性",
+        "gaoshu.a.n1.n1.n3.反函数与复合函数",
+        "gaoshu.a.n1.n1.n3.n1.反函数",
+        "gaoshu.a.n1.n1.n3.n2.复合函数",
+        "gaoshu.a.n1.n1.n4.初等函数",
+        "gaoshu.a.n1.n1.n4.n1.基本初等函数",
+        "gaoshu.a.n1.n1.n4.n2.初等函数"
+      ],
+      "第2章 极限与连续": [
+        "gaoshu.a.n2.n2.第2章-极限与连续",
+        "gaoshu.a.n2.n2.n1.数列及其极限",
+        "gaoshu.a.n2.n2.n1.n1.数列",
+        "gaoshu.a.n2.n2.n1.n2.数列极限",
+        "gaoshu.a.n2.n2.n1.n3.收敛数列的性质与运算法则",
+        "gaoshu.a.n2.n2.n2.函数极限",
+        "gaoshu.a.n2.n2.n2.n1.自变量趋于无穷大时的函数极限",
+        "gaoshu.a.n2.n2.n2.n2.自变量趋于有限值时的函数极限",
+        "gaoshu.a.n2.n2.n2.n3.函数极限的性质",
+        "gaoshu.a.n2.n2.n2.n4.无穷小量及其运算",
+        "gaoshu.a.n2.n2.n3.极限的运算和两个重要极限",
+        "gaoshu.a.n2.n2.n3.n1.极限的四则运算",
+        "gaoshu.a.n2.n2.n3.n2.两个重要极限",
+        "gaoshu.a.n2.n2.n3.n3.无穷小量的比较",
+        "gaoshu.a.n2.n2.n4.连续函数",
+        "gaoshu.a.n2.n2.n4.n1.函数的连续性",
+        "gaoshu.a.n2.n2.n4.n2.间断点及其分类",
+        "gaoshu.a.n2.n2.n4.n3.连续函数的运算和初等函数的连续性",
+        "gaoshu.a.n2.n2.n4.n4.闭区间上连续函数的性质"
+      ],
+      "第3章 导数与微分": [
+        "gaoshu.a.n3.n3.第3章-导数与微分",
+        "gaoshu.a.n3.n3.n1.导数的概念",
+        "gaoshu.a.n3.n3.n1.n1.导数的定义",
+        "gaoshu.a.n3.n3.n1.n2.求导的例",
+        "gaoshu.a.n3.n3.n1.n3.导数的意义",
+        "gaoshu.a.n3.n3.n2.求导法则",
+        "gaoshu.a.n3.n3.n2.n1.导数的四则运算",
+        "gaoshu.a.n3.n3.n2.n2.反函数的导数",
+        "gaoshu.a.n3.n3.n2.n3.复合函数的导数",
+        "gaoshu.a.n3.n3.n2.n4.基本初等函数的导数公式与求导法则",
+        "gaoshu.a.n3.n3.n2.n5.导数应用举例",
+        "gaoshu.a.n3.n3.n3.隐函数-参变量函数的导数和高阶导数",
+        "gaoshu.a.n3.n3.n3.n1.隐函数的导数",
+        "gaoshu.a.n3.n3.n3.n2.参变量函数的导数",
+        "gaoshu.a.n3.n3.n3.n3.高阶导数",
+        "gaoshu.a.n3.n3.n4.微分",
+        "gaoshu.a.n3.n3.n4.n1.微分概念",
+        "gaoshu.a.n3.n3.n4.n2.微分的基本公式与运算法则",
+        "gaoshu.a.n3.n3.n4.n3.微分在近似计算中的应用"
+      ],
+      "第4章 微分中值定理与导数的应用": [
+        "gaoshu.a.n4.n4.第4章-微分中值定理与导数的应用",
+        "gaoshu.a.n4.n4.n1.微分中值定理",
+        "gaoshu.a.n4.n4.n1.n1.费马-fermat-定理",
+        "gaoshu.a.n4.n4.n1.n2.罗尔-rolle-定理",
+        "gaoshu.a.n4.n4.n1.n3.拉格朗日-lagrange-中值定理",
+        "gaoshu.a.n4.n4.n1.n4.柯西-cauchy-中值定理",
+        "gaoshu.a.n4.n4.n2.不定式极限与洛必达-l-h-spital-法则",
+        "gaoshu.a.n4.n4.n2.n1.0型和-型不定式极限",
+        "gaoshu.a.n4.n4.n2.n2.其他类型不定式极限",
+        "gaoshu.a.n4.n4.n3.函数的单调性和极值",
+        "gaoshu.a.n4.n4.n3.n1.函数单调性的判别法",
+        "gaoshu.a.n4.n4.n3.n2.函数极值的判别法",
+        "gaoshu.a.n4.n4.n3.n3.函数的最大值与最小值",
+        "gaoshu.a.n4.n4.n4.函数图形的讨论",
+        "gaoshu.a.n4.n4.n4.n1.曲线的凸性与拐点",
+        "gaoshu.a.n4.n4.n4.n2.曲线的渐近线",
+        "gaoshu.a.n4.n4.n4.n3.函数作图",
+        "gaoshu.a.n4.n4.n5.曲率"
+      ],
+      "第5章 不定积分": [
+        "gaoshu.a.n5.n5.第5章-不定积分",
+        "gaoshu.a.n5.n5.n1.不定积分概念与基本积分公式",
+        "gaoshu.a.n5.n5.n1.n1.原函数与不定积分",
+        "gaoshu.a.n5.n5.n1.n2.基本积分表",
+        "gaoshu.a.n5.n5.n1.n3.不定积分的线性性质",
+        "gaoshu.a.n5.n5.n2.换元积分法",
+        "gaoshu.a.n5.n5.n2.n1.第一类换元积分法-凑微分法",
+        "gaoshu.a.n5.n5.n2.n2.第二类换元积分法",
+        "gaoshu.a.n5.n5.n3.分部积分法",
+        "gaoshu.a.n5.n5.n4.特殊类型初等函数的不定积分",
+        "gaoshu.a.n5.n5.n4.n1.有理函数的不定积分",
+        "gaoshu.a.n5.n5.n4.n2.三角函数有理式的不定积分",
+        "gaoshu.a.n5.n5.n4.n3.简单无理函数的不定积分"
+      ],
+      "第6章 定积分": [
+        "gaoshu.a.n6.n6.第6章-定积分",
+        "gaoshu.a.n6.n6.n1.定积分概念",
+        "gaoshu.a.n6.n6.n1.n1.定积分的定义",
+        "gaoshu.a.n6.n6.n1.n2.定积分的几何意义",
+        "gaoshu.a.n6.n6.n2.定积分的基本性质",
+        "gaoshu.a.n6.n6.n3.牛顿-莱布尼茨公式",
+        "gaoshu.a.n6.n6.n3.n1.积分上限函数及其导数",
+        "gaoshu.a.n6.n6.n3.n2.牛顿-莱布尼茨公式",
+        "gaoshu.a.n6.n6.n4.定积分的换元积分法与分部积分法",
+        "gaoshu.a.n6.n6.n4.n1.定积分的换元积分法",
+        "gaoshu.a.n6.n6.n4.n2.定积分的分部积分法",
+        "gaoshu.a.n6.n6.n5.定积分的应用",
+        "gaoshu.a.n6.n6.n5.n1.平面图形的面积",
+        "gaoshu.a.n6.n6.n5.n2.已知平行截面面积的立体和旋转体的体积",
+        "gaoshu.a.n6.n6.n5.n3.平面曲线的弧长",
+        "gaoshu.a.n6.n6.n5.n4.旋转曲面面积",
+        "gaoshu.a.n6.n6.n5.n5.定积分在物理学等方面的应用",
+        "gaoshu.a.n6.n6.n6.广义积分",
+        "gaoshu.a.n6.n6.n6.n1.无限区间上的广义积分",
+        "gaoshu.a.n6.n6.n6.n2.无界函数的广义积分",
+        "gaoshu.a.n6.n6.n6.n3.函数"
+      ],
+      "第7章 无穷级数": [
+        "gaoshu.a.n7.n7.第7章-无穷级数",
+        "gaoshu.a.n7.n7.n1.数项级数",
+        "gaoshu.a.n7.n7.n1.n1.无穷级数的概念",
+        "gaoshu.a.n7.n7.n1.n2.收敛级数的性质",
+        "gaoshu.a.n7.n7.n2.正项级数",
+        "gaoshu.a.n7.n7.n2.n1.正项级数的收敛准则",
+        "gaoshu.a.n7.n7.n2.n2.比较判别法",
+        "gaoshu.a.n7.n7.n2.n3.比式判别法与根式判别法",
+        "gaoshu.a.n7.n7.n3.一般项级数",
+        "gaoshu.a.n7.n7.n3.n1.交错级数",
+        "gaoshu.a.n7.n7.n3.n2.级数的绝对收敛与条件收敛",
+        "gaoshu.a.n7.n7.n3.n3.绝对收敛级数的乘积",
+        "gaoshu.a.n7.n7.n4.幂级数",
+        "gaoshu.a.n7.n7.n4.n1.函数项级数的概念",
+        "gaoshu.a.n7.n7.n4.n2.幂级数及其收敛半径",
+        "gaoshu.a.n7.n7.n4.n3.幂级数的运算性质",
+        "gaoshu.a.n7.n7.n5.函数的幂级数展开式",
+        "gaoshu.a.n7.n7.n5.n1.泰勒级数",
+        "gaoshu.a.n7.n7.n5.n2.泰勒中值定理",
+        "gaoshu.a.n7.n7.n5.n3.初等函数的幂级数展开式",
+        "gaoshu.a.n7.n7.n5.n4.近似计算",
+        "gaoshu.a.n7.n7.n6.傅里叶级数",
+        "gaoshu.a.n7.n7.n6.n1.三角级数-三角函数系的正交性",
+        "gaoshu.a.n7.n7.n6.n2.周期为2-的函数的傅里叶级数",
+        "gaoshu.a.n7.n7.n6.n3.周期为2l的函数的傅里叶级数"
+      ],
+      "第8章 多元函数微分学及其应用": [
+        "gaoshu.a.n8.n8.第8章-多元函数微分学及其应用",
+        "gaoshu.a.n8.n8.n1.多元函数的基本概念",
+        "gaoshu.a.n8.sec1.sub1.点集知识简介",
+        "gaoshu.a.n8.sec1.sub2.多元函数的概念",
+        "gaoshu.a.n8.sec1.sub3.多元函数的极限",
+        "gaoshu.a.n8.sec1.sub4.多元函数的连续性",
+        "gaoshu.a.n8.n8.n2.偏导数",
+        "gaoshu.a.n8.sec2.sub1.偏导数",
+        "gaoshu.a.n8.sec2.sub2.高阶偏导数",
+        "gaoshu.a.n8.n8.n3.全微分",
+        "gaoshu.a.n8.sec3.sub1.全微分的定义",
+        "gaoshu.a.n8.sec3.sub2.函数可微的条件",
+        "gaoshu.a.n8.sec3.sub3.全微分在近似计算中的应用",
+        "gaoshu.a.n8.n8.n4.多元复合函数的求导法则",
+        "gaoshu.a.n8.sec4.sub1.链法则",
+        "gaoshu.a.n8.sec4.sub2.一阶全微分形式不变性",
+        "gaoshu.a.n8.n8.n5.隐函数的求导法则",
+        "gaoshu.a.n8.sec5.sub1.一个方程的情况",
+        "gaoshu.a.n8.sec5.sub2.方程组的情形",
+        "gaoshu.a.n8.n8.n6.方向导数和梯度",
+        "gaoshu.a.n8.sec6.sub1.方向导数",
+        "gaoshu.a.n8.sec6.sub2.方向导数的计算",
+        "gaoshu.a.n8.sec6.sub3.梯度",
+        "gaoshu.a.n8.n8.n7.多元函数微分学的几何应用",
+        "gaoshu.a.n8.sec7.sub1.空间曲线的切线和法平面",
+        "gaoshu.a.n8.sec7.sub2.曲面的切平面与法线",
+        "gaoshu.a.n8.n8.n8.多元函数的极值及其求法",
+        "gaoshu.a.n8.sec8.sub1.多元函数的极值及最大值-最小值",
+        "gaoshu.a.n8.sec8.sub2.条件极值与拉格朗日乘数法",
+        "gaoshu.a.n8.n8.n9.二元函数的泰勒公式",
+        "gaoshu.a.n8.sec9.sub1.二元函数的泰勒公式",
+        "gaoshu.a.n8.sec9.sub2.极值充分条件的证明"
+      ],
+      "第9章 重积分": [
+        "gaoshu.a.n9.n9.第9章-重积分",
+        "gaoshu.a.n9.n9.n1.二重积分的概念与性质",
+        "gaoshu.a.n9.sec1.sub1.二重积分的概念",
+        "gaoshu.a.n9.sec1.sub2.可积性条件和二重积分的性质",
+        "gaoshu.a.n9.n9.n2.二重积分的计算",
+        "gaoshu.a.n9.sec2.sub1.应用直角坐标计算二重积分",
+        "gaoshu.a.n9.sec2.sub2.应用极坐标计算二重积分",
+        "gaoshu.a.n9.sec2.sub3.二重积分的换元法",
+        "gaoshu.a.n9.n9.n3.三重积分",
+        "gaoshu.a.n9.sec3.sub1.三重积分的概念和性质",
+        "gaoshu.a.n9.sec3.sub2.三重积分的计算",
+        "gaoshu.a.n9.n9.n4.重积分的应用",
+        "gaoshu.a.n9.sec4.sub1.曲面的面积",
+        "gaoshu.a.n9.sec4.sub2.物体的重心",
+        "gaoshu.a.n9.sec4.sub3.平面薄板的转动惯量"
+      ],
+      "第10章 曲线积分和曲面积分": [
+        "gaoshu.a.n10.n10.第10章-曲线积分和曲面积分",
+        "gaoshu.a.n10.n10.n1.第一型曲线积分",
+        "gaoshu.a.n10.sec1.sub1.第一型曲线积分的概念",
+        "gaoshu.a.n10.sec1.sub2.第一型曲线积分的计算",
+        "gaoshu.a.n10.n10.n2.第二型曲线积分",
+        "gaoshu.a.n10.sec2.sub1.第二型曲线积分的概念",
+        "gaoshu.a.n10.sec2.sub2.第二型曲线积分的计算",
+        "gaoshu.a.n10.n10.n3.格林公式-第二型曲线积分与路径无关的条件",
+        "gaoshu.a.n10.sec3.sub1.格林-green-公式",
+        "gaoshu.a.n10.sec3.sub2.曲线积分与路径无关的条件",
+        "gaoshu.a.n10.n10.n4.第一型曲面积分",
+        "gaoshu.a.n10.sec4.sub1.第一型曲面积分的概念",
+        "gaoshu.a.n10.sec4.sub2.第一型曲面积分的计算",
+        "gaoshu.a.n10.n10.n5.第二型曲面积分",
+        "gaoshu.a.n10.sec5.sub1.第二型曲面积分的概念",
+        "gaoshu.a.n10.sec5.sub2.第二型曲面积分的计算",
+        "gaoshu.a.n10.n10.n6.高斯公式-通量与散度",
+        "gaoshu.a.n10.sec6.sub1.流体通过空间封闭曲面的流出量",
+        "gaoshu.a.n10.sec6.sub2.高斯-gauss-公式",
+        "gaoshu.a.n10.sec6.sub3.通量和散度",
+        "gaoshu.a.n10.n10.n7.斯托克斯公式-环流量与旋度",
+        "gaoshu.a.n10.sec7.sub1.斯托克斯-stokes-公式",
+        "gaoshu.a.n10.sec7.sub2.空间曲线积分与路径无关的条件",
+        "gaoshu.a.n10.sec7.sub3.环流量与旋度"
+      ],
+      "第11章 无穷级数": [
+        "gaoshu.a.n11.n11.第11章-无穷级数",
+        "gaoshu.a.n11.n11.n1.数项级数的概念和性质",
+        "gaoshu.a.n11.sec1.sub1.无穷级数的概念",
+        "gaoshu.a.n11.sec1.sub2.收敛级数的性质",
+        "gaoshu.a.n11.sec1.sub3.柯西-cauchy-收敛准则",
+        "gaoshu.a.n11.n11.n2.正项级数",
+        "gaoshu.a.n11.sec2.sub1.正项级数的收敛准则",
+        "gaoshu.a.n11.sec2.sub2.比较判别法",
+        "gaoshu.a.n11.sec2.sub3.比式判别法和根式判别法",
+        "gaoshu.a.n11.n11.n3.一般项级数",
+        "gaoshu.a.n11.sec3.sub1.交错级数",
+        "gaoshu.a.n11.sec3.sub2.绝对收敛和条件收敛",
+        "gaoshu.a.n11.sec3.sub3.绝对收敛级数的乘积",
+        "gaoshu.a.n11.n11.n4.幂级数",
+        "gaoshu.a.n11.sec4.sub1.函数项级数的概念",
+        "gaoshu.a.n11.sec4.sub2.幂级数及其收敛半径",
+        "gaoshu.a.n11.sec4.sub3.幂级数的运算",
+        "gaoshu.a.n11.n11.n5.函数的幂级数展开式",
+        "gaoshu.a.n11.sec5.sub1.泰勒-taylor-级数",
+        "gaoshu.a.n11.sec5.sub2.初等函数的幂级数展开式",
+        "gaoshu.a.n11.sec5.sub3.近似计算",
+        "gaoshu.a.n11.sec5.sub4.欧拉公式",
+        "gaoshu.a.n11.n11.n6.傅里叶级数",
+        "gaoshu.a.n11.sec6.sub1.三角级数-三角函数系的正交性",
+        "gaoshu.a.n11.sec6.sub2.周期为2-的函数的傅里叶级数",
+        "gaoshu.a.n11.sec6.sub3.周期为2l的函数的傅里叶级数"
+      ],
+      "第12章 微分方程": [
+        "gaoshu.a.n12.n12.第12章-微分方程",
+        "gaoshu.a.n12.n12.n1.微分方程的概念",
+        "gaoshu.a.n12.n12.n2.一阶微分方程",
+        "gaoshu.a.n12.sec3.sub1.可分离变量型微分方程",
+        "gaoshu.a.n12.sec3.sub2.齐次型微分方程",
+        "gaoshu.a.n12.sec3.sub3.可化为齐次型的微分方程",
+        "gaoshu.a.n12.sec3.sub4.一阶线性微分方程",
+        "gaoshu.a.n12.sec3.sub5.全微分方程",
+        "gaoshu.a.n12.n12.n3.高阶微分方程",
+        "gaoshu.a.n12.sec4.sub1.可降阶的微分方程",
+        "gaoshu.a.n12.sec4.sub2.线性微分方程解的性质",
+        "gaoshu.a.n12.sec4.sub3.二阶常系数线性齐次方程的解",
+        "gaoshu.a.n12.sec4.sub4.二阶常系数线性非齐次方程的解",
+        "gaoshu.a.n12.sec4.sub5.欧拉-euler-方程",
+        "gaoshu.a.n12.n12.n4.一些简单的常系数线性微分方程组",
+        "gaoshu.a.n12.sec5.sub1.消元法",
+        "gaoshu.a.n12.sec5.sub2.首次积分",
+        "gaoshu.a.n12.n12.n5.微分方程的幂级数解法",
+        "gaoshu.a.n12.n12.n6.微分方程的简单应用",
+        "gaoshu.a.n12.sec7.sub1.几何问题",
+        "gaoshu.a.n12.sec7.sub2.混合问题",
+        "gaoshu.a.n12.sec7.sub3.电路问题",
+        "gaoshu.a.n12.sec7.sub4.力学问题"
+      ],
+      "第13章 差分方程": [
+        "gaoshu.a.n13.n13.第13章-差分方程",
+        "gaoshu.a.n13.n13.n1.差分与差分方程的概念",
+        "gaoshu.a.n13.sec1.sub1.差分的概念",
+        "gaoshu.a.n13.sec1.sub2.差分方程",
+        "gaoshu.a.n13.n13.n2.常系数线性差分方程",
+        "gaoshu.a.n13.sec2.sub1.线性差分方程解的性质",
+        "gaoshu.a.n13.sec2.sub2.常系数线性齐次差分方程的解",
+        "gaoshu.a.n13.sec2.sub3.常系数线性非齐次差分方程的解",
+        "gaoshu.a.n13.n13.n3.差分方程应用举例"
+      ]
+    },
+    "高等数学B": {
+      "第1章 基本知识": [
+        "gaoshu.b.n1.n1.第1章-基本知识",
+        "gaoshu.b.n1.n1.n1.实数与实数集",
+        "gaoshu.b.n1.sec1.sub1.集合",
+        "gaoshu.b.n1.sec1.sub2.集合的运算",
+        "gaoshu.b.n1.sec1.sub3.数集的演进",
+        "gaoshu.b.n1.sec1.sub4.区间和邻域",
+        "gaoshu.b.n1.sec1.sub5.实数的完备性",
+        "gaoshu.b.n1.n1.n2.函数",
+        "gaoshu.b.n1.sec2.sub1.函数的概念",
+        "gaoshu.b.n1.sec2.sub2.函数的一些特性",
+        "gaoshu.b.n1.sec2.sub3.反函数与复合函数",
+        "gaoshu.b.n1.sec2.sub4.初等函数"
+      ],
+      "第2章 极限与连续": [
+        "gaoshu.b.n2.n2.第2章-极限与连续",
+        "gaoshu.b.n2.n2.n1.数列极限",
+        "gaoshu.b.n2.sec1.sub1.数列",
+        "gaoshu.b.n2.sec1.sub2.数列的极限",
+        "gaoshu.b.n2.sec1.sub3.收敛数列的性质与极限的运算法则",
+        "gaoshu.b.n2.sec1.sub4.数列极限存在的条件",
+        "gaoshu.b.n2.n2.n2.函数极限",
+        "gaoshu.b.n2.sec2.sub1.自变量趋于无穷大时函数的极限",
+        "gaoshu.b.n2.sec2.sub2.自变量趋于有限值时函数的极限",
+        "gaoshu.b.n2.sec2.sub3.函数极限的性质及其运算法则",
+        "gaoshu.b.n2.sec2.sub4.两个重要的极限",
+        "gaoshu.b.n2.n2.n3.无穷小与无穷大",
+        "gaoshu.b.n2.sec3.sub1.无穷小",
+        "gaoshu.b.n2.sec3.sub2.无穷大",
+        "gaoshu.b.n2.sec3.sub3.无穷小的比较",
+        "gaoshu.b.n2.n2.n4.连续函数",
+        "gaoshu.b.n2.sec4.sub1.函数的连续性",
+        "gaoshu.b.n2.sec4.sub2.间断点及其分类",
+        "gaoshu.b.n2.sec4.sub3.连续函数的运算和初等函数的连续性",
+        "gaoshu.b.n2.sec4.sub4.闭区间上连续函数的性质",
+        "gaoshu.b.n2.sec4.sub5.函数的一致连续性"
+      ],
+      "第3章 导数与微分": [
+        "gaoshu.b.n3.n3.第3章-导数与微分",
+        "gaoshu.b.n3.n3.n1.导数的概念",
+        "gaoshu.b.n3.sec1.sub1.导数的定义",
+        "gaoshu.b.n3.sec1.sub2.可导与连续",
+        "gaoshu.b.n3.sec1.sub3.求导数的例",
+        "gaoshu.b.n3.sec1.sub4.平面曲线的切线方程和法线方程",
+        "gaoshu.b.n3.n3.n2.求导法则",
+        "gaoshu.b.n3.sec2.sub1.导数的四则运算",
+        "gaoshu.b.n3.sec2.sub2.反函数的导数",
+        "gaoshu.b.n3.sec2.sub3.复合函数的导数",
+        "gaoshu.b.n3.sec2.sub4.基本初等函数的导数公式与求导法则",
+        "gaoshu.b.n3.n3.n3.高阶导数",
+        "gaoshu.b.n3.sec3.sub1.高阶导数概念及计算",
+        "gaoshu.b.n3.sec3.sub2.高阶导数运算法则及莱布尼茨公式",
+        "gaoshu.b.n3.n3.n4.隐函数和由参数方程确定的函数的导数",
+        "gaoshu.b.n3.sec4.sub1.隐函数的导数",
+        "gaoshu.b.n3.sec4.sub2.由参数方程确定的函数的导数",
+        "gaoshu.b.n3.sec4.sub3.相关变化率",
+        "gaoshu.b.n3.n3.n5.微分",
+        "gaoshu.b.n3.sec5.sub1.微分的概念",
+        "gaoshu.b.n3.sec5.sub2.微分基本公式与运算法则",
+        "gaoshu.b.n3.sec5.sub3.利用微分进行近似计算",
+        "gaoshu.b.n3.sec5.sub4.误差估计"
+      ],
+      "第4章 微分中值定理与导数的应用": [
+        "gaoshu.b.n4.n4.第4章-微分中值定理与导数的应用",
+        "gaoshu.b.n4.n4.n1.微分中值定理",
+        "gaoshu.b.n4.sec1.sub1.费马-fermat-定理",
+        "gaoshu.b.n4.sec1.sub2.罗尔-rolle-中值定理",
+        "gaoshu.b.n4.sec1.sub3.拉格朗日-lagrange-中值定理",
+        "gaoshu.b.n4.sec1.sub4.柯西-cauchy-中值定理",
+        "gaoshu.b.n4.n4.n2.洛必达-l-hospital-法则",
+        "gaoshu.b.n4.sec2.sub1.0-0型和-型不定式极限",
+        "gaoshu.b.n4.sec2.sub2.其他类型不定式极限",
+        "gaoshu.b.n4.n4.n3.泰勒-taylor-公式",
+        "gaoshu.b.n4.sec3.sub1.泰勒公式",
+        "gaoshu.b.n4.sec3.sub2.几个初等函数带佩亚诺余项的麦克劳林-maclaurin-公式",
+        "gaoshu.b.n4.n4.n4.函数的单调性-极值和最值",
+        "gaoshu.b.n4.sec4.sub1.函数的单调性的判别法",
+        "gaoshu.b.n4.sec4.sub2.函数的极值的判别法",
+        "gaoshu.b.n4.sec4.sub3.函数的最值",
+        "gaoshu.b.n4.n4.n5.函数图形的讨论",
+        "gaoshu.b.n4.sec5.sub1.曲线的凸性与拐点",
+        "gaoshu.b.n4.sec5.sub2.曲线的渐近线",
+        "gaoshu.b.n4.sec5.sub3.函数图形的描绘",
+        "gaoshu.b.n4.n4.n6.曲率"
+      ],
+      "第5章 积分": [
+        "gaoshu.b.n5.n5.第5章-积分",
+        "gaoshu.b.n5.n5.n1.定积分的概念和基本性质",
+        "gaoshu.b.n5.sec1.sub1.实例",
+        "gaoshu.b.n5.sec1.sub2.定积分的定义",
+        "gaoshu.b.n5.sec1.sub3.定积分的基本性质",
+        "gaoshu.b.n5.n5.n2.原函数和微积分学基本定理",
+        "gaoshu.b.n5.sec2.sub1.原函数",
+        "gaoshu.b.n5.sec2.sub2.积分上限的函数及其导数",
+        "gaoshu.b.n5.sec2.sub3.牛顿-莱布尼茨公式",
+        "gaoshu.b.n5.n5.n3.不定积分",
+        "gaoshu.b.n5.sec3.sub1.不定积分的概念",
+        "gaoshu.b.n5.sec3.sub2.直接积分法",
+        "gaoshu.b.n5.sec3.sub3.不定积分的第一类换元积分法",
+        "gaoshu.b.n5.sec3.sub4.不定积分的第二类换元积分法",
+        "gaoshu.b.n5.sec3.sub5.不定积分的分部积分法",
+        "gaoshu.b.n5.sec3.sub6.有理函数的不定积分",
+        "gaoshu.b.n5.sec3.sub7.三角函数有理式的不定积分",
+        "gaoshu.b.n5.sec3.sub8.简单无理函数的不定积分",
+        "gaoshu.b.n5.n5.n4.定积分的积分法",
+        "gaoshu.b.n5.sec4.sub1.直接利用牛顿-莱布尼茨公式",
+        "gaoshu.b.n5.sec4.sub2.定积分的换元积分法",
+        "gaoshu.b.n5.sec4.sub3.定积分的分部积分法",
+        "gaoshu.b.n5.n5.n5.定积分的近似计算",
+        "gaoshu.b.n5.sec5.sub1.矩形法",
+        "gaoshu.b.n5.sec5.sub2.梯形法",
+        "gaoshu.b.n5.sec5.sub3.抛物线法",
+        "gaoshu.b.n5.n5.n6.广义积分-函数",
+        "gaoshu.b.n5.sec6.sub1.无限区间上的广义积分",
+        "gaoshu.b.n5.sec6.sub2.无界函数的广义积分",
+        "gaoshu.b.n5.sec6.sub3.函数"
+      ],
+      "第6章 定积分的应用": [
+        "gaoshu.b.n6.n6.第6章-定积分的应用",
+        "gaoshu.b.n6.n6.n1.微元法",
+        "gaoshu.b.n6.n6.n2.平面图形的面积",
+        "gaoshu.b.n6.sec2.sub1.直角坐标系下的面积公式",
+        "gaoshu.b.n6.sec2.sub2.极坐标系下的面积公式",
+        "gaoshu.b.n6.n6.n3.体积",
+        "gaoshu.b.n6.sec3.sub1.平行截面面积为已知的立体的体积",
+        "gaoshu.b.n6.sec3.sub2.旋转体的体积",
+        "gaoshu.b.n6.n6.n4.平面曲线的弧长与旋转曲面的面积",
+        "gaoshu.b.n6.sec4.sub1.平面曲线的弧长",
+        "gaoshu.b.n6.sec4.sub2.旋转曲面的面积",
+        "gaoshu.b.n6.n6.n5.若干物理应用",
+        "gaoshu.b.n6.sec5.sub1.物体的质量",
+        "gaoshu.b.n6.sec5.sub2.引力",
+        "gaoshu.b.n6.sec5.sub3.液体的压力",
+        "gaoshu.b.n6.sec5.sub4.功"
+      ],
+      "第7章 空间解析几何": [
+        "gaoshu.b.n7.n7.第7章-空间解析几何",
+        "gaoshu.b.n7.n7.n1.空间直角坐标系",
+        "gaoshu.b.n7.n7.n2.向量及其线性运算-向量的坐标",
+        "gaoshu.b.n7.sec2.sub1.向量的基本运算",
+        "gaoshu.b.n7.sec2.sub2.向量的坐标-向量运算的坐标表示",
+        "gaoshu.b.n7.n7.n3.向量的数量积-向量积",
+        "gaoshu.b.n7.sec3.sub1.向量的数量积",
+        "gaoshu.b.n7.sec3.sub2.向量的向量积",
+        "gaoshu.b.n7.sec3.sub3.向量的混合积",
+        "gaoshu.b.n7.n7.n4.平面的方程",
+        "gaoshu.b.n7.n7.n5.空间直线的方程",
+        "gaoshu.b.n7.n7.n6.曲面与空间曲线",
+        "gaoshu.b.n7.n7.n7.旋转面-柱面",
+        "gaoshu.b.n7.sec7.sub1.旋转面",
+        "gaoshu.b.n7.sec7.sub2.柱面",
+        "gaoshu.b.n7.n7.n8.二次曲面"
+      ],
+      "第8章 空间解析几何": [
+        "gaoshu.b.n8.n8.第8章-空间解析几何",
+        "gaoshu.b.n8.n8.n1.空间直角坐标系",
+        "gaoshu.b.n8.n8.n1.n1.空间直角坐标系",
+        "gaoshu.b.n8.n8.n1.n2.空间两点之间的距离",
+        "gaoshu.b.n8.n8.n2.向量及其线性运算",
+        "gaoshu.b.n8.n8.n2.n1.向量的概念",
+        "gaoshu.b.n8.n8.n2.n2.向量的线性运算",
+        "gaoshu.b.n8.n8.n2.n3.向量的坐标与分解",
+        "gaoshu.b.n8.n8.n3.向量的数量积与向量积",
+        "gaoshu.b.n8.n8.n3.n1.向量的数量积",
+        "gaoshu.b.n8.n8.n3.n2.向量的向量积",
+        "gaoshu.b.n8.n8.n3.n3.向量的混合积",
+        "gaoshu.b.n8.n8.n4.平面与空间直线",
+        "gaoshu.b.n8.n8.n4.n1.平面方程",
+        "gaoshu.b.n8.n8.n4.n2.空间直线方程",
+        "gaoshu.b.n8.n8.n5.曲面与空间曲线",
+        "gaoshu.b.n8.n8.n5.n1.球面方程",
+        "gaoshu.b.n8.n8.n5.n2.柱面方程",
+        "gaoshu.b.n8.n8.n5.n3.旋转面方程",
+        "gaoshu.b.n8.n8.n5.n4.二次曲面",
+        "gaoshu.b.n8.n8.n5.n5.空间曲线",
+        "gaoshu.b.n8.n8.n5.n6.空间曲线在坐标面上的投影"
+      ],
+      "第9章 多元函数微分学及其应用": [
+        "gaoshu.b.n9.n9.第9章-多元函数微分学及其应用",
+        "gaoshu.b.n9.n9.n1.多元函数",
+        "gaoshu.b.n9.n9.n1.n1.多元函数的概念",
+        "gaoshu.b.n9.n9.n1.n2.二元函数的几何表示",
+        "gaoshu.b.n9.n9.n1.n3.多元函数的极限",
+        "gaoshu.b.n9.n9.n1.n4.多元函数的连续性",
+        "gaoshu.b.n9.n9.n2.多元函数的偏导数与全微分",
+        "gaoshu.b.n9.n9.n2.n1.偏导数",
+        "gaoshu.b.n9.n9.n2.n2.高阶偏导数",
+        "gaoshu.b.n9.n9.n2.n3.全微分",
+        "gaoshu.b.n9.n9.n2.n4.全微分在近似计算中的应用",
+        "gaoshu.b.n9.n9.n3.复合函数和隐函数的求导法则",
+        "gaoshu.b.n9.n9.n3.n1.多元复合函数的求导法则",
+        "gaoshu.b.n9.n9.n3.n2.一阶全微分形式不变性",
+        "gaoshu.b.n9.n9.n3.n3.隐函数的求导法则",
+        "gaoshu.b.n9.n9.n4.方向导数与梯度",
+        "gaoshu.b.n9.n9.n5.多元函数微分学的几何应用",
+        "gaoshu.b.n9.n9.n5.n1.空间曲线的切线与法平面",
+        "gaoshu.b.n9.n9.n5.n2.曲面的切平面与法线",
+        "gaoshu.b.n9.n9.n6.多元函数的极值",
+        "gaoshu.b.n9.n9.n6.n1.多元函数的极值",
+        "gaoshu.b.n9.n9.n6.n2.条件极值"
+      ],
+      "第10章 重积分及其应用": [
+        "gaoshu.b.n10.n10.第10章-重积分及其应用",
+        "gaoshu.b.n10.n10.n1.重积分的概念与性质",
+        "gaoshu.b.n10.n10.n1.n1.二重积分的概念",
+        "gaoshu.b.n10.n10.n1.n2.可积性条件与二重积分的性质",
+        "gaoshu.b.n10.n10.n1.n3.三重积分的概念和性质",
+        "gaoshu.b.n10.n10.n2.二重积分的计算",
+        "gaoshu.b.n10.n10.n2.n1.化二重积分为累次积分",
+        "gaoshu.b.n10.n10.n2.n2.在极坐标系中计算二重积分",
+        "gaoshu.b.n10.n10.n3.三重积分的计算",
+        "gaoshu.b.n10.n10.n3.n1.化三重积分为累次积分",
+        "gaoshu.b.n10.n10.n3.n2.在柱面坐标系中计算三重积分",
+        "gaoshu.b.n10.n10.n3.n3.在球面坐标系中计算三重积分",
+        "gaoshu.b.n10.n10.n4.重积分的应用",
+        "gaoshu.b.n10.n10.n4.n1.曲面的面积",
+        "gaoshu.b.n10.n10.n4.n2.物体的重心"
+      ],
+      "第11章 曲线积分与曲面积分": [
+        "gaoshu.b.n11.n11.第11章-曲线积分与曲面积分",
+        "gaoshu.b.n11.n11.n1.第一型曲线积分",
+        "gaoshu.b.n11.n11.n1.n1.第一型曲线积分的概念",
+        "gaoshu.b.n11.n11.n1.n2.第一型曲线积分的计算",
+        "gaoshu.b.n11.n11.n2.第二型曲线积分",
+        "gaoshu.b.n11.n11.n2.n1.第二型曲线积分的概念",
+        "gaoshu.b.n11.n11.n2.n2.第二型曲线积分的计算",
+        "gaoshu.b.n11.n11.n3.格林公式-第二型曲线积分与路径无关的条件",
+        "gaoshu.b.n11.n11.n3.n1.格林公式",
+        "gaoshu.b.n11.n11.n3.n2.曲线积分与路径无关的条件",
+        "gaoshu.b.n11.n11.n4.第一型曲面积分",
+        "gaoshu.b.n11.n11.n4.n1.第一型曲面积分的概念",
+        "gaoshu.b.n11.n11.n4.n2.第一型曲面积分的计算",
+        "gaoshu.b.n11.n11.n5.第二型曲面积分",
+        "gaoshu.b.n11.n11.n5.n1.第二型曲面积分的概念",
+        "gaoshu.b.n11.n11.n5.n2.第二型曲面积分的计算",
+        "gaoshu.b.n11.n11.n6.斯托克斯公式",
+        "gaoshu.b.n11.n11.n7.高斯公式"
+      ],
+      "第12章 常微分方程与差分方程": [
+        "gaoshu.b.n12.n12.第12章-常微分方程与差分方程",
+        "gaoshu.b.n12.n12.n1.一阶微分方程",
+        "gaoshu.b.n12.n12.n1.n1.微分方程的一般概念",
+        "gaoshu.b.n12.n12.n1.n2.可分离变量型微分方程",
+        "gaoshu.b.n12.n12.n1.n3.齐次型微分方程",
+        "gaoshu.b.n12.n12.n1.n4.一阶线性微分方程",
+        "gaoshu.b.n12.n12.n1.n5.全微分方程",
+        "gaoshu.b.n12.n12.n1.n6.一阶微分方程应用举例",
+        "gaoshu.b.n12.n12.n2.二阶微分方程",
+        "gaoshu.b.n12.n12.n2.n1.可降阶的微分方程",
+        "gaoshu.b.n12.n12.n2.n2.二阶线性微分方程解的性质",
+        "gaoshu.b.n12.n12.n2.n3.二阶常系数线性齐次方程的解",
+        "gaoshu.b.n12.n12.n2.n4.二阶常系数线性非齐次方程的解",
+        "gaoshu.b.n12.n12.n3.微分方程应用举例",
+        "gaoshu.b.n12.n12.n4.差分与差分方程简介",
+        "gaoshu.b.n12.n12.n4.n1.差分的概念",
+        "gaoshu.b.n12.n12.n4.n2.差分方程的基本概念",
+        "gaoshu.b.n12.n12.n4.n3.线性差分方程解的性质",
+        "gaoshu.b.n12.n12.n4.n4.常系数线性齐次差分方程的解",
+        "gaoshu.b.n12.n12.n4.n5.常系数线性非齐次差分方程的解"
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "id": "gaoshu.a.n1.n1.第1章-函数",
+      "name": "第1章 函数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第1章 函数"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第1章 函数"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n1.实数与实数集",
+      "name": "实数与实数集",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "1.1 实数与实数集"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.第1章-函数"
+      ],
+      "short_name": "实数与实数集"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n1.n1.集合",
+      "name": "集合",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "集合"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.n1.实数与实数集"
+      ],
+      "short_name": "集合"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n1.n2.集合的运算",
+      "name": "集合的运算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "集合的运算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.n1.实数与实数集"
+      ],
+      "short_name": "集合的运算"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n1.n3.区间和邻域",
+      "name": "区间和邻域",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "区间和邻域"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.n1.实数与实数集"
+      ],
+      "short_name": "区间和邻域"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n2.函数及其表示法",
+      "name": "函数及其表示法",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "1.2 函数及其表示法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.第1章-函数"
+      ],
+      "short_name": "函数及其表示法"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n2.n1.函数的概念",
+      "name": "函数的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "函数的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.n2.函数及其表示法"
+      ],
+      "short_name": "函数的概念"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n2.n2.函数的表示法",
+      "name": "函数的表示法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "函数的表示法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.n2.函数及其表示法"
+      ],
+      "short_name": "函数的表示法"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n2.n3.建立函数关系举例",
+      "name": "建立函数关系举例",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "建立函数关系举例"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.n2.函数及其表示法"
+      ],
+      "short_name": "建立函数关系举例"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n2.n4.函数的一些特性",
+      "name": "函数的一些特性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "函数的一些特性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.n2.函数及其表示法"
+      ],
+      "short_name": "函数的一些特性"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n3.反函数与复合函数",
+      "name": "反函数与复合函数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "1.3 反函数与复合函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.第1章-函数"
+      ],
+      "short_name": "反函数与复合函数"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n3.n1.反函数",
+      "name": "反函数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "反函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.n3.反函数与复合函数"
+      ],
+      "short_name": "反函数"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n3.n2.复合函数",
+      "name": "复合函数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "复合函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.n3.反函数与复合函数"
+      ],
+      "short_name": "复合函数"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n4.初等函数",
+      "name": "初等函数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "1.4 初等函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.第1章-函数"
+      ],
+      "short_name": "初等函数"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n4.n1.基本初等函数",
+      "name": "基本初等函数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "基本初等函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.n4.初等函数"
+      ],
+      "short_name": "基本初等函数"
+    },
+    {
+      "id": "gaoshu.a.n1.n1.n4.n2.初等函数",
+      "name": "初等函数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "初等函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n1.n1.n4.初等函数"
+      ],
+      "short_name": "初等函数"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.第2章-极限与连续",
+      "name": "第2章 极限与连续",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第2章 极限与连续"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第2章 极限与连续"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n1.数列及其极限",
+      "name": "数列及其极限",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "2.1 数列及其极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.第2章-极限与连续"
+      ],
+      "short_name": "数列及其极限"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n1.n1.数列",
+      "name": "数列",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "数列"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n1.数列及其极限"
+      ],
+      "short_name": "数列"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n1.n2.数列极限",
+      "name": "数列极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "数列极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n1.数列及其极限"
+      ],
+      "short_name": "数列极限"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n1.n3.收敛数列的性质与运算法则",
+      "name": "收敛数列的性质与运算法则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "收敛数列的性质与运算法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n1.数列及其极限"
+      ],
+      "short_name": "收敛数列的性质与运算法则"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n2.函数极限",
+      "name": "函数极限",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "2.2 函数极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.第2章-极限与连续"
+      ],
+      "short_name": "函数极限"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n2.n1.自变量趋于无穷大时的函数极限",
+      "name": "自变量趋于无穷大时的函数极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "自变量趋于无穷大时的函数极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n2.函数极限"
+      ],
+      "short_name": "自变量趋于无穷大时的函数极限"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n2.n2.自变量趋于有限值时的函数极限",
+      "name": "自变量趋于有限值时的函数极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "自变量趋于有限值时的函数极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n2.函数极限"
+      ],
+      "short_name": "自变量趋于有限值时的函数极限"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n2.n3.函数极限的性质",
+      "name": "函数极限的性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "函数极限的性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n2.函数极限"
+      ],
+      "short_name": "函数极限的性质"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n2.n4.无穷小量及其运算",
+      "name": "无穷小量及其运算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "无穷小量及其运算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n2.函数极限"
+      ],
+      "short_name": "无穷小量及其运算"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n3.极限的运算和两个重要极限",
+      "name": "极限的运算和两个重要极限",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "2.3 极限的运算和两个重要极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.第2章-极限与连续"
+      ],
+      "short_name": "极限的运算和两个重要极限"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n3.n1.极限的四则运算",
+      "name": "极限的四则运算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "极限的四则运算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n3.极限的运算和两个重要极限"
+      ],
+      "short_name": "极限的四则运算"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n3.n2.两个重要极限",
+      "name": "两个重要极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "两个重要极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n3.极限的运算和两个重要极限"
+      ],
+      "short_name": "两个重要极限"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n3.n3.无穷小量的比较",
+      "name": "无穷小量的比较",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "无穷小量的比较"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n3.极限的运算和两个重要极限"
+      ],
+      "short_name": "无穷小量的比较"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n4.连续函数",
+      "name": "连续函数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "2.4 连续函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.第2章-极限与连续"
+      ],
+      "short_name": "连续函数"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n4.n1.函数的连续性",
+      "name": "函数的连续性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "函数的连续性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n4.连续函数"
+      ],
+      "short_name": "函数的连续性"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n4.n2.间断点及其分类",
+      "name": "间断点及其分类",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "间断点及其分类"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n4.连续函数"
+      ],
+      "short_name": "间断点及其分类"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n4.n3.连续函数的运算和初等函数的连续性",
+      "name": "连续函数的运算和初等函数的连续性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "连续函数的运算和初等函数的连续性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n4.连续函数"
+      ],
+      "short_name": "连续函数的运算和初等函数的连续性"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n4.n4.闭区间上连续函数的性质",
+      "name": "闭区间上连续函数的性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "闭区间上连续函数的性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n4.连续函数"
+      ],
+      "short_name": "闭区间上连续函数的性质"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.第3章-导数与微分",
+      "name": "第3章 导数与微分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第3章 导数与微分"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第3章 导数与微分"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n1.导数的概念",
+      "name": "导数的概念",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "3.1 导数的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.第3章-导数与微分"
+      ],
+      "short_name": "导数的概念"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n1.n1.导数的定义",
+      "name": "导数的定义",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "导数的定义"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n1.导数的概念"
+      ],
+      "short_name": "导数的定义"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n1.n2.求导的例",
+      "name": "求导的例",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "求导的例"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n1.导数的概念"
+      ],
+      "short_name": "求导的例"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n1.n3.导数的意义",
+      "name": "导数的意义",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "导数的意义"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n1.导数的概念"
+      ],
+      "short_name": "导数的意义"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n2.求导法则",
+      "name": "求导法则",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "3.2 求导法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.第3章-导数与微分"
+      ],
+      "short_name": "求导法则"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n2.n1.导数的四则运算",
+      "name": "导数的四则运算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "导数的四则运算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n2.求导法则"
+      ],
+      "short_name": "导数的四则运算"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n2.n2.反函数的导数",
+      "name": "反函数的导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "反函数的导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n2.求导法则"
+      ],
+      "short_name": "反函数的导数"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n2.n3.复合函数的导数",
+      "name": "复合函数的导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "复合函数的导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n2.求导法则"
+      ],
+      "short_name": "复合函数的导数"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n2.n4.基本初等函数的导数公式与求导法则",
+      "name": "基本初等函数的导数公式与求导法则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "基本初等函数的导数公式与求导法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n2.求导法则"
+      ],
+      "short_name": "基本初等函数的导数公式与求导法则"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n2.n5.导数应用举例",
+      "name": "导数应用举例",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "导数应用举例"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n2.求导法则"
+      ],
+      "short_name": "导数应用举例"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n3.隐函数-参变量函数的导数和高阶导数",
+      "name": "隐函数、参变量函数的导数和高阶导数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "3.3 隐函数、参变量函数的导数和高阶导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.第3章-导数与微分"
+      ],
+      "short_name": "隐函数、参变量函数的导数和高阶导数"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n3.n1.隐函数的导数",
+      "name": "隐函数的导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "隐函数的导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n3.隐函数-参变量函数的导数和高阶导数"
+      ],
+      "short_name": "隐函数的导数"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n3.n2.参变量函数的导数",
+      "name": "参变量函数的导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "参变量函数的导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n3.隐函数-参变量函数的导数和高阶导数"
+      ],
+      "short_name": "参变量函数的导数"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n3.n3.高阶导数",
+      "name": "高阶导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "高阶导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n3.隐函数-参变量函数的导数和高阶导数"
+      ],
+      "short_name": "高阶导数"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n4.微分",
+      "name": "微分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "3.4 微分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.第3章-导数与微分"
+      ],
+      "short_name": "微分"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n4.n1.微分概念",
+      "name": "微分概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "微分概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n4.微分"
+      ],
+      "short_name": "微分概念"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n4.n2.微分的基本公式与运算法则",
+      "name": "微分的基本公式与运算法则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "微分的基本公式与运算法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n4.微分"
+      ],
+      "short_name": "微分的基本公式与运算法则"
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n4.n3.微分在近似计算中的应用",
+      "name": "微分在近似计算中的应用",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "微分在近似计算中的应用"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n4.微分"
+      ],
+      "short_name": "微分在近似计算中的应用"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.第4章-微分中值定理与导数的应用",
+      "name": "第4章 微分中值定理与导数的应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第4章 微分中值定理与导数的应用"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第4章 微分中值定理与导数的应用"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n1.微分中值定理",
+      "name": "微分中值定理",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "4.1 微分中值定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.第4章-微分中值定理与导数的应用"
+      ],
+      "short_name": "微分中值定理"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n1.n1.费马-fermat-定理",
+      "name": "费马(Fermat)定理",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "费马(Fermat)定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n1.微分中值定理"
+      ],
+      "short_name": "费马(Fermat)定理"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n1.n2.罗尔-rolle-定理",
+      "name": "罗尔(Rolle)定理",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "罗尔(Rolle)定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n1.微分中值定理"
+      ],
+      "short_name": "罗尔(Rolle)定理"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n1.n3.拉格朗日-lagrange-中值定理",
+      "name": "拉格朗日(Lagrange)中值定理",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "拉格朗日(Lagrange)中值定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n1.微分中值定理"
+      ],
+      "short_name": "拉格朗日(Lagrange)中值定理"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n1.n4.柯西-cauchy-中值定理",
+      "name": "柯西(Cauchy)中值定理",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "柯西(Cauchy)中值定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n1.微分中值定理"
+      ],
+      "short_name": "柯西(Cauchy)中值定理"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n2.不定式极限与洛必达-l-h-spital-法则",
+      "name": "不定式极限与洛必达(L' Hôspital)法则",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "4.2 不定式极限与洛必达(L' Hôspital)法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.第4章-微分中值定理与导数的应用"
+      ],
+      "short_name": "不定式极限与洛必达(L' Hôspital)法则"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n2.n1.0型和-型不定式极限",
+      "name": "/0型和∞/∞型不定式极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "0/0型和∞/∞型不定式极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n2.不定式极限与洛必达-l-h-spital-法则"
+      ],
+      "short_name": "/0型和∞/∞型不定式极限"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n2.n2.其他类型不定式极限",
+      "name": "其他类型不定式极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "其他类型不定式极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n2.不定式极限与洛必达-l-h-spital-法则"
+      ],
+      "short_name": "其他类型不定式极限"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n3.函数的单调性和极值",
+      "name": "函数的单调性和极值",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "4.3 函数的单调性和极值"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.第4章-微分中值定理与导数的应用"
+      ],
+      "short_name": "函数的单调性和极值"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n3.n1.函数单调性的判别法",
+      "name": "函数单调性的判别法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "函数单调性的判别法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n3.函数的单调性和极值"
+      ],
+      "short_name": "函数单调性的判别法"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n3.n2.函数极值的判别法",
+      "name": "函数极值的判别法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "函数极值的判别法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n3.函数的单调性和极值"
+      ],
+      "short_name": "函数极值的判别法"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n3.n3.函数的最大值与最小值",
+      "name": "函数的最大值与最小值",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "函数的最大值与最小值"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n3.函数的单调性和极值"
+      ],
+      "short_name": "函数的最大值与最小值"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n4.函数图形的讨论",
+      "name": "函数图形的讨论",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "4.4 函数图形的讨论"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.第4章-微分中值定理与导数的应用"
+      ],
+      "short_name": "函数图形的讨论"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n4.n1.曲线的凸性与拐点",
+      "name": "曲线的凸性与拐点",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "曲线的凸性与拐点"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n4.函数图形的讨论"
+      ],
+      "short_name": "曲线的凸性与拐点"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n4.n2.曲线的渐近线",
+      "name": "曲线的渐近线",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "曲线的渐近线"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n4.函数图形的讨论"
+      ],
+      "short_name": "曲线的渐近线"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n4.n3.函数作图",
+      "name": "函数作图",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "函数作图"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n4.函数图形的讨论"
+      ],
+      "short_name": "函数作图"
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n5.曲率",
+      "name": "曲率",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*4.5 曲率"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.第4章-微分中值定理与导数的应用"
+      ],
+      "short_name": "曲率"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.第5章-不定积分",
+      "name": "第5章 不定积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第5章 不定积分"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第5章 不定积分"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n1.不定积分概念与基本积分公式",
+      "name": "不定积分概念与基本积分公式",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "5.1 不定积分概念与基本积分公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.第5章-不定积分"
+      ],
+      "short_name": "不定积分概念与基本积分公式"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n1.n1.原函数与不定积分",
+      "name": "原函数与不定积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "原函数与不定积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.n1.不定积分概念与基本积分公式"
+      ],
+      "short_name": "原函数与不定积分"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n1.n2.基本积分表",
+      "name": "基本积分表",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "基本积分表"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.n1.不定积分概念与基本积分公式"
+      ],
+      "short_name": "基本积分表"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n1.n3.不定积分的线性性质",
+      "name": "不定积分的线性性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "不定积分的线性性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.n1.不定积分概念与基本积分公式"
+      ],
+      "short_name": "不定积分的线性性质"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n2.换元积分法",
+      "name": "换元积分法",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "5.2 换元积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.第5章-不定积分"
+      ],
+      "short_name": "换元积分法"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n2.n1.第一类换元积分法-凑微分法",
+      "name": "第一类换元积分法(凑微分法)",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第一类换元积分法(凑微分法)"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.n2.换元积分法"
+      ],
+      "short_name": "第一类换元积分法(凑微分法)"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n2.n2.第二类换元积分法",
+      "name": "第二类换元积分法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第二类换元积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.n2.换元积分法"
+      ],
+      "short_name": "第二类换元积分法"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n3.分部积分法",
+      "name": "分部积分法",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "5.3 分部积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.第5章-不定积分"
+      ],
+      "short_name": "分部积分法"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n4.特殊类型初等函数的不定积分",
+      "name": "特殊类型初等函数的不定积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*5.4 特殊类型初等函数的不定积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.第5章-不定积分"
+      ],
+      "short_name": "特殊类型初等函数的不定积分"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n4.n1.有理函数的不定积分",
+      "name": "有理函数的不定积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "有理函数的不定积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.n4.特殊类型初等函数的不定积分"
+      ],
+      "short_name": "有理函数的不定积分"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n4.n2.三角函数有理式的不定积分",
+      "name": "三角函数有理式的不定积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三角函数有理式的不定积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.n4.特殊类型初等函数的不定积分"
+      ],
+      "short_name": "三角函数有理式的不定积分"
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n4.n3.简单无理函数的不定积分",
+      "name": "简单无理函数的不定积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "简单无理函数的不定积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n5.n5.n4.特殊类型初等函数的不定积分"
+      ],
+      "short_name": "简单无理函数的不定积分"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.第6章-定积分",
+      "name": "第6章 定积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第6章 定积分"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第6章 定积分"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n1.定积分概念",
+      "name": "定积分概念",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "6.1 定积分概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.第6章-定积分"
+      ],
+      "short_name": "定积分概念"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n1.n1.定积分的定义",
+      "name": "定积分的定义",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "定积分的定义"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n1.定积分概念"
+      ],
+      "short_name": "定积分的定义"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n1.n2.定积分的几何意义",
+      "name": "定积分的几何意义",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "定积分的几何意义"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n1.定积分概念"
+      ],
+      "short_name": "定积分的几何意义"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n2.定积分的基本性质",
+      "name": "定积分的基本性质",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "6.2 定积分的基本性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.第6章-定积分"
+      ],
+      "short_name": "定积分的基本性质"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n3.牛顿-莱布尼茨公式",
+      "name": "牛顿-莱布尼茨公式",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "6.3 牛顿-莱布尼茨公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.第6章-定积分"
+      ],
+      "short_name": "牛顿-莱布尼茨公式"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n3.n1.积分上限函数及其导数",
+      "name": "积分上限函数及其导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "积分上限函数及其导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n3.牛顿-莱布尼茨公式"
+      ],
+      "short_name": "积分上限函数及其导数"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n3.n2.牛顿-莱布尼茨公式",
+      "name": "牛顿-莱布尼茨公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "牛顿-莱布尼茨公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n3.牛顿-莱布尼茨公式"
+      ],
+      "short_name": "牛顿-莱布尼茨公式"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n4.定积分的换元积分法与分部积分法",
+      "name": "定积分的换元积分法与分部积分法",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "6.4 定积分的换元积分法与分部积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.第6章-定积分"
+      ],
+      "short_name": "定积分的换元积分法与分部积分法"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n4.n1.定积分的换元积分法",
+      "name": "定积分的换元积分法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "定积分的换元积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n4.定积分的换元积分法与分部积分法"
+      ],
+      "short_name": "定积分的换元积分法"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n4.n2.定积分的分部积分法",
+      "name": "定积分的分部积分法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "定积分的分部积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n4.定积分的换元积分法与分部积分法"
+      ],
+      "short_name": "定积分的分部积分法"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n5.定积分的应用",
+      "name": "定积分的应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "6.5 定积分的应用"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.第6章-定积分"
+      ],
+      "short_name": "定积分的应用"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n5.n1.平面图形的面积",
+      "name": "平面图形的面积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "平面图形的面积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n5.定积分的应用"
+      ],
+      "short_name": "平面图形的面积"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n5.n2.已知平行截面面积的立体和旋转体的体积",
+      "name": "已知平行截面面积的立体和旋转体的体积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "已知平行截面面积的立体和旋转体的体积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n5.定积分的应用"
+      ],
+      "short_name": "已知平行截面面积的立体和旋转体的体积"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n5.n3.平面曲线的弧长",
+      "name": "平面曲线的弧长",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "平面曲线的弧长"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n5.定积分的应用"
+      ],
+      "short_name": "平面曲线的弧长"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n5.n4.旋转曲面面积",
+      "name": "旋转曲面面积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*6.5.4 旋转曲面面积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n5.定积分的应用"
+      ],
+      "short_name": "旋转曲面面积"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n5.n5.定积分在物理学等方面的应用",
+      "name": "定积分在物理学等方面的应用",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*6.5.5 定积分在物理学等方面的应用"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n5.定积分的应用"
+      ],
+      "short_name": "定积分在物理学等方面的应用"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n6.广义积分",
+      "name": "广义积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "6.6 广义积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.第6章-定积分"
+      ],
+      "short_name": "广义积分"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n6.n1.无限区间上的广义积分",
+      "name": "无限区间上的广义积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "无限区间上的广义积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n6.广义积分"
+      ],
+      "short_name": "无限区间上的广义积分"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n6.n2.无界函数的广义积分",
+      "name": "无界函数的广义积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "无界函数的广义积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n6.广义积分"
+      ],
+      "short_name": "无界函数的广义积分"
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n6.n3.函数",
+      "name": "Γ-函数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*6.6.3 Γ-函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n6.广义积分"
+      ],
+      "short_name": "Γ-函数"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.第7章-无穷级数",
+      "name": "第7章 无穷级数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第7章 无穷级数"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第7章 无穷级数"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n1.数项级数",
+      "name": "数项级数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "7.1 数项级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.第7章-无穷级数"
+      ],
+      "short_name": "数项级数"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n1.n1.无穷级数的概念",
+      "name": "无穷级数的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "无穷级数的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n1.数项级数"
+      ],
+      "short_name": "无穷级数的概念"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n1.n2.收敛级数的性质",
+      "name": "收敛级数的性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "收敛级数的性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n1.数项级数"
+      ],
+      "short_name": "收敛级数的性质"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n2.正项级数",
+      "name": "正项级数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "7.2 正项级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.第7章-无穷级数"
+      ],
+      "short_name": "正项级数"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n2.n1.正项级数的收敛准则",
+      "name": "正项级数的收敛准则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "正项级数的收敛准则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n2.正项级数"
+      ],
+      "short_name": "正项级数的收敛准则"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n2.n2.比较判别法",
+      "name": "比较判别法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "比较判别法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n2.正项级数"
+      ],
+      "short_name": "比较判别法"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n2.n3.比式判别法与根式判别法",
+      "name": "比式判别法与根式判别法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "比式判别法与根式判别法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n2.正项级数"
+      ],
+      "short_name": "比式判别法与根式判别法"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n3.一般项级数",
+      "name": "一般项级数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "7.3 一般项级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.第7章-无穷级数"
+      ],
+      "short_name": "一般项级数"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n3.n1.交错级数",
+      "name": "交错级数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "交错级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n3.一般项级数"
+      ],
+      "short_name": "交错级数"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n3.n2.级数的绝对收敛与条件收敛",
+      "name": "级数的绝对收敛与条件收敛",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "级数的绝对收敛与条件收敛"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n3.一般项级数"
+      ],
+      "short_name": "级数的绝对收敛与条件收敛"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n3.n3.绝对收敛级数的乘积",
+      "name": "绝对收敛级数的乘积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*7.3.3 绝对收敛级数的乘积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n3.一般项级数"
+      ],
+      "short_name": "绝对收敛级数的乘积"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n4.幂级数",
+      "name": "幂级数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "7.4 幂级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.第7章-无穷级数"
+      ],
+      "short_name": "幂级数"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n4.n1.函数项级数的概念",
+      "name": "函数项级数的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "函数项级数的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n4.幂级数"
+      ],
+      "short_name": "函数项级数的概念"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n4.n2.幂级数及其收敛半径",
+      "name": "幂级数及其收敛半径",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "幂级数及其收敛半径"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n4.幂级数"
+      ],
+      "short_name": "幂级数及其收敛半径"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n4.n3.幂级数的运算性质",
+      "name": "幂级数的运算性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "幂级数的运算性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n4.幂级数"
+      ],
+      "short_name": "幂级数的运算性质"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n5.函数的幂级数展开式",
+      "name": "函数的幂级数展开式",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "7.5 函数的幂级数展开式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.第7章-无穷级数"
+      ],
+      "short_name": "函数的幂级数展开式"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n5.n1.泰勒级数",
+      "name": "泰勒级数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "泰勒级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n5.函数的幂级数展开式"
+      ],
+      "short_name": "泰勒级数"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n5.n2.泰勒中值定理",
+      "name": "泰勒中值定理",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "泰勒中值定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n5.函数的幂级数展开式"
+      ],
+      "short_name": "泰勒中值定理"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n5.n3.初等函数的幂级数展开式",
+      "name": "初等函数的幂级数展开式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "初等函数的幂级数展开式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n5.函数的幂级数展开式"
+      ],
+      "short_name": "初等函数的幂级数展开式"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n5.n4.近似计算",
+      "name": "近似计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*7.5.4 近似计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n5.函数的幂级数展开式"
+      ],
+      "short_name": "近似计算"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n6.傅里叶级数",
+      "name": "傅里叶级数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*7.6 傅里叶级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.第7章-无穷级数"
+      ],
+      "short_name": "傅里叶级数"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n6.n1.三角级数-三角函数系的正交性",
+      "name": "三角级数、三角函数系的正交性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三角级数、三角函数系的正交性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n6.傅里叶级数"
+      ],
+      "short_name": "三角级数、三角函数系的正交性"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n6.n2.周期为2-的函数的傅里叶级数",
+      "name": "周期为2π的函数的傅里叶级数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "周期为2π的函数的傅里叶级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n6.傅里叶级数"
+      ],
+      "short_name": "周期为2π的函数的傅里叶级数"
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n6.n3.周期为2l的函数的傅里叶级数",
+      "name": "周期为2l的函数的傅里叶级数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "周期为2l的函数的傅里叶级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n7.n7.n6.傅里叶级数"
+      ],
+      "short_name": "周期为2l的函数的傅里叶级数"
+    },
+    {
+      "id": "gaoshu.a.n8.n8.第8章-多元函数微分学及其应用",
+      "name": "第8章 多元函数微分学及其应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第8章 多元函数微分学及其应用"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第8章 多元函数微分学及其应用"
+    },
+    {
+      "id": "gaoshu.a.n8.n8.n1.多元函数的基本概念",
+      "name": "多元函数的基本概念",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "8.1 多元函数的基本概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.第8章-多元函数微分学及其应用"
+      ],
+      "short_name": "多元函数的基本概念"
+    },
+    {
+      "id": "gaoshu.a.n8.sec1.sub1.点集知识简介",
+      "name": "点集知识简介",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、点集知识简介"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n1.多元函数的基本概念"
+      ],
+      "short_name": "点集知识简介"
+    },
+    {
+      "id": "gaoshu.a.n8.sec1.sub2.多元函数的概念",
+      "name": "多元函数的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、多元函数的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n1.多元函数的基本概念"
+      ],
+      "short_name": "多元函数的概念"
+    },
+    {
+      "id": "gaoshu.a.n8.sec1.sub3.多元函数的极限",
+      "name": "多元函数的极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、多元函数的极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n1.多元函数的基本概念"
+      ],
+      "short_name": "多元函数的极限"
+    },
+    {
+      "id": "gaoshu.a.n8.sec1.sub4.多元函数的连续性",
+      "name": "多元函数的连续性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "四、多元函数的连续性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n1.多元函数的基本概念"
+      ],
+      "short_name": "多元函数的连续性"
+    },
+    {
+      "id": "gaoshu.a.n8.n8.n2.偏导数",
+      "name": "偏导数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "8.2 偏导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.第8章-多元函数微分学及其应用"
+      ],
+      "short_name": "偏导数"
+    },
+    {
+      "id": "gaoshu.a.n8.sec2.sub1.偏导数",
+      "name": "偏导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、偏导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n2.偏导数"
+      ],
+      "short_name": "偏导数"
+    },
+    {
+      "id": "gaoshu.a.n8.sec2.sub2.高阶偏导数",
+      "name": "高阶偏导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、高阶偏导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n2.偏导数"
+      ],
+      "short_name": "高阶偏导数"
+    },
+    {
+      "id": "gaoshu.a.n8.n8.n3.全微分",
+      "name": "全微分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "8.3 全微分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.第8章-多元函数微分学及其应用"
+      ],
+      "short_name": "全微分"
+    },
+    {
+      "id": "gaoshu.a.n8.sec3.sub1.全微分的定义",
+      "name": "全微分的定义",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、全微分的定义"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n3.全微分"
+      ],
+      "short_name": "全微分的定义"
+    },
+    {
+      "id": "gaoshu.a.n8.sec3.sub2.函数可微的条件",
+      "name": "函数可微的条件",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、函数可微的条件"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n3.全微分"
+      ],
+      "short_name": "函数可微的条件"
+    },
+    {
+      "id": "gaoshu.a.n8.sec3.sub3.全微分在近似计算中的应用",
+      "name": "全微分在近似计算中的应用",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*三、全微分在近似计算中的应用"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n3.全微分"
+      ],
+      "short_name": "全微分在近似计算中的应用"
+    },
+    {
+      "id": "gaoshu.a.n8.n8.n4.多元复合函数的求导法则",
+      "name": "多元复合函数的求导法则",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "8.4 多元复合函数的求导法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.第8章-多元函数微分学及其应用"
+      ],
+      "short_name": "多元复合函数的求导法则"
+    },
+    {
+      "id": "gaoshu.a.n8.sec4.sub1.链法则",
+      "name": "链法则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、链法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n4.多元复合函数的求导法则"
+      ],
+      "short_name": "链法则"
+    },
+    {
+      "id": "gaoshu.a.n8.sec4.sub2.一阶全微分形式不变性",
+      "name": "一阶全微分形式不变性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、一阶全微分形式不变性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n4.多元复合函数的求导法则"
+      ],
+      "short_name": "一阶全微分形式不变性"
+    },
+    {
+      "id": "gaoshu.a.n8.n8.n5.隐函数的求导法则",
+      "name": "隐函数的求导法则",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "8.5 隐函数的求导法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.第8章-多元函数微分学及其应用"
+      ],
+      "short_name": "隐函数的求导法则"
+    },
+    {
+      "id": "gaoshu.a.n8.sec5.sub1.一个方程的情况",
+      "name": "一个方程的情况",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、一个方程的情况"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n5.隐函数的求导法则"
+      ],
+      "short_name": "一个方程的情况"
+    },
+    {
+      "id": "gaoshu.a.n8.sec5.sub2.方程组的情形",
+      "name": "方程组的情形",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、方程组的情形"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n5.隐函数的求导法则"
+      ],
+      "short_name": "方程组的情形"
+    },
+    {
+      "id": "gaoshu.a.n8.n8.n6.方向导数和梯度",
+      "name": "方向导数和梯度",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "8.6 方向导数和梯度"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.第8章-多元函数微分学及其应用"
+      ],
+      "short_name": "方向导数和梯度"
+    },
+    {
+      "id": "gaoshu.a.n8.sec6.sub1.方向导数",
+      "name": "方向导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、方向导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n6.方向导数和梯度"
+      ],
+      "short_name": "方向导数"
+    },
+    {
+      "id": "gaoshu.a.n8.sec6.sub2.方向导数的计算",
+      "name": "方向导数的计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、方向导数的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n6.方向导数和梯度"
+      ],
+      "short_name": "方向导数的计算"
+    },
+    {
+      "id": "gaoshu.a.n8.sec6.sub3.梯度",
+      "name": "梯度",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、梯度"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n6.方向导数和梯度"
+      ],
+      "short_name": "梯度"
+    },
+    {
+      "id": "gaoshu.a.n8.n8.n7.多元函数微分学的几何应用",
+      "name": "多元函数微分学的几何应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "8.7 多元函数微分学的几何应用"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.第8章-多元函数微分学及其应用"
+      ],
+      "short_name": "多元函数微分学的几何应用"
+    },
+    {
+      "id": "gaoshu.a.n8.sec7.sub1.空间曲线的切线和法平面",
+      "name": "空间曲线的切线和法平面",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、空间曲线的切线和法平面"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n7.多元函数微分学的几何应用"
+      ],
+      "short_name": "空间曲线的切线和法平面"
+    },
+    {
+      "id": "gaoshu.a.n8.sec7.sub2.曲面的切平面与法线",
+      "name": "曲面的切平面与法线",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、曲面的切平面与法线"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n7.多元函数微分学的几何应用"
+      ],
+      "short_name": "曲面的切平面与法线"
+    },
+    {
+      "id": "gaoshu.a.n8.n8.n8.多元函数的极值及其求法",
+      "name": "多元函数的极值及其求法",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "8.8 多元函数的极值及其求法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.第8章-多元函数微分学及其应用"
+      ],
+      "short_name": "多元函数的极值及其求法"
+    },
+    {
+      "id": "gaoshu.a.n8.sec8.sub1.多元函数的极值及最大值-最小值",
+      "name": "多元函数的极值及最大值、最小值",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、多元函数的极值及最大值、最小值"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n8.多元函数的极值及其求法"
+      ],
+      "short_name": "多元函数的极值及最大值、最小值"
+    },
+    {
+      "id": "gaoshu.a.n8.sec8.sub2.条件极值与拉格朗日乘数法",
+      "name": "条件极值与拉格朗日乘数法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、条件极值与拉格朗日乘数法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n8.多元函数的极值及其求法"
+      ],
+      "short_name": "条件极值与拉格朗日乘数法"
+    },
+    {
+      "id": "gaoshu.a.n8.n8.n9.二元函数的泰勒公式",
+      "name": "二元函数的泰勒公式",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*8.9 二元函数的泰勒公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.第8章-多元函数微分学及其应用"
+      ],
+      "short_name": "二元函数的泰勒公式"
+    },
+    {
+      "id": "gaoshu.a.n8.sec9.sub1.二元函数的泰勒公式",
+      "name": "二元函数的泰勒公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、二元函数的泰勒公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n9.二元函数的泰勒公式"
+      ],
+      "short_name": "二元函数的泰勒公式"
+    },
+    {
+      "id": "gaoshu.a.n8.sec9.sub2.极值充分条件的证明",
+      "name": "极值充分条件的证明",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、极值充分条件的证明"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n8.n8.n9.二元函数的泰勒公式"
+      ],
+      "short_name": "极值充分条件的证明"
+    },
+    {
+      "id": "gaoshu.a.n9.n9.第9章-重积分",
+      "name": "第9章 重积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第9章 重积分"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第9章 重积分"
+    },
+    {
+      "id": "gaoshu.a.n9.n9.n1.二重积分的概念与性质",
+      "name": "二重积分的概念与性质",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "9.1 二重积分的概念与性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.第9章-重积分"
+      ],
+      "short_name": "二重积分的概念与性质"
+    },
+    {
+      "id": "gaoshu.a.n9.sec1.sub1.二重积分的概念",
+      "name": "二重积分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、二重积分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.n1.二重积分的概念与性质"
+      ],
+      "short_name": "二重积分的概念"
+    },
+    {
+      "id": "gaoshu.a.n9.sec1.sub2.可积性条件和二重积分的性质",
+      "name": "可积性条件和二重积分的性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、可积性条件和二重积分的性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.n1.二重积分的概念与性质"
+      ],
+      "short_name": "可积性条件和二重积分的性质"
+    },
+    {
+      "id": "gaoshu.a.n9.n9.n2.二重积分的计算",
+      "name": "二重积分的计算",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "9.2 二重积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.第9章-重积分"
+      ],
+      "short_name": "二重积分的计算"
+    },
+    {
+      "id": "gaoshu.a.n9.sec2.sub1.应用直角坐标计算二重积分",
+      "name": "应用直角坐标计算二重积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、应用直角坐标计算二重积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.n2.二重积分的计算"
+      ],
+      "short_name": "应用直角坐标计算二重积分"
+    },
+    {
+      "id": "gaoshu.a.n9.sec2.sub2.应用极坐标计算二重积分",
+      "name": "应用极坐标计算二重积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、应用极坐标计算二重积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.n2.二重积分的计算"
+      ],
+      "short_name": "应用极坐标计算二重积分"
+    },
+    {
+      "id": "gaoshu.a.n9.sec2.sub3.二重积分的换元法",
+      "name": "二重积分的换元法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、二重积分的换元法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.n2.二重积分的计算"
+      ],
+      "short_name": "二重积分的换元法"
+    },
+    {
+      "id": "gaoshu.a.n9.n9.n3.三重积分",
+      "name": "三重积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "9.3 三重积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.第9章-重积分"
+      ],
+      "short_name": "三重积分"
+    },
+    {
+      "id": "gaoshu.a.n9.sec3.sub1.三重积分的概念和性质",
+      "name": "三重积分的概念和性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、三重积分的概念和性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.n3.三重积分"
+      ],
+      "short_name": "三重积分的概念和性质"
+    },
+    {
+      "id": "gaoshu.a.n9.sec3.sub2.三重积分的计算",
+      "name": "三重积分的计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、三重积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.n3.三重积分"
+      ],
+      "short_name": "三重积分的计算"
+    },
+    {
+      "id": "gaoshu.a.n9.n9.n4.重积分的应用",
+      "name": "重积分的应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "9.4 重积分的应用"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.第9章-重积分"
+      ],
+      "short_name": "重积分的应用"
+    },
+    {
+      "id": "gaoshu.a.n9.sec4.sub1.曲面的面积",
+      "name": "曲面的面积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、曲面的面积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.n4.重积分的应用"
+      ],
+      "short_name": "曲面的面积"
+    },
+    {
+      "id": "gaoshu.a.n9.sec4.sub2.物体的重心",
+      "name": "物体的重心",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、物体的重心"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.n4.重积分的应用"
+      ],
+      "short_name": "物体的重心"
+    },
+    {
+      "id": "gaoshu.a.n9.sec4.sub3.平面薄板的转动惯量",
+      "name": "平面薄板的转动惯量",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、平面薄板的转动惯量"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n9.n9.n4.重积分的应用"
+      ],
+      "short_name": "平面薄板的转动惯量"
+    },
+    {
+      "id": "gaoshu.a.n10.n10.第10章-曲线积分和曲面积分",
+      "name": "第10章 曲线积分和曲面积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第10章 曲线积分和曲面积分"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第10章 曲线积分和曲面积分"
+    },
+    {
+      "id": "gaoshu.a.n10.n10.n1.第一型曲线积分",
+      "name": "第一型曲线积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "10.1 第一型曲线积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.第10章-曲线积分和曲面积分"
+      ],
+      "short_name": "第一型曲线积分"
+    },
+    {
+      "id": "gaoshu.a.n10.sec1.sub1.第一型曲线积分的概念",
+      "name": "第一型曲线积分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、第一型曲线积分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n1.第一型曲线积分"
+      ],
+      "short_name": "第一型曲线积分的概念"
+    },
+    {
+      "id": "gaoshu.a.n10.sec1.sub2.第一型曲线积分的计算",
+      "name": "第一型曲线积分的计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、第一型曲线积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n1.第一型曲线积分"
+      ],
+      "short_name": "第一型曲线积分的计算"
+    },
+    {
+      "id": "gaoshu.a.n10.n10.n2.第二型曲线积分",
+      "name": "第二型曲线积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "10.2 第二型曲线积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.第10章-曲线积分和曲面积分"
+      ],
+      "short_name": "第二型曲线积分"
+    },
+    {
+      "id": "gaoshu.a.n10.sec2.sub1.第二型曲线积分的概念",
+      "name": "第二型曲线积分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、第二型曲线积分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n2.第二型曲线积分"
+      ],
+      "short_name": "第二型曲线积分的概念"
+    },
+    {
+      "id": "gaoshu.a.n10.sec2.sub2.第二型曲线积分的计算",
+      "name": "第二型曲线积分的计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、第二型曲线积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n2.第二型曲线积分"
+      ],
+      "short_name": "第二型曲线积分的计算"
+    },
+    {
+      "id": "gaoshu.a.n10.n10.n3.格林公式-第二型曲线积分与路径无关的条件",
+      "name": "格林公式 第二型曲线积分与路径无关的条件",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "10.3 格林公式 第二型曲线积分与路径无关的条件"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.第10章-曲线积分和曲面积分"
+      ],
+      "short_name": "格林公式 第二型曲线积分与路径无关的条件"
+    },
+    {
+      "id": "gaoshu.a.n10.sec3.sub1.格林-green-公式",
+      "name": "格林(Green)公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、格林(Green)公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n3.格林公式-第二型曲线积分与路径无关的条件"
+      ],
+      "short_name": "格林(Green)公式"
+    },
+    {
+      "id": "gaoshu.a.n10.sec3.sub2.曲线积分与路径无关的条件",
+      "name": "曲线积分与路径无关的条件",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、曲线积分与路径无关的条件"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n3.格林公式-第二型曲线积分与路径无关的条件"
+      ],
+      "short_name": "曲线积分与路径无关的条件"
+    },
+    {
+      "id": "gaoshu.a.n10.n10.n4.第一型曲面积分",
+      "name": "第一型曲面积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "10.4 第一型曲面积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.第10章-曲线积分和曲面积分"
+      ],
+      "short_name": "第一型曲面积分"
+    },
+    {
+      "id": "gaoshu.a.n10.sec4.sub1.第一型曲面积分的概念",
+      "name": "第一型曲面积分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、第一型曲面积分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n4.第一型曲面积分"
+      ],
+      "short_name": "第一型曲面积分的概念"
+    },
+    {
+      "id": "gaoshu.a.n10.sec4.sub2.第一型曲面积分的计算",
+      "name": "第一型曲面积分的计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、第一型曲面积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n4.第一型曲面积分"
+      ],
+      "short_name": "第一型曲面积分的计算"
+    },
+    {
+      "id": "gaoshu.a.n10.n10.n5.第二型曲面积分",
+      "name": "第二型曲面积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "10.5 第二型曲面积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.第10章-曲线积分和曲面积分"
+      ],
+      "short_name": "第二型曲面积分"
+    },
+    {
+      "id": "gaoshu.a.n10.sec5.sub1.第二型曲面积分的概念",
+      "name": "第二型曲面积分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、第二型曲面积分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n5.第二型曲面积分"
+      ],
+      "short_name": "第二型曲面积分的概念"
+    },
+    {
+      "id": "gaoshu.a.n10.sec5.sub2.第二型曲面积分的计算",
+      "name": "第二型曲面积分的计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、第二型曲面积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n5.第二型曲面积分"
+      ],
+      "short_name": "第二型曲面积分的计算"
+    },
+    {
+      "id": "gaoshu.a.n10.n10.n6.高斯公式-通量与散度",
+      "name": "高斯公式,通量与散度",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "10.6 高斯公式,通量与散度"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.第10章-曲线积分和曲面积分"
+      ],
+      "short_name": "高斯公式,通量与散度"
+    },
+    {
+      "id": "gaoshu.a.n10.sec6.sub1.流体通过空间封闭曲面的流出量",
+      "name": "流体通过空间封闭曲面的流出量",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、流体通过空间封闭曲面的流出量"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n6.高斯公式-通量与散度"
+      ],
+      "short_name": "流体通过空间封闭曲面的流出量"
+    },
+    {
+      "id": "gaoshu.a.n10.sec6.sub2.高斯-gauss-公式",
+      "name": "高斯(Gauss)公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、高斯(Gauss)公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n6.高斯公式-通量与散度"
+      ],
+      "short_name": "高斯(Gauss)公式"
+    },
+    {
+      "id": "gaoshu.a.n10.sec6.sub3.通量和散度",
+      "name": "通量和散度",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、通量和散度"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n6.高斯公式-通量与散度"
+      ],
+      "short_name": "通量和散度"
+    },
+    {
+      "id": "gaoshu.a.n10.n10.n7.斯托克斯公式-环流量与旋度",
+      "name": "斯托克斯公式,环流量与旋度",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "10.7 斯托克斯公式,环流量与旋度"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.第10章-曲线积分和曲面积分"
+      ],
+      "short_name": "斯托克斯公式,环流量与旋度"
+    },
+    {
+      "id": "gaoshu.a.n10.sec7.sub1.斯托克斯-stokes-公式",
+      "name": "斯托克斯(Stokes)公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、斯托克斯(Stokes)公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n7.斯托克斯公式-环流量与旋度"
+      ],
+      "short_name": "斯托克斯(Stokes)公式"
+    },
+    {
+      "id": "gaoshu.a.n10.sec7.sub2.空间曲线积分与路径无关的条件",
+      "name": "空间曲线积分与路径无关的条件",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、空间曲线积分与路径无关的条件"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n7.斯托克斯公式-环流量与旋度"
+      ],
+      "short_name": "空间曲线积分与路径无关的条件"
+    },
+    {
+      "id": "gaoshu.a.n10.sec7.sub3.环流量与旋度",
+      "name": "环流量与旋度",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、环流量与旋度"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n10.n10.n7.斯托克斯公式-环流量与旋度"
+      ],
+      "short_name": "环流量与旋度"
+    },
+    {
+      "id": "gaoshu.a.n11.n11.第11章-无穷级数",
+      "name": "第11章 无穷级数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第11章 无穷级数"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第11章 无穷级数"
+    },
+    {
+      "id": "gaoshu.a.n11.n11.n1.数项级数的概念和性质",
+      "name": "数项级数的概念和性质",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "11.1 数项级数的概念和性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.第11章-无穷级数"
+      ],
+      "short_name": "数项级数的概念和性质"
+    },
+    {
+      "id": "gaoshu.a.n11.sec1.sub1.无穷级数的概念",
+      "name": "无穷级数的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、无穷级数的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n1.数项级数的概念和性质"
+      ],
+      "short_name": "无穷级数的概念"
+    },
+    {
+      "id": "gaoshu.a.n11.sec1.sub2.收敛级数的性质",
+      "name": "收敛级数的性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、收敛级数的性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n1.数项级数的概念和性质"
+      ],
+      "short_name": "收敛级数的性质"
+    },
+    {
+      "id": "gaoshu.a.n11.sec1.sub3.柯西-cauchy-收敛准则",
+      "name": "柯西(Cauchy)收敛准则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、柯西(Cauchy)收敛准则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n1.数项级数的概念和性质"
+      ],
+      "short_name": "柯西(Cauchy)收敛准则"
+    },
+    {
+      "id": "gaoshu.a.n11.n11.n2.正项级数",
+      "name": "正项级数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "11.2 正项级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.第11章-无穷级数"
+      ],
+      "short_name": "正项级数"
+    },
+    {
+      "id": "gaoshu.a.n11.sec2.sub1.正项级数的收敛准则",
+      "name": "正项级数的收敛准则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、正项级数的收敛准则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n2.正项级数"
+      ],
+      "short_name": "正项级数的收敛准则"
+    },
+    {
+      "id": "gaoshu.a.n11.sec2.sub2.比较判别法",
+      "name": "比较判别法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、比较判别法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n2.正项级数"
+      ],
+      "short_name": "比较判别法"
+    },
+    {
+      "id": "gaoshu.a.n11.sec2.sub3.比式判别法和根式判别法",
+      "name": "比式判别法和根式判别法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、比式判别法和根式判别法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n2.正项级数"
+      ],
+      "short_name": "比式判别法和根式判别法"
+    },
+    {
+      "id": "gaoshu.a.n11.n11.n3.一般项级数",
+      "name": "一般项级数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "11.3 一般项级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.第11章-无穷级数"
+      ],
+      "short_name": "一般项级数"
+    },
+    {
+      "id": "gaoshu.a.n11.sec3.sub1.交错级数",
+      "name": "交错级数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、交错级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n3.一般项级数"
+      ],
+      "short_name": "交错级数"
+    },
+    {
+      "id": "gaoshu.a.n11.sec3.sub2.绝对收敛和条件收敛",
+      "name": "绝对收敛和条件收敛",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、绝对收敛和条件收敛"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n3.一般项级数"
+      ],
+      "short_name": "绝对收敛和条件收敛"
+    },
+    {
+      "id": "gaoshu.a.n11.sec3.sub3.绝对收敛级数的乘积",
+      "name": "绝对收敛级数的乘积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、绝对收敛级数的乘积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n3.一般项级数"
+      ],
+      "short_name": "绝对收敛级数的乘积"
+    },
+    {
+      "id": "gaoshu.a.n11.n11.n4.幂级数",
+      "name": "幂级数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "11.4 幂级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.第11章-无穷级数"
+      ],
+      "short_name": "幂级数"
+    },
+    {
+      "id": "gaoshu.a.n11.sec4.sub1.函数项级数的概念",
+      "name": "函数项级数的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、函数项级数的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n4.幂级数"
+      ],
+      "short_name": "函数项级数的概念"
+    },
+    {
+      "id": "gaoshu.a.n11.sec4.sub2.幂级数及其收敛半径",
+      "name": "幂级数及其收敛半径",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、幂级数及其收敛半径"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n4.幂级数"
+      ],
+      "short_name": "幂级数及其收敛半径"
+    },
+    {
+      "id": "gaoshu.a.n11.sec4.sub3.幂级数的运算",
+      "name": "幂级数的运算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、幂级数的运算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n4.幂级数"
+      ],
+      "short_name": "幂级数的运算"
+    },
+    {
+      "id": "gaoshu.a.n11.n11.n5.函数的幂级数展开式",
+      "name": "函数的幂级数展开式",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "11.5 函数的幂级数展开式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.第11章-无穷级数"
+      ],
+      "short_name": "函数的幂级数展开式"
+    },
+    {
+      "id": "gaoshu.a.n11.sec5.sub1.泰勒-taylor-级数",
+      "name": "泰勒(Taylor)级数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、泰勒(Taylor)级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n5.函数的幂级数展开式"
+      ],
+      "short_name": "泰勒(Taylor)级数"
+    },
+    {
+      "id": "gaoshu.a.n11.sec5.sub2.初等函数的幂级数展开式",
+      "name": "初等函数的幂级数展开式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、初等函数的幂级数展开式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n5.函数的幂级数展开式"
+      ],
+      "short_name": "初等函数的幂级数展开式"
+    },
+    {
+      "id": "gaoshu.a.n11.sec5.sub3.近似计算",
+      "name": "近似计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、近似计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n5.函数的幂级数展开式"
+      ],
+      "short_name": "近似计算"
+    },
+    {
+      "id": "gaoshu.a.n11.sec5.sub4.欧拉公式",
+      "name": "欧拉公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "四、欧拉公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n5.函数的幂级数展开式"
+      ],
+      "short_name": "欧拉公式"
+    },
+    {
+      "id": "gaoshu.a.n11.n11.n6.傅里叶级数",
+      "name": "傅里叶级数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "11.6 傅里叶级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.第11章-无穷级数"
+      ],
+      "short_name": "傅里叶级数"
+    },
+    {
+      "id": "gaoshu.a.n11.sec6.sub1.三角级数-三角函数系的正交性",
+      "name": "三角级数,三角函数系的正交性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、三角级数,三角函数系的正交性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n6.傅里叶级数"
+      ],
+      "short_name": "三角级数,三角函数系的正交性"
+    },
+    {
+      "id": "gaoshu.a.n11.sec6.sub2.周期为2-的函数的傅里叶级数",
+      "name": "周期为2π的函数的傅里叶级数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、周期为2π的函数的傅里叶级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n6.傅里叶级数"
+      ],
+      "short_name": "周期为2π的函数的傅里叶级数"
+    },
+    {
+      "id": "gaoshu.a.n11.sec6.sub3.周期为2l的函数的傅里叶级数",
+      "name": "周期为2l的函数的傅里叶级数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、周期为2l的函数的傅里叶级数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n11.n11.n6.傅里叶级数"
+      ],
+      "short_name": "周期为2l的函数的傅里叶级数"
+    },
+    {
+      "id": "gaoshu.a.n12.n12.第12章-微分方程",
+      "name": "第12章 微分方程",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第12章 微分方程"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第12章 微分方程"
+    },
+    {
+      "id": "gaoshu.a.n12.n12.n1.微分方程的概念",
+      "name": "微分方程的概念",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "12.1 微分方程的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.第12章-微分方程"
+      ],
+      "short_name": "微分方程的概念"
+    },
+    {
+      "id": "gaoshu.a.n12.n12.n2.一阶微分方程",
+      "name": "一阶微分方程",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "12.2 一阶微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.第12章-微分方程"
+      ],
+      "short_name": "一阶微分方程"
+    },
+    {
+      "id": "gaoshu.a.n12.sec3.sub1.可分离变量型微分方程",
+      "name": "可分离变量型微分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、可分离变量型微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n2.一阶微分方程"
+      ],
+      "short_name": "可分离变量型微分方程"
+    },
+    {
+      "id": "gaoshu.a.n12.sec3.sub2.齐次型微分方程",
+      "name": "齐次型微分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、齐次型微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n2.一阶微分方程"
+      ],
+      "short_name": "齐次型微分方程"
+    },
+    {
+      "id": "gaoshu.a.n12.sec3.sub3.可化为齐次型的微分方程",
+      "name": "可化为齐次型的微分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、可化为齐次型的微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n2.一阶微分方程"
+      ],
+      "short_name": "可化为齐次型的微分方程"
+    },
+    {
+      "id": "gaoshu.a.n12.sec3.sub4.一阶线性微分方程",
+      "name": "一阶线性微分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "四、一阶线性微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n2.一阶微分方程"
+      ],
+      "short_name": "一阶线性微分方程"
+    },
+    {
+      "id": "gaoshu.a.n12.sec3.sub5.全微分方程",
+      "name": "全微分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "五、全微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n2.一阶微分方程"
+      ],
+      "short_name": "全微分方程"
+    },
+    {
+      "id": "gaoshu.a.n12.n12.n3.高阶微分方程",
+      "name": "高阶微分方程",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "12.3 高阶微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.第12章-微分方程"
+      ],
+      "short_name": "高阶微分方程"
+    },
+    {
+      "id": "gaoshu.a.n12.sec4.sub1.可降阶的微分方程",
+      "name": "可降阶的微分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、可降阶的微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n3.高阶微分方程"
+      ],
+      "short_name": "可降阶的微分方程"
+    },
+    {
+      "id": "gaoshu.a.n12.sec4.sub2.线性微分方程解的性质",
+      "name": "线性微分方程解的性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、线性微分方程解的性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n3.高阶微分方程"
+      ],
+      "short_name": "线性微分方程解的性质"
+    },
+    {
+      "id": "gaoshu.a.n12.sec4.sub3.二阶常系数线性齐次方程的解",
+      "name": "二阶常系数线性齐次方程的解",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、二阶常系数线性齐次方程的解"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n3.高阶微分方程"
+      ],
+      "short_name": "二阶常系数线性齐次方程的解"
+    },
+    {
+      "id": "gaoshu.a.n12.sec4.sub4.二阶常系数线性非齐次方程的解",
+      "name": "二阶常系数线性非齐次方程的解",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "四、二阶常系数线性非齐次方程的解"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n3.高阶微分方程"
+      ],
+      "short_name": "二阶常系数线性非齐次方程的解"
+    },
+    {
+      "id": "gaoshu.a.n12.sec4.sub5.欧拉-euler-方程",
+      "name": "欧拉(Euler)方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*五、欧拉(Euler)方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n3.高阶微分方程"
+      ],
+      "short_name": "欧拉(Euler)方程"
+    },
+    {
+      "id": "gaoshu.a.n12.n12.n4.一些简单的常系数线性微分方程组",
+      "name": "一些简单的常系数线性微分方程组",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*12.4 一些简单的常系数线性微分方程组"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.第12章-微分方程"
+      ],
+      "short_name": "一些简单的常系数线性微分方程组"
+    },
+    {
+      "id": "gaoshu.a.n12.sec5.sub1.消元法",
+      "name": "消元法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、消元法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n4.一些简单的常系数线性微分方程组"
+      ],
+      "short_name": "消元法"
+    },
+    {
+      "id": "gaoshu.a.n12.sec5.sub2.首次积分",
+      "name": "首次积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*二、首次积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n4.一些简单的常系数线性微分方程组"
+      ],
+      "short_name": "首次积分"
+    },
+    {
+      "id": "gaoshu.a.n12.n12.n5.微分方程的幂级数解法",
+      "name": "微分方程的幂级数解法",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "*12.5 微分方程的幂级数解法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.第12章-微分方程"
+      ],
+      "short_name": "微分方程的幂级数解法"
+    },
+    {
+      "id": "gaoshu.a.n12.n12.n6.微分方程的简单应用",
+      "name": "微分方程的简单应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "12.6 微分方程的简单应用"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.第12章-微分方程"
+      ],
+      "short_name": "微分方程的简单应用"
+    },
+    {
+      "id": "gaoshu.a.n12.sec7.sub1.几何问题",
+      "name": "几何问题",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、几何问题"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n6.微分方程的简单应用"
+      ],
+      "short_name": "几何问题"
+    },
+    {
+      "id": "gaoshu.a.n12.sec7.sub2.混合问题",
+      "name": "混合问题",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、混合问题"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n6.微分方程的简单应用"
+      ],
+      "short_name": "混合问题"
+    },
+    {
+      "id": "gaoshu.a.n12.sec7.sub3.电路问题",
+      "name": "电路问题",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、电路问题"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n6.微分方程的简单应用"
+      ],
+      "short_name": "电路问题"
+    },
+    {
+      "id": "gaoshu.a.n12.sec7.sub4.力学问题",
+      "name": "力学问题",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "四、力学问题"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n12.n12.n6.微分方程的简单应用"
+      ],
+      "short_name": "力学问题"
+    },
+    {
+      "id": "gaoshu.a.n13.n13.第13章-差分方程",
+      "name": "第13章 差分方程",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "第13章 差分方程"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第13章 差分方程"
+    },
+    {
+      "id": "gaoshu.a.n13.n13.n1.差分与差分方程的概念",
+      "name": "差分与差分方程的概念",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "13.1 差分与差分方程的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n13.n13.第13章-差分方程"
+      ],
+      "short_name": "差分与差分方程的概念"
+    },
+    {
+      "id": "gaoshu.a.n13.sec1.sub1.差分的概念",
+      "name": "差分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、差分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n13.n13.n1.差分与差分方程的概念"
+      ],
+      "short_name": "差分的概念"
+    },
+    {
+      "id": "gaoshu.a.n13.sec1.sub2.差分方程",
+      "name": "差分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、差分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n13.n13.n1.差分与差分方程的概念"
+      ],
+      "short_name": "差分方程"
+    },
+    {
+      "id": "gaoshu.a.n13.n13.n2.常系数线性差分方程",
+      "name": "常系数线性差分方程",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "13.2 常系数线性差分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n13.n13.第13章-差分方程"
+      ],
+      "short_name": "常系数线性差分方程"
+    },
+    {
+      "id": "gaoshu.a.n13.sec2.sub1.线性差分方程解的性质",
+      "name": "线性差分方程解的性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "一、线性差分方程解的性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n13.n13.n2.常系数线性差分方程"
+      ],
+      "short_name": "线性差分方程解的性质"
+    },
+    {
+      "id": "gaoshu.a.n13.sec2.sub2.常系数线性齐次差分方程的解",
+      "name": "常系数线性齐次差分方程的解",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "二、常系数线性齐次差分方程的解"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n13.n13.n2.常系数线性差分方程"
+      ],
+      "short_name": "常系数线性齐次差分方程的解"
+    },
+    {
+      "id": "gaoshu.a.n13.sec2.sub3.常系数线性非齐次差分方程的解",
+      "name": "常系数线性非齐次差分方程的解",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "三、常系数线性非齐次差分方程的解"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n13.n13.n2.常系数线性差分方程"
+      ],
+      "short_name": "常系数线性非齐次差分方程的解"
+    },
+    {
+      "id": "gaoshu.a.n13.n13.n3.差分方程应用举例",
+      "name": "差分方程应用举例",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学A",
+      "canonical": [
+        "13.3 差分方程应用举例"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n13.n13.第13章-差分方程"
+      ],
+      "short_name": "差分方程应用举例"
+    },
+    {
+      "id": "gaoshu.b.n1.n1.第1章-基本知识",
+      "name": "第1章 基本知识",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第1章 基本知识"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第1章 基本知识"
+    },
+    {
+      "id": "gaoshu.b.n1.n1.n1.实数与实数集",
+      "name": "实数与实数集",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "1.1 实数与实数集"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n1.n1.第1章-基本知识"
+      ],
+      "short_name": "实数与实数集"
+    },
+    {
+      "id": "gaoshu.b.n1.sec1.sub1.集合",
+      "name": "集合",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、集合"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n1.n1.n1.实数与实数集"
+      ],
+      "short_name": "集合"
+    },
+    {
+      "id": "gaoshu.b.n1.sec1.sub2.集合的运算",
+      "name": "集合的运算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、集合的运算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n1.n1.n1.实数与实数集"
+      ],
+      "short_name": "集合的运算"
+    },
+    {
+      "id": "gaoshu.b.n1.sec1.sub3.数集的演进",
+      "name": "数集的演进",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、数集的演进"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n1.n1.n1.实数与实数集"
+      ],
+      "short_name": "数集的演进"
+    },
+    {
+      "id": "gaoshu.b.n1.sec1.sub4.区间和邻域",
+      "name": "区间和邻域",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "四、区间和邻域"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n1.n1.n1.实数与实数集"
+      ],
+      "short_name": "区间和邻域"
+    },
+    {
+      "id": "gaoshu.b.n1.sec1.sub5.实数的完备性",
+      "name": "实数的完备性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*五、实数的完备性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n1.n1.n1.实数与实数集"
+      ],
+      "short_name": "实数的完备性"
+    },
+    {
+      "id": "gaoshu.b.n1.n1.n2.函数",
+      "name": "函数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "1.2 函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n1.n1.第1章-基本知识"
+      ],
+      "short_name": "函数"
+    },
+    {
+      "id": "gaoshu.b.n1.sec2.sub1.函数的概念",
+      "name": "函数的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、函数的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n1.n1.n2.函数"
+      ],
+      "short_name": "函数的概念"
+    },
+    {
+      "id": "gaoshu.b.n1.sec2.sub2.函数的一些特性",
+      "name": "函数的一些特性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、函数的一些特性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n1.n1.n2.函数"
+      ],
+      "short_name": "函数的一些特性"
+    },
+    {
+      "id": "gaoshu.b.n1.sec2.sub3.反函数与复合函数",
+      "name": "反函数与复合函数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、反函数与复合函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n1.n1.n2.函数"
+      ],
+      "short_name": "反函数与复合函数"
+    },
+    {
+      "id": "gaoshu.b.n1.sec2.sub4.初等函数",
+      "name": "初等函数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "四、初等函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n1.n1.n2.函数"
+      ],
+      "short_name": "初等函数"
+    },
+    {
+      "id": "gaoshu.b.n2.n2.第2章-极限与连续",
+      "name": "第2章 极限与连续",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第2章 极限与连续"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第2章 极限与连续"
+    },
+    {
+      "id": "gaoshu.b.n2.n2.n1.数列极限",
+      "name": "数列极限",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "2.1 数列极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.第2章-极限与连续"
+      ],
+      "short_name": "数列极限"
+    },
+    {
+      "id": "gaoshu.b.n2.sec1.sub1.数列",
+      "name": "数列",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、数列"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n1.数列极限"
+      ],
+      "short_name": "数列"
+    },
+    {
+      "id": "gaoshu.b.n2.sec1.sub2.数列的极限",
+      "name": "数列的极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、数列的极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n1.数列极限"
+      ],
+      "short_name": "数列的极限"
+    },
+    {
+      "id": "gaoshu.b.n2.sec1.sub3.收敛数列的性质与极限的运算法则",
+      "name": "收敛数列的性质与极限的运算法则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、收敛数列的性质与极限的运算法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n1.数列极限"
+      ],
+      "short_name": "收敛数列的性质与极限的运算法则"
+    },
+    {
+      "id": "gaoshu.b.n2.sec1.sub4.数列极限存在的条件",
+      "name": "数列极限存在的条件",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "四、数列极限存在的条件"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n1.数列极限"
+      ],
+      "short_name": "数列极限存在的条件"
+    },
+    {
+      "id": "gaoshu.b.n2.n2.n2.函数极限",
+      "name": "函数极限",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "2.2 函数极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.第2章-极限与连续"
+      ],
+      "short_name": "函数极限"
+    },
+    {
+      "id": "gaoshu.b.n2.sec2.sub1.自变量趋于无穷大时函数的极限",
+      "name": "自变量趋于无穷大时函数的极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、自变量趋于无穷大时函数的极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n2.函数极限"
+      ],
+      "short_name": "自变量趋于无穷大时函数的极限"
+    },
+    {
+      "id": "gaoshu.b.n2.sec2.sub2.自变量趋于有限值时函数的极限",
+      "name": "自变量趋于有限值时函数的极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、自变量趋于有限值时函数的极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n2.函数极限"
+      ],
+      "short_name": "自变量趋于有限值时函数的极限"
+    },
+    {
+      "id": "gaoshu.b.n2.sec2.sub3.函数极限的性质及其运算法则",
+      "name": "函数极限的性质及其运算法则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、函数极限的性质及其运算法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n2.函数极限"
+      ],
+      "short_name": "函数极限的性质及其运算法则"
+    },
+    {
+      "id": "gaoshu.b.n2.sec2.sub4.两个重要的极限",
+      "name": "两个重要的极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "四、两个重要的极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n2.函数极限"
+      ],
+      "short_name": "两个重要的极限"
+    },
+    {
+      "id": "gaoshu.b.n2.n2.n3.无穷小与无穷大",
+      "name": "无穷小与无穷大",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "2.3 无穷小与无穷大"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.第2章-极限与连续"
+      ],
+      "short_name": "无穷小与无穷大"
+    },
+    {
+      "id": "gaoshu.b.n2.sec3.sub1.无穷小",
+      "name": "无穷小",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、无穷小"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n3.无穷小与无穷大"
+      ],
+      "short_name": "无穷小"
+    },
+    {
+      "id": "gaoshu.b.n2.sec3.sub2.无穷大",
+      "name": "无穷大",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、无穷大"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n3.无穷小与无穷大"
+      ],
+      "short_name": "无穷大"
+    },
+    {
+      "id": "gaoshu.b.n2.sec3.sub3.无穷小的比较",
+      "name": "无穷小的比较",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、无穷小的比较"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n3.无穷小与无穷大"
+      ],
+      "short_name": "无穷小的比较"
+    },
+    {
+      "id": "gaoshu.b.n2.n2.n4.连续函数",
+      "name": "连续函数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "2.4 连续函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.第2章-极限与连续"
+      ],
+      "short_name": "连续函数"
+    },
+    {
+      "id": "gaoshu.b.n2.sec4.sub1.函数的连续性",
+      "name": "函数的连续性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、函数的连续性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n4.连续函数"
+      ],
+      "short_name": "函数的连续性"
+    },
+    {
+      "id": "gaoshu.b.n2.sec4.sub2.间断点及其分类",
+      "name": "间断点及其分类",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、间断点及其分类"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n4.连续函数"
+      ],
+      "short_name": "间断点及其分类"
+    },
+    {
+      "id": "gaoshu.b.n2.sec4.sub3.连续函数的运算和初等函数的连续性",
+      "name": "连续函数的运算和初等函数的连续性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、连续函数的运算和初等函数的连续性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n4.连续函数"
+      ],
+      "short_name": "连续函数的运算和初等函数的连续性"
+    },
+    {
+      "id": "gaoshu.b.n2.sec4.sub4.闭区间上连续函数的性质",
+      "name": "闭区间上连续函数的性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "四、闭区间上连续函数的性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n4.连续函数"
+      ],
+      "short_name": "闭区间上连续函数的性质"
+    },
+    {
+      "id": "gaoshu.b.n2.sec4.sub5.函数的一致连续性",
+      "name": "函数的一致连续性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*五、函数的一致连续性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n2.n2.n4.连续函数"
+      ],
+      "short_name": "函数的一致连续性"
+    },
+    {
+      "id": "gaoshu.b.n3.n3.第3章-导数与微分",
+      "name": "第3章 导数与微分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第3章 导数与微分"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第3章 导数与微分"
+    },
+    {
+      "id": "gaoshu.b.n3.n3.n1.导数的概念",
+      "name": "导数的概念",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "3.1 导数的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.第3章-导数与微分"
+      ],
+      "short_name": "导数的概念"
+    },
+    {
+      "id": "gaoshu.b.n3.sec1.sub1.导数的定义",
+      "name": "导数的定义",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、导数的定义"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n1.导数的概念"
+      ],
+      "short_name": "导数的定义"
+    },
+    {
+      "id": "gaoshu.b.n3.sec1.sub2.可导与连续",
+      "name": "可导与连续",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、可导与连续"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n1.导数的概念"
+      ],
+      "short_name": "可导与连续"
+    },
+    {
+      "id": "gaoshu.b.n3.sec1.sub3.求导数的例",
+      "name": "求导数的例",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、求导数的例"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n1.导数的概念"
+      ],
+      "short_name": "求导数的例"
+    },
+    {
+      "id": "gaoshu.b.n3.sec1.sub4.平面曲线的切线方程和法线方程",
+      "name": "平面曲线的切线方程和法线方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "四、平面曲线的切线方程和法线方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n1.导数的概念"
+      ],
+      "short_name": "平面曲线的切线方程和法线方程"
+    },
+    {
+      "id": "gaoshu.b.n3.n3.n2.求导法则",
+      "name": "求导法则",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "3.2 求导法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.第3章-导数与微分"
+      ],
+      "short_name": "求导法则"
+    },
+    {
+      "id": "gaoshu.b.n3.sec2.sub1.导数的四则运算",
+      "name": "导数的四则运算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、导数的四则运算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n2.求导法则"
+      ],
+      "short_name": "导数的四则运算"
+    },
+    {
+      "id": "gaoshu.b.n3.sec2.sub2.反函数的导数",
+      "name": "反函数的导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、反函数的导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n2.求导法则"
+      ],
+      "short_name": "反函数的导数"
+    },
+    {
+      "id": "gaoshu.b.n3.sec2.sub3.复合函数的导数",
+      "name": "复合函数的导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、复合函数的导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n2.求导法则"
+      ],
+      "short_name": "复合函数的导数"
+    },
+    {
+      "id": "gaoshu.b.n3.sec2.sub4.基本初等函数的导数公式与求导法则",
+      "name": "基本初等函数的导数公式与求导法则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "四、基本初等函数的导数公式与求导法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n2.求导法则"
+      ],
+      "short_name": "基本初等函数的导数公式与求导法则"
+    },
+    {
+      "id": "gaoshu.b.n3.n3.n3.高阶导数",
+      "name": "高阶导数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "3.3 高阶导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.第3章-导数与微分"
+      ],
+      "short_name": "高阶导数"
+    },
+    {
+      "id": "gaoshu.b.n3.sec3.sub1.高阶导数概念及计算",
+      "name": "高阶导数概念及计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、高阶导数概念及计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n3.高阶导数"
+      ],
+      "short_name": "高阶导数概念及计算"
+    },
+    {
+      "id": "gaoshu.b.n3.sec3.sub2.高阶导数运算法则及莱布尼茨公式",
+      "name": "高阶导数运算法则及莱布尼茨公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、高阶导数运算法则及莱布尼茨公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n3.高阶导数"
+      ],
+      "short_name": "高阶导数运算法则及莱布尼茨公式"
+    },
+    {
+      "id": "gaoshu.b.n3.n3.n4.隐函数和由参数方程确定的函数的导数",
+      "name": "隐函数和由参数方程确定的函数的导数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "3.4 隐函数和由参数方程确定的函数的导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.第3章-导数与微分"
+      ],
+      "short_name": "隐函数和由参数方程确定的函数的导数"
+    },
+    {
+      "id": "gaoshu.b.n3.sec4.sub1.隐函数的导数",
+      "name": "隐函数的导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、隐函数的导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n4.隐函数和由参数方程确定的函数的导数"
+      ],
+      "short_name": "隐函数的导数"
+    },
+    {
+      "id": "gaoshu.b.n3.sec4.sub2.由参数方程确定的函数的导数",
+      "name": "由参数方程确定的函数的导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、由参数方程确定的函数的导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n4.隐函数和由参数方程确定的函数的导数"
+      ],
+      "short_name": "由参数方程确定的函数的导数"
+    },
+    {
+      "id": "gaoshu.b.n3.sec4.sub3.相关变化率",
+      "name": "相关变化率",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、相关变化率"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n4.隐函数和由参数方程确定的函数的导数"
+      ],
+      "short_name": "相关变化率"
+    },
+    {
+      "id": "gaoshu.b.n3.n3.n5.微分",
+      "name": "微分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "3.5 微分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.第3章-导数与微分"
+      ],
+      "short_name": "微分"
+    },
+    {
+      "id": "gaoshu.b.n3.sec5.sub1.微分的概念",
+      "name": "微分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、微分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n5.微分"
+      ],
+      "short_name": "微分的概念"
+    },
+    {
+      "id": "gaoshu.b.n3.sec5.sub2.微分基本公式与运算法则",
+      "name": "微分基本公式与运算法则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、微分基本公式与运算法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n5.微分"
+      ],
+      "short_name": "微分基本公式与运算法则"
+    },
+    {
+      "id": "gaoshu.b.n3.sec5.sub3.利用微分进行近似计算",
+      "name": "利用微分进行近似计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、利用微分进行近似计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n5.微分"
+      ],
+      "short_name": "利用微分进行近似计算"
+    },
+    {
+      "id": "gaoshu.b.n3.sec5.sub4.误差估计",
+      "name": "误差估计",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*四、误差估计"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n3.n3.n5.微分"
+      ],
+      "short_name": "误差估计"
+    },
+    {
+      "id": "gaoshu.b.n4.n4.第4章-微分中值定理与导数的应用",
+      "name": "第4章 微分中值定理与导数的应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第4章 微分中值定理与导数的应用"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第4章 微分中值定理与导数的应用"
+    },
+    {
+      "id": "gaoshu.b.n4.n4.n1.微分中值定理",
+      "name": "微分中值定理",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "4.1 微分中值定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.第4章-微分中值定理与导数的应用"
+      ],
+      "short_name": "微分中值定理"
+    },
+    {
+      "id": "gaoshu.b.n4.sec1.sub1.费马-fermat-定理",
+      "name": "费马(Fermat)定理",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、费马(Fermat)定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n1.微分中值定理"
+      ],
+      "short_name": "费马(Fermat)定理"
+    },
+    {
+      "id": "gaoshu.b.n4.sec1.sub2.罗尔-rolle-中值定理",
+      "name": "罗尔(Rolle)中值定理",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、罗尔(Rolle)中值定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n1.微分中值定理"
+      ],
+      "short_name": "罗尔(Rolle)中值定理"
+    },
+    {
+      "id": "gaoshu.b.n4.sec1.sub3.拉格朗日-lagrange-中值定理",
+      "name": "拉格朗日(Lagrange)中值定理",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、拉格朗日(Lagrange)中值定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n1.微分中值定理"
+      ],
+      "short_name": "拉格朗日(Lagrange)中值定理"
+    },
+    {
+      "id": "gaoshu.b.n4.sec1.sub4.柯西-cauchy-中值定理",
+      "name": "柯西(Cauchy)中值定理",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "四、柯西(Cauchy)中值定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n1.微分中值定理"
+      ],
+      "short_name": "柯西(Cauchy)中值定理"
+    },
+    {
+      "id": "gaoshu.b.n4.n4.n2.洛必达-l-hospital-法则",
+      "name": "洛必达(L'Hospital)法则",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "4.2 洛必达(L'Hospital)法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.第4章-微分中值定理与导数的应用"
+      ],
+      "short_name": "洛必达(L'Hospital)法则"
+    },
+    {
+      "id": "gaoshu.b.n4.sec2.sub1.0-0型和-型不定式极限",
+      "name": "0/0型和∞/∞型不定式极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、0/0型和∞/∞型不定式极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n2.洛必达-l-hospital-法则"
+      ],
+      "short_name": "0/0型和∞/∞型不定式极限"
+    },
+    {
+      "id": "gaoshu.b.n4.sec2.sub2.其他类型不定式极限",
+      "name": "其他类型不定式极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、其他类型不定式极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n2.洛必达-l-hospital-法则"
+      ],
+      "short_name": "其他类型不定式极限"
+    },
+    {
+      "id": "gaoshu.b.n4.n4.n3.泰勒-taylor-公式",
+      "name": "泰勒(Taylor)公式",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "4.3 泰勒(Taylor)公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.第4章-微分中值定理与导数的应用"
+      ],
+      "short_name": "泰勒(Taylor)公式"
+    },
+    {
+      "id": "gaoshu.b.n4.sec3.sub1.泰勒公式",
+      "name": "泰勒公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、泰勒公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n3.泰勒-taylor-公式"
+      ],
+      "short_name": "泰勒公式"
+    },
+    {
+      "id": "gaoshu.b.n4.sec3.sub2.几个初等函数带佩亚诺余项的麦克劳林-maclaurin-公式",
+      "name": "几个初等函数带佩亚诺余项的麦克劳林(Maclaurin)公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、几个初等函数带佩亚诺余项的麦克劳林(Maclaurin)公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n3.泰勒-taylor-公式"
+      ],
+      "short_name": "几个初等函数带佩亚诺余项的麦克劳林(Maclaurin)公式"
+    },
+    {
+      "id": "gaoshu.b.n4.n4.n4.函数的单调性-极值和最值",
+      "name": "函数的单调性、极值和最值",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "4.4 函数的单调性、极值和最值"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.第4章-微分中值定理与导数的应用"
+      ],
+      "short_name": "函数的单调性、极值和最值"
+    },
+    {
+      "id": "gaoshu.b.n4.sec4.sub1.函数的单调性的判别法",
+      "name": "函数的单调性的判别法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、函数的单调性的判别法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n4.函数的单调性-极值和最值"
+      ],
+      "short_name": "函数的单调性的判别法"
+    },
+    {
+      "id": "gaoshu.b.n4.sec4.sub2.函数的极值的判别法",
+      "name": "函数的极值的判别法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、函数的极值的判别法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n4.函数的单调性-极值和最值"
+      ],
+      "short_name": "函数的极值的判别法"
+    },
+    {
+      "id": "gaoshu.b.n4.sec4.sub3.函数的最值",
+      "name": "函数的最值",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、函数的最值"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n4.函数的单调性-极值和最值"
+      ],
+      "short_name": "函数的最值"
+    },
+    {
+      "id": "gaoshu.b.n4.n4.n5.函数图形的讨论",
+      "name": "函数图形的讨论",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "4.5 函数图形的讨论"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.第4章-微分中值定理与导数的应用"
+      ],
+      "short_name": "函数图形的讨论"
+    },
+    {
+      "id": "gaoshu.b.n4.sec5.sub1.曲线的凸性与拐点",
+      "name": "曲线的凸性与拐点",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、曲线的凸性与拐点"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n5.函数图形的讨论"
+      ],
+      "short_name": "曲线的凸性与拐点"
+    },
+    {
+      "id": "gaoshu.b.n4.sec5.sub2.曲线的渐近线",
+      "name": "曲线的渐近线",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、曲线的渐近线"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n5.函数图形的讨论"
+      ],
+      "short_name": "曲线的渐近线"
+    },
+    {
+      "id": "gaoshu.b.n4.sec5.sub3.函数图形的描绘",
+      "name": "函数图形的描绘",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、函数图形的描绘"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.n5.函数图形的讨论"
+      ],
+      "short_name": "函数图形的描绘"
+    },
+    {
+      "id": "gaoshu.b.n4.n4.n6.曲率",
+      "name": "曲率",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*4.6 曲率"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n4.n4.第4章-微分中值定理与导数的应用"
+      ],
+      "short_name": "曲率"
+    },
+    {
+      "id": "gaoshu.b.n5.n5.第5章-积分",
+      "name": "第5章 积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第5章 积分"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第5章 积分"
+    },
+    {
+      "id": "gaoshu.b.n5.n5.n1.定积分的概念和基本性质",
+      "name": "定积分的概念和基本性质",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "5.1 定积分的概念和基本性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.第5章-积分"
+      ],
+      "short_name": "定积分的概念和基本性质"
+    },
+    {
+      "id": "gaoshu.b.n5.sec1.sub1.实例",
+      "name": "实例",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、实例"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n1.定积分的概念和基本性质"
+      ],
+      "short_name": "实例"
+    },
+    {
+      "id": "gaoshu.b.n5.sec1.sub2.定积分的定义",
+      "name": "定积分的定义",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、定积分的定义"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n1.定积分的概念和基本性质"
+      ],
+      "short_name": "定积分的定义"
+    },
+    {
+      "id": "gaoshu.b.n5.sec1.sub3.定积分的基本性质",
+      "name": "定积分的基本性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、定积分的基本性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n1.定积分的概念和基本性质"
+      ],
+      "short_name": "定积分的基本性质"
+    },
+    {
+      "id": "gaoshu.b.n5.n5.n2.原函数和微积分学基本定理",
+      "name": "原函数和微积分学基本定理",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "5.2 原函数和微积分学基本定理"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.第5章-积分"
+      ],
+      "short_name": "原函数和微积分学基本定理"
+    },
+    {
+      "id": "gaoshu.b.n5.sec2.sub1.原函数",
+      "name": "原函数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、原函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n2.原函数和微积分学基本定理"
+      ],
+      "short_name": "原函数"
+    },
+    {
+      "id": "gaoshu.b.n5.sec2.sub2.积分上限的函数及其导数",
+      "name": "积分上限的函数及其导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、积分上限的函数及其导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n2.原函数和微积分学基本定理"
+      ],
+      "short_name": "积分上限的函数及其导数"
+    },
+    {
+      "id": "gaoshu.b.n5.sec2.sub3.牛顿-莱布尼茨公式",
+      "name": "牛顿-莱布尼茨公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、牛顿-莱布尼茨公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n2.原函数和微积分学基本定理"
+      ],
+      "short_name": "牛顿-莱布尼茨公式"
+    },
+    {
+      "id": "gaoshu.b.n5.n5.n3.不定积分",
+      "name": "不定积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "5.3 不定积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.第5章-积分"
+      ],
+      "short_name": "不定积分"
+    },
+    {
+      "id": "gaoshu.b.n5.sec3.sub1.不定积分的概念",
+      "name": "不定积分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、不定积分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n3.不定积分"
+      ],
+      "short_name": "不定积分的概念"
+    },
+    {
+      "id": "gaoshu.b.n5.sec3.sub2.直接积分法",
+      "name": "直接积分法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、直接积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n3.不定积分"
+      ],
+      "short_name": "直接积分法"
+    },
+    {
+      "id": "gaoshu.b.n5.sec3.sub3.不定积分的第一类换元积分法",
+      "name": "不定积分的第一类换元积分法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、不定积分的第一类换元积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n3.不定积分"
+      ],
+      "short_name": "不定积分的第一类换元积分法"
+    },
+    {
+      "id": "gaoshu.b.n5.sec3.sub4.不定积分的第二类换元积分法",
+      "name": "不定积分的第二类换元积分法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "四、不定积分的第二类换元积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n3.不定积分"
+      ],
+      "short_name": "不定积分的第二类换元积分法"
+    },
+    {
+      "id": "gaoshu.b.n5.sec3.sub5.不定积分的分部积分法",
+      "name": "不定积分的分部积分法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "五、不定积分的分部积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n3.不定积分"
+      ],
+      "short_name": "不定积分的分部积分法"
+    },
+    {
+      "id": "gaoshu.b.n5.sec3.sub6.有理函数的不定积分",
+      "name": "有理函数的不定积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*六、有理函数的不定积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n3.不定积分"
+      ],
+      "short_name": "有理函数的不定积分"
+    },
+    {
+      "id": "gaoshu.b.n5.sec3.sub7.三角函数有理式的不定积分",
+      "name": "三角函数有理式的不定积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*七、三角函数有理式的不定积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n3.不定积分"
+      ],
+      "short_name": "三角函数有理式的不定积分"
+    },
+    {
+      "id": "gaoshu.b.n5.sec3.sub8.简单无理函数的不定积分",
+      "name": "简单无理函数的不定积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*八、简单无理函数的不定积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n3.不定积分"
+      ],
+      "short_name": "简单无理函数的不定积分"
+    },
+    {
+      "id": "gaoshu.b.n5.n5.n4.定积分的积分法",
+      "name": "定积分的积分法",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "5.4 定积分的积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.第5章-积分"
+      ],
+      "short_name": "定积分的积分法"
+    },
+    {
+      "id": "gaoshu.b.n5.sec4.sub1.直接利用牛顿-莱布尼茨公式",
+      "name": "直接利用牛顿-莱布尼茨公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、直接利用牛顿-莱布尼茨公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n4.定积分的积分法"
+      ],
+      "short_name": "直接利用牛顿-莱布尼茨公式"
+    },
+    {
+      "id": "gaoshu.b.n5.sec4.sub2.定积分的换元积分法",
+      "name": "定积分的换元积分法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、定积分的换元积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n4.定积分的积分法"
+      ],
+      "short_name": "定积分的换元积分法"
+    },
+    {
+      "id": "gaoshu.b.n5.sec4.sub3.定积分的分部积分法",
+      "name": "定积分的分部积分法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、定积分的分部积分法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n4.定积分的积分法"
+      ],
+      "short_name": "定积分的分部积分法"
+    },
+    {
+      "id": "gaoshu.b.n5.n5.n5.定积分的近似计算",
+      "name": "定积分的近似计算",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*5.5 定积分的近似计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.第5章-积分"
+      ],
+      "short_name": "定积分的近似计算"
+    },
+    {
+      "id": "gaoshu.b.n5.sec5.sub1.矩形法",
+      "name": "矩形法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、矩形法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n5.定积分的近似计算"
+      ],
+      "short_name": "矩形法"
+    },
+    {
+      "id": "gaoshu.b.n5.sec5.sub2.梯形法",
+      "name": "梯形法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、梯形法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n5.定积分的近似计算"
+      ],
+      "short_name": "梯形法"
+    },
+    {
+      "id": "gaoshu.b.n5.sec5.sub3.抛物线法",
+      "name": "抛物线法",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、抛物线法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n5.定积分的近似计算"
+      ],
+      "short_name": "抛物线法"
+    },
+    {
+      "id": "gaoshu.b.n5.n5.n6.广义积分-函数",
+      "name": "广义积分、Γ 函数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "5.6 广义积分、Γ 函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.第5章-积分"
+      ],
+      "short_name": "广义积分、Γ 函数"
+    },
+    {
+      "id": "gaoshu.b.n5.sec6.sub1.无限区间上的广义积分",
+      "name": "无限区间上的广义积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、无限区间上的广义积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n6.广义积分-函数"
+      ],
+      "short_name": "无限区间上的广义积分"
+    },
+    {
+      "id": "gaoshu.b.n5.sec6.sub2.无界函数的广义积分",
+      "name": "无界函数的广义积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、无界函数的广义积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n6.广义积分-函数"
+      ],
+      "short_name": "无界函数的广义积分"
+    },
+    {
+      "id": "gaoshu.b.n5.sec6.sub3.函数",
+      "name": "Γ 函数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*三、Γ 函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n5.n5.n6.广义积分-函数"
+      ],
+      "short_name": "Γ 函数"
+    },
+    {
+      "id": "gaoshu.b.n6.n6.第6章-定积分的应用",
+      "name": "第6章 定积分的应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第6章 定积分的应用"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第6章 定积分的应用"
+    },
+    {
+      "id": "gaoshu.b.n6.n6.n1.微元法",
+      "name": "微元法",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "6.1 微元法"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.第6章-定积分的应用"
+      ],
+      "short_name": "微元法"
+    },
+    {
+      "id": "gaoshu.b.n6.n6.n2.平面图形的面积",
+      "name": "平面图形的面积",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "6.2 平面图形的面积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.第6章-定积分的应用"
+      ],
+      "short_name": "平面图形的面积"
+    },
+    {
+      "id": "gaoshu.b.n6.sec2.sub1.直角坐标系下的面积公式",
+      "name": "直角坐标系下的面积公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、直角坐标系下的面积公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.n2.平面图形的面积"
+      ],
+      "short_name": "直角坐标系下的面积公式"
+    },
+    {
+      "id": "gaoshu.b.n6.sec2.sub2.极坐标系下的面积公式",
+      "name": "极坐标系下的面积公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、极坐标系下的面积公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.n2.平面图形的面积"
+      ],
+      "short_name": "极坐标系下的面积公式"
+    },
+    {
+      "id": "gaoshu.b.n6.n6.n3.体积",
+      "name": "体积",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "6.3 体积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.第6章-定积分的应用"
+      ],
+      "short_name": "体积"
+    },
+    {
+      "id": "gaoshu.b.n6.sec3.sub1.平行截面面积为已知的立体的体积",
+      "name": "平行截面面积为已知的立体的体积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、平行截面面积为已知的立体的体积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.n3.体积"
+      ],
+      "short_name": "平行截面面积为已知的立体的体积"
+    },
+    {
+      "id": "gaoshu.b.n6.sec3.sub2.旋转体的体积",
+      "name": "旋转体的体积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、旋转体的体积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.n3.体积"
+      ],
+      "short_name": "旋转体的体积"
+    },
+    {
+      "id": "gaoshu.b.n6.n6.n4.平面曲线的弧长与旋转曲面的面积",
+      "name": "平面曲线的弧长与旋转曲面的面积",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "6.4 平面曲线的弧长与旋转曲面的面积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.第6章-定积分的应用"
+      ],
+      "short_name": "平面曲线的弧长与旋转曲面的面积"
+    },
+    {
+      "id": "gaoshu.b.n6.sec4.sub1.平面曲线的弧长",
+      "name": "平面曲线的弧长",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、平面曲线的弧长"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.n4.平面曲线的弧长与旋转曲面的面积"
+      ],
+      "short_name": "平面曲线的弧长"
+    },
+    {
+      "id": "gaoshu.b.n6.sec4.sub2.旋转曲面的面积",
+      "name": "旋转曲面的面积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、旋转曲面的面积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.n4.平面曲线的弧长与旋转曲面的面积"
+      ],
+      "short_name": "旋转曲面的面积"
+    },
+    {
+      "id": "gaoshu.b.n6.n6.n5.若干物理应用",
+      "name": "若干物理应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "6.5 若干物理应用"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.第6章-定积分的应用"
+      ],
+      "short_name": "若干物理应用"
+    },
+    {
+      "id": "gaoshu.b.n6.sec5.sub1.物体的质量",
+      "name": "物体的质量",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、物体的质量"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.n5.若干物理应用"
+      ],
+      "short_name": "物体的质量"
+    },
+    {
+      "id": "gaoshu.b.n6.sec5.sub2.引力",
+      "name": "引力",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、引力"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.n5.若干物理应用"
+      ],
+      "short_name": "引力"
+    },
+    {
+      "id": "gaoshu.b.n6.sec5.sub3.液体的压力",
+      "name": "液体的压力",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三、液体的压力"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.n5.若干物理应用"
+      ],
+      "short_name": "液体的压力"
+    },
+    {
+      "id": "gaoshu.b.n6.sec5.sub4.功",
+      "name": "功",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "四、功"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n6.n6.n5.若干物理应用"
+      ],
+      "short_name": "功"
+    },
+    {
+      "id": "gaoshu.b.n7.n7.第7章-空间解析几何",
+      "name": "第7章 空间解析几何",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第7章 空间解析几何"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第7章 空间解析几何"
+    },
+    {
+      "id": "gaoshu.b.n7.n7.n1.空间直角坐标系",
+      "name": "空间直角坐标系",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "7.1 空间直角坐标系"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.第7章-空间解析几何"
+      ],
+      "short_name": "空间直角坐标系"
+    },
+    {
+      "id": "gaoshu.b.n7.n7.n2.向量及其线性运算-向量的坐标",
+      "name": "向量及其线性运算、向量的坐标",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "7.2 向量及其线性运算、向量的坐标"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.第7章-空间解析几何"
+      ],
+      "short_name": "向量及其线性运算、向量的坐标"
+    },
+    {
+      "id": "gaoshu.b.n7.sec2.sub1.向量的基本运算",
+      "name": "向量的基本运算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、向量的基本运算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.n2.向量及其线性运算-向量的坐标"
+      ],
+      "short_name": "向量的基本运算"
+    },
+    {
+      "id": "gaoshu.b.n7.sec2.sub2.向量的坐标-向量运算的坐标表示",
+      "name": "向量的坐标、向量运算的坐标表示",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、向量的坐标、向量运算的坐标表示"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.n2.向量及其线性运算-向量的坐标"
+      ],
+      "short_name": "向量的坐标、向量运算的坐标表示"
+    },
+    {
+      "id": "gaoshu.b.n7.n7.n3.向量的数量积-向量积",
+      "name": "向量的数量积、向量积",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "7.3 向量的数量积、向量积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.第7章-空间解析几何"
+      ],
+      "short_name": "向量的数量积、向量积"
+    },
+    {
+      "id": "gaoshu.b.n7.sec3.sub1.向量的数量积",
+      "name": "向量的数量积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、向量的数量积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.n3.向量的数量积-向量积"
+      ],
+      "short_name": "向量的数量积"
+    },
+    {
+      "id": "gaoshu.b.n7.sec3.sub2.向量的向量积",
+      "name": "向量的向量积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、向量的向量积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.n3.向量的数量积-向量积"
+      ],
+      "short_name": "向量的向量积"
+    },
+    {
+      "id": "gaoshu.b.n7.sec3.sub3.向量的混合积",
+      "name": "向量的混合积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*三、向量的混合积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.n3.向量的数量积-向量积"
+      ],
+      "short_name": "向量的混合积"
+    },
+    {
+      "id": "gaoshu.b.n7.n7.n4.平面的方程",
+      "name": "平面的方程",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "7.4 平面的方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.第7章-空间解析几何"
+      ],
+      "short_name": "平面的方程"
+    },
+    {
+      "id": "gaoshu.b.n7.n7.n5.空间直线的方程",
+      "name": "空间直线的方程",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "7.5 空间直线的方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.第7章-空间解析几何"
+      ],
+      "short_name": "空间直线的方程"
+    },
+    {
+      "id": "gaoshu.b.n7.n7.n6.曲面与空间曲线",
+      "name": "曲面与空间曲线",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "7.6 曲面与空间曲线"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.第7章-空间解析几何"
+      ],
+      "short_name": "曲面与空间曲线"
+    },
+    {
+      "id": "gaoshu.b.n7.n7.n7.旋转面-柱面",
+      "name": "旋转面、柱面",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "7.7 旋转面、柱面"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.第7章-空间解析几何"
+      ],
+      "short_name": "旋转面、柱面"
+    },
+    {
+      "id": "gaoshu.b.n7.sec7.sub1.旋转面",
+      "name": "旋转面",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一、旋转面"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.n7.旋转面-柱面"
+      ],
+      "short_name": "旋转面"
+    },
+    {
+      "id": "gaoshu.b.n7.sec7.sub2.柱面",
+      "name": "柱面",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二、柱面"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.n7.旋转面-柱面"
+      ],
+      "short_name": "柱面"
+    },
+    {
+      "id": "gaoshu.b.n7.n7.n8.二次曲面",
+      "name": "二次曲面",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "7.8 二次曲面"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.第7章-空间解析几何"
+      ],
+      "short_name": "二次曲面"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.第8章-空间解析几何",
+      "name": "第8章 空间解析几何",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第8章 空间解析几何"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第8章 空间解析几何"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n1.空间直角坐标系",
+      "name": "空间直角坐标系",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "8.1 空间直角坐标系"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.第8章-空间解析几何"
+      ],
+      "short_name": "空间直角坐标系"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n1.n1.空间直角坐标系",
+      "name": "空间直角坐标系",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "空间直角坐标系"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n1.空间直角坐标系"
+      ],
+      "short_name": "空间直角坐标系"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n1.n2.空间两点之间的距离",
+      "name": "空间两点之间的距离",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "空间两点之间的距离"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n1.空间直角坐标系"
+      ],
+      "short_name": "空间两点之间的距离"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n2.向量及其线性运算",
+      "name": "向量及其线性运算",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "8.2 向量及其线性运算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.第8章-空间解析几何"
+      ],
+      "short_name": "向量及其线性运算"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n2.n1.向量的概念",
+      "name": "向量的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "向量的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n2.向量及其线性运算"
+      ],
+      "short_name": "向量的概念"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n2.n2.向量的线性运算",
+      "name": "向量的线性运算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "向量的线性运算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n2.向量及其线性运算"
+      ],
+      "short_name": "向量的线性运算"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n2.n3.向量的坐标与分解",
+      "name": "向量的坐标与分解",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "向量的坐标与分解"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n2.向量及其线性运算"
+      ],
+      "short_name": "向量的坐标与分解"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n3.向量的数量积与向量积",
+      "name": "向量的数量积与向量积",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "8.3 向量的数量积与向量积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.第8章-空间解析几何"
+      ],
+      "short_name": "向量的数量积与向量积"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n3.n1.向量的数量积",
+      "name": "向量的数量积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "向量的数量积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n3.向量的数量积与向量积"
+      ],
+      "short_name": "向量的数量积"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n3.n2.向量的向量积",
+      "name": "向量的向量积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "向量的向量积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n3.向量的数量积与向量积"
+      ],
+      "short_name": "向量的向量积"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n3.n3.向量的混合积",
+      "name": "向量的混合积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*8.3.3 向量的混合积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n3.向量的数量积与向量积"
+      ],
+      "short_name": "向量的混合积"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n4.平面与空间直线",
+      "name": "平面与空间直线",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "8.4 平面与空间直线"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.第8章-空间解析几何"
+      ],
+      "short_name": "平面与空间直线"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n4.n1.平面方程",
+      "name": "平面方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "平面方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n4.平面与空间直线"
+      ],
+      "short_name": "平面方程"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n4.n2.空间直线方程",
+      "name": "空间直线方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "空间直线方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n4.平面与空间直线"
+      ],
+      "short_name": "空间直线方程"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n5.曲面与空间曲线",
+      "name": "曲面与空间曲线",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "8.5 曲面与空间曲线"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.第8章-空间解析几何"
+      ],
+      "short_name": "曲面与空间曲线"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n5.n1.球面方程",
+      "name": "球面方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "球面方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n5.曲面与空间曲线"
+      ],
+      "short_name": "球面方程"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n5.n2.柱面方程",
+      "name": "柱面方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "柱面方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n5.曲面与空间曲线"
+      ],
+      "short_name": "柱面方程"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n5.n3.旋转面方程",
+      "name": "旋转面方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "旋转面方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n5.曲面与空间曲线"
+      ],
+      "short_name": "旋转面方程"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n5.n4.二次曲面",
+      "name": "二次曲面",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二次曲面"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n5.曲面与空间曲线"
+      ],
+      "short_name": "二次曲面"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n5.n5.空间曲线",
+      "name": "空间曲线",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "空间曲线"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n5.曲面与空间曲线"
+      ],
+      "short_name": "空间曲线"
+    },
+    {
+      "id": "gaoshu.b.n8.n8.n5.n6.空间曲线在坐标面上的投影",
+      "name": "空间曲线在坐标面上的投影",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "空间曲线在坐标面上的投影"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n5.曲面与空间曲线"
+      ],
+      "short_name": "空间曲线在坐标面上的投影"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.第9章-多元函数微分学及其应用",
+      "name": "第9章 多元函数微分学及其应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第9章 多元函数微分学及其应用"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第9章 多元函数微分学及其应用"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n1.多元函数",
+      "name": "多元函数",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "9.1 多元函数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.第9章-多元函数微分学及其应用"
+      ],
+      "short_name": "多元函数"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n1.n1.多元函数的概念",
+      "name": "多元函数的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "多元函数的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n1.多元函数"
+      ],
+      "short_name": "多元函数的概念"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n1.n2.二元函数的几何表示",
+      "name": "二元函数的几何表示",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二元函数的几何表示"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n1.多元函数"
+      ],
+      "short_name": "二元函数的几何表示"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n1.n3.多元函数的极限",
+      "name": "多元函数的极限",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "多元函数的极限"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n1.多元函数"
+      ],
+      "short_name": "多元函数的极限"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n1.n4.多元函数的连续性",
+      "name": "多元函数的连续性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "多元函数的连续性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n1.多元函数"
+      ],
+      "short_name": "多元函数的连续性"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n2.多元函数的偏导数与全微分",
+      "name": "多元函数的偏导数与全微分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "9.2 多元函数的偏导数与全微分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.第9章-多元函数微分学及其应用"
+      ],
+      "short_name": "多元函数的偏导数与全微分"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n2.n1.偏导数",
+      "name": "偏导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "偏导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n2.多元函数的偏导数与全微分"
+      ],
+      "short_name": "偏导数"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n2.n2.高阶偏导数",
+      "name": "高阶偏导数",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "高阶偏导数"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n2.多元函数的偏导数与全微分"
+      ],
+      "short_name": "高阶偏导数"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n2.n3.全微分",
+      "name": "全微分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "全微分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n2.多元函数的偏导数与全微分"
+      ],
+      "short_name": "全微分"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n2.n4.全微分在近似计算中的应用",
+      "name": "全微分在近似计算中的应用",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*9.2.4 全微分在近似计算中的应用"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n2.多元函数的偏导数与全微分"
+      ],
+      "short_name": "全微分在近似计算中的应用"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n3.复合函数和隐函数的求导法则",
+      "name": "复合函数和隐函数的求导法则",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "9.3 复合函数和隐函数的求导法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.第9章-多元函数微分学及其应用"
+      ],
+      "short_name": "复合函数和隐函数的求导法则"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n3.n1.多元复合函数的求导法则",
+      "name": "多元复合函数的求导法则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "多元复合函数的求导法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n3.复合函数和隐函数的求导法则"
+      ],
+      "short_name": "多元复合函数的求导法则"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n3.n2.一阶全微分形式不变性",
+      "name": "一阶全微分形式不变性",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一阶全微分形式不变性"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n3.复合函数和隐函数的求导法则"
+      ],
+      "short_name": "一阶全微分形式不变性"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n3.n3.隐函数的求导法则",
+      "name": "隐函数的求导法则",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "隐函数的求导法则"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n3.复合函数和隐函数的求导法则"
+      ],
+      "short_name": "隐函数的求导法则"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n4.方向导数与梯度",
+      "name": "方向导数与梯度",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*9.4 方向导数与梯度"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.第9章-多元函数微分学及其应用"
+      ],
+      "short_name": "方向导数与梯度"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n5.多元函数微分学的几何应用",
+      "name": "多元函数微分学的几何应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "9.5 多元函数微分学的几何应用"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.第9章-多元函数微分学及其应用"
+      ],
+      "short_name": "多元函数微分学的几何应用"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n5.n1.空间曲线的切线与法平面",
+      "name": "空间曲线的切线与法平面",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "空间曲线的切线与法平面"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n5.多元函数微分学的几何应用"
+      ],
+      "short_name": "空间曲线的切线与法平面"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n5.n2.曲面的切平面与法线",
+      "name": "曲面的切平面与法线",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "曲面的切平面与法线"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n5.多元函数微分学的几何应用"
+      ],
+      "short_name": "曲面的切平面与法线"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n6.多元函数的极值",
+      "name": "多元函数的极值",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "9.6 多元函数的极值"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.第9章-多元函数微分学及其应用"
+      ],
+      "short_name": "多元函数的极值"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n6.n1.多元函数的极值",
+      "name": "多元函数的极值",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "多元函数的极值"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n6.多元函数的极值"
+      ],
+      "short_name": "多元函数的极值"
+    },
+    {
+      "id": "gaoshu.b.n9.n9.n6.n2.条件极值",
+      "name": "条件极值",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*9.6.2 条件极值"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n9.n9.n6.多元函数的极值"
+      ],
+      "short_name": "条件极值"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.第10章-重积分及其应用",
+      "name": "第10章 重积分及其应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第10章 重积分及其应用"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第10章 重积分及其应用"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n1.重积分的概念与性质",
+      "name": "重积分的概念与性质",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "10.1 重积分的概念与性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.第10章-重积分及其应用"
+      ],
+      "short_name": "重积分的概念与性质"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n1.n1.二重积分的概念",
+      "name": "二重积分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二重积分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.n1.重积分的概念与性质"
+      ],
+      "short_name": "二重积分的概念"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n1.n2.可积性条件与二重积分的性质",
+      "name": "可积性条件与二重积分的性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "可积性条件与二重积分的性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.n1.重积分的概念与性质"
+      ],
+      "short_name": "可积性条件与二重积分的性质"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n1.n3.三重积分的概念和性质",
+      "name": "三重积分的概念和性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "三重积分的概念和性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.n1.重积分的概念与性质"
+      ],
+      "short_name": "三重积分的概念和性质"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n2.二重积分的计算",
+      "name": "二重积分的计算",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "10.2 二重积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.第10章-重积分及其应用"
+      ],
+      "short_name": "二重积分的计算"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n2.n1.化二重积分为累次积分",
+      "name": "化二重积分为累次积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "化二重积分为累次积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.n2.二重积分的计算"
+      ],
+      "short_name": "化二重积分为累次积分"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n2.n2.在极坐标系中计算二重积分",
+      "name": "在极坐标系中计算二重积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "在极坐标系中计算二重积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.n2.二重积分的计算"
+      ],
+      "short_name": "在极坐标系中计算二重积分"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n3.三重积分的计算",
+      "name": "三重积分的计算",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "10.3 三重积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.第10章-重积分及其应用"
+      ],
+      "short_name": "三重积分的计算"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n3.n1.化三重积分为累次积分",
+      "name": "化三重积分为累次积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "化三重积分为累次积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.n3.三重积分的计算"
+      ],
+      "short_name": "化三重积分为累次积分"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n3.n2.在柱面坐标系中计算三重积分",
+      "name": "在柱面坐标系中计算三重积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*10.3.2 在柱面坐标系中计算三重积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.n3.三重积分的计算"
+      ],
+      "short_name": "在柱面坐标系中计算三重积分"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n3.n3.在球面坐标系中计算三重积分",
+      "name": "在球面坐标系中计算三重积分",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*10.3.3 在球面坐标系中计算三重积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.n3.三重积分的计算"
+      ],
+      "short_name": "在球面坐标系中计算三重积分"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n4.重积分的应用",
+      "name": "重积分的应用",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "10.4 重积分的应用"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.第10章-重积分及其应用"
+      ],
+      "short_name": "重积分的应用"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n4.n1.曲面的面积",
+      "name": "曲面的面积",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "曲面的面积"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.n4.重积分的应用"
+      ],
+      "short_name": "曲面的面积"
+    },
+    {
+      "id": "gaoshu.b.n10.n10.n4.n2.物体的重心",
+      "name": "物体的重心",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "物体的重心"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n10.n10.n4.重积分的应用"
+      ],
+      "short_name": "物体的重心"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.第11章-曲线积分与曲面积分",
+      "name": "第11章 曲线积分与曲面积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*第11章 曲线积分与曲面积分"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第11章 曲线积分与曲面积分"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n1.第一型曲线积分",
+      "name": "第一型曲线积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "11.1 第一型曲线积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.第11章-曲线积分与曲面积分"
+      ],
+      "short_name": "第一型曲线积分"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n1.n1.第一型曲线积分的概念",
+      "name": "第一型曲线积分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第一型曲线积分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.n1.第一型曲线积分"
+      ],
+      "short_name": "第一型曲线积分的概念"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n1.n2.第一型曲线积分的计算",
+      "name": "第一型曲线积分的计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第一型曲线积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.n1.第一型曲线积分"
+      ],
+      "short_name": "第一型曲线积分的计算"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n2.第二型曲线积分",
+      "name": "第二型曲线积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "11.2 第二型曲线积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.第11章-曲线积分与曲面积分"
+      ],
+      "short_name": "第二型曲线积分"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n2.n1.第二型曲线积分的概念",
+      "name": "第二型曲线积分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第二型曲线积分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.n2.第二型曲线积分"
+      ],
+      "short_name": "第二型曲线积分的概念"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n2.n2.第二型曲线积分的计算",
+      "name": "第二型曲线积分的计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第二型曲线积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.n2.第二型曲线积分"
+      ],
+      "short_name": "第二型曲线积分的计算"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n3.格林公式-第二型曲线积分与路径无关的条件",
+      "name": "格林公式·第二型曲线积分与路径无关的条件",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "11.3 格林公式·第二型曲线积分与路径无关的条件"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.第11章-曲线积分与曲面积分"
+      ],
+      "short_name": "格林公式·第二型曲线积分与路径无关的条件"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n3.n1.格林公式",
+      "name": "格林公式",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "格林公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.n3.格林公式-第二型曲线积分与路径无关的条件"
+      ],
+      "short_name": "格林公式"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n3.n2.曲线积分与路径无关的条件",
+      "name": "曲线积分与路径无关的条件",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "曲线积分与路径无关的条件"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.n3.格林公式-第二型曲线积分与路径无关的条件"
+      ],
+      "short_name": "曲线积分与路径无关的条件"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n4.第一型曲面积分",
+      "name": "第一型曲面积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "11.4 第一型曲面积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.第11章-曲线积分与曲面积分"
+      ],
+      "short_name": "第一型曲面积分"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n4.n1.第一型曲面积分的概念",
+      "name": "第一型曲面积分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第一型曲面积分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.n4.第一型曲面积分"
+      ],
+      "short_name": "第一型曲面积分的概念"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n4.n2.第一型曲面积分的计算",
+      "name": "第一型曲面积分的计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第一型曲面积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.n4.第一型曲面积分"
+      ],
+      "short_name": "第一型曲面积分的计算"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n5.第二型曲面积分",
+      "name": "第二型曲面积分",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "11.5 第二型曲面积分"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.第11章-曲线积分与曲面积分"
+      ],
+      "short_name": "第二型曲面积分"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n5.n1.第二型曲面积分的概念",
+      "name": "第二型曲面积分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第二型曲面积分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.n5.第二型曲面积分"
+      ],
+      "short_name": "第二型曲面积分的概念"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n5.n2.第二型曲面积分的计算",
+      "name": "第二型曲面积分的计算",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第二型曲面积分的计算"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.n5.第二型曲面积分"
+      ],
+      "short_name": "第二型曲面积分的计算"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n6.斯托克斯公式",
+      "name": "斯托克斯公式",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "11.6 斯托克斯公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.第11章-曲线积分与曲面积分"
+      ],
+      "short_name": "斯托克斯公式"
+    },
+    {
+      "id": "gaoshu.b.n11.n11.n7.高斯公式",
+      "name": "高斯公式",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "11.7 高斯公式"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n11.n11.第11章-曲线积分与曲面积分"
+      ],
+      "short_name": "高斯公式"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.第12章-常微分方程与差分方程",
+      "name": "第12章 常微分方程与差分方程",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "第12章 常微分方程与差分方程"
+      ],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "第12章 常微分方程与差分方程"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n1.一阶微分方程",
+      "name": "一阶微分方程",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "12.1 一阶微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.第12章-常微分方程与差分方程"
+      ],
+      "short_name": "一阶微分方程"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n1.n1.微分方程的一般概念",
+      "name": "微分方程的一般概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "微分方程的一般概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n1.一阶微分方程"
+      ],
+      "short_name": "微分方程的一般概念"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n1.n2.可分离变量型微分方程",
+      "name": "可分离变量型微分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "可分离变量型微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n1.一阶微分方程"
+      ],
+      "short_name": "可分离变量型微分方程"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n1.n3.齐次型微分方程",
+      "name": "齐次型微分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "齐次型微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n1.一阶微分方程"
+      ],
+      "short_name": "齐次型微分方程"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n1.n4.一阶线性微分方程",
+      "name": "一阶线性微分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一阶线性微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n1.一阶微分方程"
+      ],
+      "short_name": "一阶线性微分方程"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n1.n5.全微分方程",
+      "name": "全微分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*12.1.5 全微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n1.一阶微分方程"
+      ],
+      "short_name": "全微分方程"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n1.n6.一阶微分方程应用举例",
+      "name": "一阶微分方程应用举例",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "一阶微分方程应用举例"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n1.一阶微分方程"
+      ],
+      "short_name": "一阶微分方程应用举例"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n2.二阶微分方程",
+      "name": "二阶微分方程",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "12.2 二阶微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.第12章-常微分方程与差分方程"
+      ],
+      "short_name": "二阶微分方程"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n2.n1.可降阶的微分方程",
+      "name": "可降阶的微分方程",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "可降阶的微分方程"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n2.二阶微分方程"
+      ],
+      "short_name": "可降阶的微分方程"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n2.n2.二阶线性微分方程解的性质",
+      "name": "二阶线性微分方程解的性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二阶线性微分方程解的性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n2.二阶微分方程"
+      ],
+      "short_name": "二阶线性微分方程解的性质"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n2.n3.二阶常系数线性齐次方程的解",
+      "name": "二阶常系数线性齐次方程的解",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二阶常系数线性齐次方程的解"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n2.二阶微分方程"
+      ],
+      "short_name": "二阶常系数线性齐次方程的解"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n2.n4.二阶常系数线性非齐次方程的解",
+      "name": "二阶常系数线性非齐次方程的解",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "二阶常系数线性非齐次方程的解"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n2.二阶微分方程"
+      ],
+      "short_name": "二阶常系数线性非齐次方程的解"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n3.微分方程应用举例",
+      "name": "微分方程应用举例",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*12.3 微分方程应用举例"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.第12章-常微分方程与差分方程"
+      ],
+      "short_name": "微分方程应用举例"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n4.差分与差分方程简介",
+      "name": "差分与差分方程简介",
+      "type": "concept",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "*12.4 差分与差分方程简介"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.第12章-常微分方程与差分方程"
+      ],
+      "short_name": "差分与差分方程简介"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n4.n1.差分的概念",
+      "name": "差分的概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "差分的概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n4.差分与差分方程简介"
+      ],
+      "short_name": "差分的概念"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n4.n2.差分方程的基本概念",
+      "name": "差分方程的基本概念",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "差分方程的基本概念"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n4.差分与差分方程简介"
+      ],
+      "short_name": "差分方程的基本概念"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n4.n3.线性差分方程解的性质",
+      "name": "线性差分方程解的性质",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "线性差分方程解的性质"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n4.差分与差分方程简介"
+      ],
+      "short_name": "线性差分方程解的性质"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n4.n4.常系数线性齐次差分方程的解",
+      "name": "常系数线性齐次差分方程的解",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "常系数线性齐次差分方程的解"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n4.差分与差分方程简介"
+      ],
+      "short_name": "常系数线性齐次差分方程的解"
+    },
+    {
+      "id": "gaoshu.b.n12.n12.n4.n5.常系数线性非齐次差分方程的解",
+      "name": "常系数线性非齐次差分方程的解",
+      "type": "skill",
+      "stage": "大学",
+      "grade_band": "高等数学B",
+      "canonical": [
+        "常系数线性非齐次差分方程的解"
+      ],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n12.n12.n4.差分与差分方程简介"
+      ],
+      "short_name": "常系数线性非齐次差分方程的解"
+    },
+    {
+      "id": "gaoshu.a.n2.n2.n3.n2",
+      "name": "极限计算、数列极限求和、隐函数求导、不定积分计算题型求解",
+      "short_name": "极限计算、数列极限求和、隐函数求导、不定积分计算题型求解",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n3.极限的运算和两个重要极限",
+        "gaoshu.a.n2.n2.n1.n2.数列极限",
+        "gaoshu.a.n3.n3.n3.n1.隐函数的导数",
+        "gaoshu.a.n5.n5.n1.不定积分概念与基本积分公式"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n3.n3.n3.n1",
+      "name": "高等数学基础题型综合求解（极限计算、数列极限求和、隐函数求导、不定积分计算）",
+      "short_name": "高等数学基础题型综合求解（极限计算、数列极限求和、隐函数求导、不定积分计算）",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n3.极限的运算和两个重要极限",
+        "gaoshu.a.n2.n2.n1.n2.数列极限",
+        "gaoshu.a.n3.n3.n3.n1.隐函数的导数",
+        "gaoshu.a.n5.n5.n1.不定积分概念与基本积分公式"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n5.n5.n2.n2",
+      "name": "极限计算、数列极限求和、隐函数求导、不定积分计算综合求解",
+      "short_name": "极限计算、数列极限求和、隐函数求导、不定积分计算综合求解",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n1.n3.收敛数列的性质与运算法则",
+        "gaoshu.a.n2.n2.n3.极限的运算和两个重要极限",
+        "gaoshu.a.n3.n3.n3.n1.隐函数的导数",
+        "gaoshu.a.n5.n5.n1.不定积分概念与基本积分公式"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n3.n1",
+      "name": "变上限积分函数的单调性与凸性分析",
+      "short_name": "变上限积分函数的单调性与凸性分析",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n3.n1.积分上限函数及其导数",
+        "gaoshu.a.n4.n4.n3.n1.函数单调性的判别法",
+        "gaoshu.a.n4.n4.n4.n1.曲线的凸性与拐点"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n3.n1",
+      "name": "变上限积分函数的单调性与凸性判定",
+      "short_name": "变上限积分函数的单调性与凸性判定",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n3.n1.积分上限函数及其导数",
+        "gaoshu.a.n4.n4.n3.n1.函数单调性的判别法",
+        "gaoshu.a.n4.n4.n4.n1.曲线的凸性与拐点"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n4.n1",
+      "name": "变上限积分函数的单调性与凸性判别方法",
+      "short_name": "变上限积分函数的单调性与凸性判别方法",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n4.n4.n3.n1.函数单调性的判别法",
+        "gaoshu.a.n4.n4.n4.n1.曲线的凸性与拐点",
+        "gaoshu.a.n6.n6.n3.n1.积分上限函数及其导数"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n4.n1",
+      "name": "用换元法求解含指数函数的无理式定积分",
+      "short_name": "用换元法求解含指数函数的无理式定积分",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n4.n1.定积分的换元积分法"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n3.n2",
+      "name": "求解定积分∫₀^ln5 (eˣ√(eˣ−1))/(eˣ+3) dx",
+      "short_name": "求解定积分∫₀^ln5 (eˣ√(eˣ−1))/(eˣ+3) dx",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n3.n2.牛顿-莱布尼茨公式",
+        "gaoshu.a.n6.n6.n4.n1.定积分的换元积分法"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n4.n4.n4.n2",
+      "name": "求曲线的渐近线",
+      "short_name": "求曲线的渐近线",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n2.n2.n2.n1.自变量趋于无穷大时的函数极限",
+        "gaoshu.a.n4.n4.n4.n2.曲线的渐近线"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n6.n1",
+      "name": "计算无穷限指数有理式广义积分",
+      "short_name": "计算无穷限指数有理式广义积分",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n6.n6.n6.n1.无限区间上的广义积分",
+        "gaoshu.a.n6.n6.n4.n1.定积分的换元积分法",
+        "gaoshu.a.n5.n5.n2.n1.第一类换元积分法-凑微分法"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n6.n6.n5.n4",
+      "name": "曲线、切线及x轴围成图形绕x轴旋转所得旋转体表面积计算",
+      "short_name": "曲线、切线及x轴围成图形绕x轴旋转所得旋转体表面积计算",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n1.n3.导数的意义",
+        "gaoshu.a.n6.n6.n4.n1.定积分的换元积分法",
+        "gaoshu.a.n6.n6.n5.n4.旋转曲面面积"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n7.n7.n5.n2",
+      "name": "利用泰勒中值定理证明定积分等式",
+      "short_name": "利用泰勒中值定理证明定积分等式",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.a.n3.n3.n3.n3.高阶导数",
+        "gaoshu.a.n6.n6.n2.定积分的基本性质",
+        "gaoshu.a.n7.n7.n5.n2.泰勒中值定理"
+      ]
+    },
+    {
+      "id": "gaoshu.a.n8.n8.n1",
+      "name": "平面截距式方程及体积应用求解",
+      "short_name": "平面截距式方程及体积应用求解",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n8.n8.n4.n1.平面方程",
+        "gaoshu.a.n6.n6.n5.n2.已知平行截面面积的立体和旋转体的体积"
+      ]
+    },
+    {
+      "id": "gaoshu.b.n7.n7.n5.two.space.lines.included.angle.calculate",
+      "name": "空间两条直线的夹角计算",
+      "short_name": "空间两条直线的夹角计算",
+      "type": "skill",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "gaoshu.b.n7.n7.n3.向量的数量积-向量积",
+        "gaoshu.b.n7.n7.n5.空间直线的方程"
+      ]
+    }
+  ]
+}

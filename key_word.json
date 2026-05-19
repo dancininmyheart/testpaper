@@ -1,0 +1,1420 @@
+{
+  "meta": {
+    "region": "上海（五四/六三均可映射）",
+    "standards": [
+      "义务教育数学课程标准（2022年版）学习领域结构：数与代数/图形与几何/统计与概率/综合与实践",
+      "普通高中数学课程标准（2017年版2020年修订）主线：函数/几何与代数/概率与统计/数学建模与探究"
+    ],
+    "schema_version": "v1.0",
+    "node_types": [
+      "concept",
+      "formula",
+      "method",
+      "theorem",
+      "skill"
+    ]
+  },
+  "taxonomy_tree": {
+    "数与代数": {
+      "数与运算": [
+        "arith.properties.commutative_add",
+        "arith.properties.commutative_mul",
+        "arith.properties.associative_add",
+        "arith.properties.associative_mul",
+        "arith.properties.distributive",
+        "fraction.concept.value",
+        "fraction.formula.equivalent",
+        "fraction.method.simplify",
+        "fraction.formula.add_sub_same_den",
+        "fraction.formula.add_sub_diff_den",
+        "fraction.formula.mul",
+        "fraction.formula.div",
+        "decimal.formula.mul",
+        "decimal.formula.div",
+        "percent.formula.convert",
+        "ratio.concept.ratio",
+        "ratio.concept.proportion",
+        "ratio.method.solve_proportion"
+      ],
+      "整式与方程": [
+        "algebra.concept.variable_expression",
+        "algebra.formula.expand_distribute",
+        "algebra.formula.identity.square_sum",
+        "algebra.formula.identity.square_diff",
+        "algebra.formula.identity.diff_squares",
+        "algebra.method.factor_common",
+        "algebra.method.factor_grouping",
+        "eq.method.linear_transpose",
+        "eq.method.linear_eliminate",
+        "eq.method.quadratic_factor",
+        "eq.method.quadratic_complete_square",
+        "eq.formula.quadratic_formula",
+        "ineq.method.sign_chart"
+      ],
+      "指数对数与数列": [
+        "exp.formula.laws",
+        "log.formula.laws",
+        "seq.concept.arithmetic",
+        "seq.formula.arithmetic_general",
+        "seq.formula.arithmetic_sum",
+        "seq.concept.geometric",
+        "seq.formula.geometric_general",
+        "seq.formula.geometric_sum"
+      ]
+    },
+    "图形与几何": {
+      "平面几何": [
+        "geo.concept.angle",
+        "geo.theorem.parallel_angles",
+        "geo.theorem.triangle_sum_180",
+        "geo.theorem.congruence.SSS",
+        "geo.theorem.congruence.SAS",
+        "geo.theorem.congruence.ASA",
+        "geo.theorem.similarity.AA",
+        "geo.theorem.similarity.SAS_ratio",
+        "geo.theorem.similarity.SSS_ratio",
+        "geo.theorem.pythagorean",
+        "circle.theorem.inscribed_angle",
+        "circle.theorem.tangent_radius_perp",
+        "circle.theorem.power_of_point_basic"
+      ],
+      "测量与面积体积": [
+        "measure.formula.perimeter_rect",
+        "measure.formula.area_rect",
+        "measure.formula.area_triangle",
+        "measure.formula.area_parallelogram",
+        "measure.formula.area_trapezoid",
+        "measure.formula.circumference_circle",
+        "measure.formula.area_circle",
+        "solid.formula.volume_cuboid",
+        "solid.formula.volume_prism",
+        "solid.formula.volume_cylinder",
+        "solid.formula.volume_cone"
+      ],
+      "解析几何与向量": [
+        "coord.formula.distance",
+        "coord.formula.midpoint",
+        "coord.formula.slope",
+        "coord.method.line_equations",
+        "conic.concept.circle_equation",
+        "conic.concept.parabola",
+        "vector.concept.vector",
+        "vector.formula.dot_product",
+        "vector.formula.cos_angle"
+      ]
+    },
+    "函数与关系": {
+      "初中函数": [
+        "func.concept.mapping",
+        "func.concept.linear",
+        "func.formula.linear_kb",
+        "func.method.linear_from_two_points",
+        "func.concept.quadratic",
+        "func.formula.quadratic_vertex"
+      ],
+      "高中函数": [
+        "func.concept.domain_range",
+        "func.skill.monotonicity",
+        "func.skill.parity",
+        "func.concept.exponential",
+        "func.concept.logarithmic",
+        "trig.concept.sin_cos_tan",
+        "trig.formula.basic_identities",
+        "trig.formula.addition",
+        "calc.concept.derivative",
+        "calc.formula.derivative_rules",
+        "calc.method.optimize_by_derivative"
+      ]
+    },
+    "统计与概率": {
+      "统计": [
+        "stat.concept.mean",
+        "stat.formula.mean",
+        "stat.concept.variance",
+        "stat.formula.variance",
+        "stat.formula.std",
+        "stat.method.frequency_table"
+      ],
+      "概率": [
+        "counting.formula.add_mul_principle",
+        "counting.formula.permutation",
+        "counting.formula.combination",
+        "prob.formula.addition",
+        "prob.formula.multiplication_independent",
+        "prob.formula.conditional",
+        "rv.concept.random_variable",
+        "rv.concept.expectation",
+        "rv.formula.expectation_discrete",
+        "rv.concept.binomial",
+        "rv.formula.binomial_pmf"
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "id": "arith.properties.commutative_add",
+      "name": "加法交换律",
+      "type": "theorem",
+      "stage": "小学",
+      "grade_band": "小学-第一学段(1-2)",
+      "canonical": [
+        "a + b = b + a"
+      ],
+      "procedure": [
+        "用于凑整、简便计算、检验运算等价变形"
+      ],
+      "prereq": [],
+      "short_name": "加法交换律"
+    },
+    {
+      "id": "arith.properties.commutative_mul",
+      "name": "乘法交换律",
+      "type": "theorem",
+      "stage": "小学",
+      "grade_band": "小学-第一学段(1-2)",
+      "canonical": [
+        "a × b = b × a"
+      ],
+      "procedure": [
+        "用于简便计算与因式调序"
+      ],
+      "prereq": [],
+      "short_name": "乘法交换律"
+    },
+    {
+      "id": "arith.properties.associative_add",
+      "name": "加法结合律",
+      "type": "theorem",
+      "stage": "小学",
+      "grade_band": "小学-第一学段(1-2)",
+      "canonical": [
+        "(a + b) + c = a + (b + c)"
+      ],
+      "procedure": [
+        "配对凑整：先把能凑整的一组括起来"
+      ],
+      "prereq": [],
+      "short_name": "加法结合律"
+    },
+    {
+      "id": "arith.properties.associative_mul",
+      "name": "乘法结合律",
+      "type": "theorem",
+      "stage": "小学",
+      "grade_band": "小学-第二学段(3-4)",
+      "canonical": [
+        "(a × b) × c = a × (b × c)"
+      ],
+      "procedure": [
+        "把方便的因子先乘（如 25×4）"
+      ],
+      "prereq": [
+        "arith.properties.commutative_mul"
+      ],
+      "short_name": "乘法结合律"
+    },
+    {
+      "id": "arith.properties.distributive",
+      "name": "乘法分配律",
+      "type": "theorem",
+      "stage": "小学",
+      "grade_band": "小学-第二学段(3-4)",
+      "canonical": [
+        "a(b + c) = ab + ac",
+        "(a + b)c = ac + bc"
+      ],
+      "procedure": [
+        "简便计算：拆分成易算的两项；代数展开的基础"
+      ],
+      "prereq": [
+        "arith.properties.associative_mul",
+        "arith.properties.associative_add"
+      ],
+      "short_name": "乘法分配律"
+    },
+    {
+      "id": "fraction.concept.value",
+      "name": "分数的意义（整体-部分 / 数轴表示）",
+      "type": "concept",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(5)",
+      "canonical": [
+        "把单位“1”平均分成 b 份，取其中 a 份记为 a/b"
+      ],
+      "procedure": [
+        "能在数轴上定位分数；理解分子分母含义"
+      ],
+      "prereq": [],
+      "short_name": "分数的意义（整体-部分 / 数轴表示）"
+    },
+    {
+      "id": "fraction.formula.equivalent",
+      "name": "等值分数（基本性质）",
+      "type": "theorem",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(5)",
+      "canonical": [
+        "a/b = (a×k)/(b×k)  (k≠0)"
+      ],
+      "procedure": [
+        "通分/约分的理论依据"
+      ],
+      "prereq": [
+        "fraction.concept.value",
+        "arith.properties.commutative_mul"
+      ],
+      "short_name": "等值分数（基本性质）"
+    },
+    {
+      "id": "fraction.method.simplify",
+      "name": "约分（最大公因数法）",
+      "type": "method",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(5)",
+      "canonical": [
+        "a/b → (a÷g)/(b÷g),  g = gcd(a,b)"
+      ],
+      "procedure": [
+        "求 a 与 b 的最大公因数 g",
+        "分子分母同时除以 g",
+        "检验是否为最简分数"
+      ],
+      "prereq": [
+        "fraction.formula.equivalent"
+      ],
+      "short_name": "约分（最大公因数法）"
+    },
+    {
+      "id": "fraction.formula.add_sub_same_den",
+      "name": "同分母分数加减",
+      "type": "formula",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(5)",
+      "canonical": [
+        "a/b ± c/b = (a±c)/b"
+      ],
+      "procedure": [
+        "分母不变，分子相加减"
+      ],
+      "prereq": [
+        "fraction.concept.value"
+      ],
+      "short_name": "同分母分数加减"
+    },
+    {
+      "id": "fraction.formula.add_sub_diff_den",
+      "name": "异分母分数加减（通分法）",
+      "type": "method",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(5)",
+      "canonical": [
+        "a/b ± c/d = (ad ± bc) / bd （或用最小公倍数通分）"
+      ],
+      "procedure": [
+        "求分母的最小公倍数 L",
+        "把各分数化为同分母 L",
+        "按同分母规则加减",
+        "必要时约分"
+      ],
+      "prereq": [
+        "fraction.formula.equivalent",
+        "fraction.formula.add_sub_same_den"
+      ],
+      "short_name": "异分母分数加减（通分法）"
+    },
+    {
+      "id": "fraction.formula.mul",
+      "name": "分数乘法",
+      "type": "formula",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(5-6)",
+      "canonical": [
+        "(a/b)×(c/d) = (ac)/(bd)"
+      ],
+      "procedure": [
+        "能先约分再相乘以简化"
+      ],
+      "prereq": [
+        "fraction.method.simplify"
+      ],
+      "short_name": "分数乘法"
+    },
+    {
+      "id": "fraction.formula.div",
+      "name": "分数除法（乘倒数）",
+      "type": "formula",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(6)",
+      "canonical": [
+        "(a/b)÷(c/d) = (a/b)×(d/c) （c≠0）"
+      ],
+      "procedure": [
+        "先写成乘法再计算；注意除数不为 0"
+      ],
+      "prereq": [
+        "fraction.formula.mul"
+      ],
+      "short_name": "分数除法（乘倒数）"
+    },
+    {
+      "id": "percent.formula.convert",
+      "name": "分数/小数/百分数互化",
+      "type": "skill",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(6)",
+      "canonical": [
+        "p% = p/100 = 0.p（按小数点移动）"
+      ],
+      "procedure": [
+        "百分数→小数：除以100；小数→百分数：乘以100并加%"
+      ],
+      "prereq": [
+        "fraction.concept.value"
+      ],
+      "short_name": "分数/小数/百分数互化"
+    },
+    {
+      "id": "ratio.concept.ratio",
+      "name": "比（ratio）",
+      "type": "concept",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(6)",
+      "canonical": [
+        "a:b = a/b（b≠0）"
+      ],
+      "procedure": [
+        "比的化简：分子分母同除以最大公因数"
+      ],
+      "prereq": [
+        "fraction.method.simplify"
+      ],
+      "short_name": "比（ratio）"
+    },
+    {
+      "id": "ratio.concept.proportion",
+      "name": "比例（proportion）",
+      "type": "concept",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(6)",
+      "canonical": [
+        "a/b = c/d（b,d≠0） ⇔ ad = bc"
+      ],
+      "procedure": [
+        "比例基本性质：内项积=外项积"
+      ],
+      "prereq": [
+        "ratio.concept.ratio",
+        "arith.properties.distributive"
+      ],
+      "short_name": "比例（proportion）"
+    },
+    {
+      "id": "ratio.method.solve_proportion",
+      "name": "解比例（交叉相乘法）",
+      "type": "method",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(6)",
+      "canonical": [
+        "a/b = x/d ⇒ ad = bx ⇒ x = ad/b"
+      ],
+      "procedure": [
+        "写等式→交叉相乘→解未知数→检验"
+      ],
+      "prereq": [
+        "ratio.concept.proportion"
+      ],
+      "short_name": "解比例（交叉相乘法）"
+    },
+    {
+      "id": "algebra.concept.variable_expression",
+      "name": "用字母表示数与代数式",
+      "type": "concept",
+      "stage": "小学",
+      "grade_band": "小学-第三学段(5-6)",
+      "canonical": [
+        "用字母表示未知量/变化量；代数式表示数量关系"
+      ],
+      "procedure": [
+        "从文字关系抽象为式子"
+      ],
+      "prereq": [
+        "arith.properties.distributive"
+      ],
+      "short_name": "用字母表示数与代数式"
+    },
+    {
+      "id": "algebra.formula.expand_distribute",
+      "name": "代数展开（分配律形式）",
+      "type": "method",
+      "stage": "初中",
+      "grade_band": "初一",
+      "canonical": [
+        "k(a+b)=ka+kb"
+      ],
+      "procedure": [
+        "逐项乘；合并同类项"
+      ],
+      "prereq": [
+        "arith.properties.distributive",
+        "algebra.concept.variable_expression"
+      ],
+      "short_name": "代数展开（分配律形式）"
+    },
+    {
+      "id": "algebra.formula.identity.square_sum",
+      "name": "完全平方公式（和的平方）",
+      "type": "formula",
+      "stage": "初中",
+      "grade_band": "初二",
+      "canonical": [
+        "(a+b)^2 = a^2 + 2ab + b^2"
+      ],
+      "procedure": [
+        "展开与因式分解两用"
+      ],
+      "prereq": [
+        "algebra.formula.expand_distribute"
+      ],
+      "short_name": "完全平方公式（和的平方）"
+    },
+    {
+      "id": "algebra.formula.identity.square_diff",
+      "name": "完全平方公式（差的平方）",
+      "type": "formula",
+      "stage": "初中",
+      "grade_band": "初二",
+      "canonical": [
+        "(a-b)^2 = a^2 - 2ab + b^2"
+      ],
+      "procedure": [
+        "配方、化简、证明题常用"
+      ],
+      "prereq": [
+        "algebra.formula.expand_distribute"
+      ],
+      "short_name": "完全平方公式（差的平方）"
+    },
+    {
+      "id": "algebra.formula.identity.diff_squares",
+      "name": "平方差公式",
+      "type": "formula",
+      "stage": "初中",
+      "grade_band": "初二",
+      "canonical": [
+        "a^2 - b^2 = (a-b)(a+b)"
+      ],
+      "procedure": [
+        "因式分解、求值、解方程"
+      ],
+      "prereq": [
+        "algebra.formula.expand_distribute"
+      ],
+      "short_name": "平方差公式"
+    },
+    {
+      "id": "algebra.method.factor_common",
+      "name": "提公因式分解",
+      "type": "method",
+      "stage": "初中",
+      "grade_band": "初二",
+      "canonical": [
+        "ax+ay = a(x+y)"
+      ],
+      "procedure": [
+        "找最大公因式→提出→括号内保持等价"
+      ],
+      "prereq": [
+        "algebra.formula.expand_distribute"
+      ],
+      "short_name": "提公因式分解"
+    },
+    {
+      "id": "eq.method.linear_transpose",
+      "name": "一元一次方程解法（移项/合并同类项）",
+      "type": "method",
+      "stage": "初中",
+      "grade_band": "初一",
+      "canonical": [
+        "ax+b=c ⇒ ax=c-b ⇒ x=(c-b)/a (a≠0)"
+      ],
+      "procedure": [
+        "去括号（如有）",
+        "移项（未知项同侧，常数项同侧）",
+        "合并同类项",
+        "系数化为 1",
+        "检验"
+      ],
+      "prereq": [
+        "algebra.formula.expand_distribute"
+      ],
+      "short_name": "一元一次方程解法（移项/合并同类项）"
+    },
+    {
+      "id": "eq.method.linear_eliminate",
+      "name": "二元一次方程组（代入/消元）",
+      "type": "method",
+      "stage": "初中",
+      "grade_band": "初二",
+      "canonical": [
+        "联立→消去一个未知数→化为一元一次"
+      ],
+      "procedure": [
+        "选代入或加减消元",
+        "化为一元一次方程求解",
+        "回代求另一未知数",
+        "检验并写成有序对"
+      ],
+      "prereq": [
+        "eq.method.linear_transpose"
+      ],
+      "short_name": "二元一次方程组（代入/消元）"
+    },
+    {
+      "id": "eq.method.quadratic_complete_square",
+      "name": "配方法解一元二次方程",
+      "type": "method",
+      "stage": "初中",
+      "grade_band": "初三",
+      "canonical": [
+        "ax^2+bx+c=0 ⇒ (x + b/(2a))^2 = (b^2-4ac)/(4a^2)"
+      ],
+      "procedure": [
+        "两边同除以 a（a≠0）",
+        "把常数项移到右边",
+        "左边补成完全平方（加同一数两边）",
+        "开方求解"
+      ],
+      "prereq": [
+        "algebra.formula.identity.square_sum",
+        "eq.method.linear_transpose"
+      ],
+      "short_name": "配方法解一元二次方程"
+    },
+    {
+      "id": "eq.formula.quadratic_formula",
+      "name": "求根公式",
+      "type": "formula",
+      "stage": "初中",
+      "grade_band": "初三",
+      "canonical": [
+        "x = (-b ± √(b^2-4ac)) / (2a)"
+      ],
+      "procedure": [
+        "先算判别式 Δ=b^2-4ac，再代入"
+      ],
+      "prereq": [
+        "eq.method.quadratic_complete_square"
+      ],
+      "short_name": "求根公式"
+    },
+    {
+      "id": "ineq.method.sign_chart",
+      "name": "一元二次不等式（因式分解 + 符号表）",
+      "type": "method",
+      "stage": "高中",
+      "grade_band": "高一-高二",
+      "canonical": [
+        "(x-x1)(x-x2) > 0 / < 0 的区间解法"
+      ],
+      "procedure": [
+        "化为标准形式 f(x) ? 0",
+        "求零点 x1,x2（若有）",
+        "在数轴上分区间做符号判断",
+        "结合开闭区间与定义域给解集"
+      ],
+      "prereq": [
+        "eq.formula.quadratic_formula",
+        "func.concept.domain_range"
+      ],
+      "short_name": "一元二次不等式（因式分解 + 符号表）"
+    },
+    {
+      "id": "coord.formula.distance",
+      "name": "两点距离公式",
+      "type": "formula",
+      "stage": "初中",
+      "grade_band": "初二-初三",
+      "canonical": [
+        "d = √((x2-x1)^2 + (y2-y1)^2)"
+      ],
+      "procedure": [
+        "坐标几何/解析几何基础"
+      ],
+      "prereq": [
+        "algebra.formula.identity.square_sum"
+      ],
+      "short_name": "两点距离公式"
+    },
+    {
+      "id": "coord.formula.slope",
+      "name": "斜率公式",
+      "type": "formula",
+      "stage": "初中",
+      "grade_band": "初三",
+      "canonical": [
+        "k = (y2-y1)/(x2-x1)（x2≠x1）"
+      ],
+      "procedure": [
+        "直线方向量化；连接一次函数"
+      ],
+      "prereq": [
+        "coord.formula.distance"
+      ],
+      "short_name": "斜率公式"
+    },
+    {
+      "id": "coord.method.line_equations",
+      "name": "直线方程（点斜式/两点式/截距式）",
+      "type": "method",
+      "stage": "高中",
+      "grade_band": "高一-高二",
+      "canonical": [
+        "点斜式：y-y0 = k(x-x0)",
+        "两点式： (y-y1)/(y2-y1) = (x-x1)/(x2-x1)",
+        "截距式： x/a + y/b = 1"
+      ],
+      "procedure": [
+        "确定已知量（点、斜率、截距等）",
+        "选匹配的方程形式",
+        "代入求参数",
+        "必要时化简为一般式"
+      ],
+      "prereq": [
+        "coord.formula.slope",
+        "func.concept.linear"
+      ],
+      "short_name": "直线方程（点斜式/两点式/截距式）"
+    },
+    {
+      "id": "func.concept.linear",
+      "name": "一次函数概念与图像特征",
+      "type": "concept",
+      "stage": "初中",
+      "grade_band": "初三",
+      "canonical": [
+        "y = kx + b（k≠0）为直线；k 决定斜率，b 决定截距"
+      ],
+      "procedure": [
+        "会判断增减性：k>0递增，k<0递减"
+      ],
+      "prereq": [
+        "eq.method.linear_transpose"
+      ],
+      "short_name": "一次函数概念与图像特征"
+    },
+    {
+      "id": "func.formula.linear_kb",
+      "name": "一次函数参数求解（k,b）",
+      "type": "method",
+      "stage": "初中",
+      "grade_band": "初三",
+      "canonical": [
+        "给两点→先求 k，再求 b"
+      ],
+      "procedure": [
+        "k=(y2-y1)/(x2-x1)",
+        "代入 y=kx+b 求 b",
+        "写出函数表达式并验证"
+      ],
+      "prereq": [
+        "coord.formula.slope",
+        "func.concept.linear"
+      ],
+      "short_name": "一次函数参数求解（k,b）"
+    },
+    {
+      "id": "func.concept.quadratic",
+      "name": "二次函数概念与开口/顶点/对称轴",
+      "type": "concept",
+      "stage": "初中",
+      "grade_band": "初三",
+      "canonical": [
+        "y=ax^2+bx+c（a≠0）"
+      ],
+      "procedure": [
+        "会判断开口：a>0向上，a<0向下"
+      ],
+      "prereq": [
+        "eq.formula.quadratic_formula"
+      ],
+      "short_name": "二次函数概念与开口/顶点/对称轴"
+    },
+    {
+      "id": "func.formula.quadratic_vertex",
+      "name": "二次函数顶点公式",
+      "type": "formula",
+      "stage": "初中",
+      "grade_band": "初三",
+      "canonical": [
+        "顶点：(-b/(2a), (4ac-b^2)/(4a))；对称轴：x=-b/(2a)"
+      ],
+      "procedure": [
+        "配方得到顶点式 y=a(x-h)^2+k"
+      ],
+      "prereq": [
+        "eq.method.quadratic_complete_square"
+      ],
+      "short_name": "二次函数顶点公式"
+    },
+    {
+      "id": "exp.formula.laws",
+      "name": "指数运算律",
+      "type": "theorem",
+      "stage": "高中",
+      "grade_band": "高一",
+      "canonical": [
+        "a^m·a^n=a^(m+n)",
+        "a^m/a^n=a^(m-n) (a≠0)",
+        "(a^m)^n=a^(mn)",
+        "(ab)^n=a^n b^n"
+      ],
+      "procedure": [
+        "化简、解指数方程、函数变形基础"
+      ],
+      "prereq": [
+        "arith.properties.commutative_mul"
+      ],
+      "short_name": "指数运算律"
+    },
+    {
+      "id": "log.formula.laws",
+      "name": "对数运算律",
+      "type": "theorem",
+      "stage": "高中",
+      "grade_band": "高一",
+      "canonical": [
+        "log_a(MN)=log_a M + log_a N",
+        "log_a(M/N)=log_a M - log_a N",
+        "log_a(M^k)=k log_a M",
+        "换底：log_a b = (log_c b)/(log_c a)"
+      ],
+      "procedure": [
+        "化简、解对数方程、函数单调性分析常用"
+      ],
+      "prereq": [
+        "exp.formula.laws"
+      ],
+      "short_name": "对数运算律"
+    },
+    {
+      "id": "trig.formula.basic_identities",
+      "name": "三角恒等式（基础）",
+      "type": "theorem",
+      "stage": "高中",
+      "grade_band": "高二",
+      "canonical": [
+        "sin^2 x + cos^2 x = 1",
+        "1 + tan^2 x = 1/cos^2 x"
+      ],
+      "procedure": [
+        "化简、证明、解三角方程"
+      ],
+      "prereq": [
+        "geo.theorem.pythagorean"
+      ],
+      "short_name": "三角恒等式（基础）"
+    },
+    {
+      "id": "trig.formula.addition",
+      "name": "和差角公式",
+      "type": "formula",
+      "stage": "高中",
+      "grade_band": "高二",
+      "canonical": [
+        "sin(α±β)=sinα cosβ ± cosα sinβ",
+        "cos(α±β)=cosα cosβ ∓ sinα sinβ"
+      ],
+      "procedure": [
+        "化简、求值、推导二倍角/半角公式"
+      ],
+      "prereq": [
+        "trig.formula.basic_identities"
+      ],
+      "short_name": "和差角公式"
+    },
+    {
+      "id": "calc.formula.derivative_rules",
+      "name": "导数运算规则（常用）",
+      "type": "theorem",
+      "stage": "高中",
+      "grade_band": "高三",
+      "canonical": [
+        "(c)'=0",
+        "(x^n)'=n x^(n-1)",
+        "(u+v)'=u'+v'",
+        "(uv)'=u'v+uv'",
+        "(u/v)'=(u'v-uv')/v^2",
+        "(e^x)'=e^x",
+        "(a^x)'=a^x ln a",
+        "(ln x)'=1/x",
+        "(sin x)'=cos x",
+        "(cos x)'=-sin x"
+      ],
+      "procedure": [
+        "求导→单调性→极值→最值→切线"
+      ],
+      "prereq": [
+        "func.skill.monotonicity",
+        "log.formula.laws",
+        "exp.formula.laws"
+      ],
+      "short_name": "导数运算规则（常用）"
+    },
+    {
+      "id": "calc.method.optimize_by_derivative",
+      "name": "用导数求函数最值（标准流程）",
+      "type": "method",
+      "stage": "高中",
+      "grade_band": "高三",
+      "canonical": [
+        "在区间上求 f'(x)=0 与不可导点，做符号表判断单调性与极值"
+      ],
+      "procedure": [
+        "确定定义域与研究区间",
+        "求导 f'(x)",
+        "解 f'(x)=0 并找不可导点",
+        "作符号表判断增减",
+        "得到极值并与端点比较得最值"
+      ],
+      "prereq": [
+        "calc.formula.derivative_rules",
+        "func.concept.domain_range"
+      ],
+      "short_name": "用导数求函数最值（标准流程）"
+    },
+    {
+      "id": "stat.formula.mean",
+      "name": "平均数",
+      "type": "formula",
+      "stage": "初中",
+      "grade_band": "初一-初二",
+      "canonical": [
+        "x̄ = (x1 + x2 + ... + xn) / n"
+      ],
+      "procedure": [
+        "能用于描述集中趋势；会处理加权平均"
+      ],
+      "prereq": [
+        "arith.properties.associative_add"
+      ],
+      "short_name": "平均数"
+    },
+    {
+      "id": "stat.formula.variance",
+      "name": "方差（总体/样本表达可分版本）",
+      "type": "formula",
+      "stage": "高中",
+      "grade_band": "高二-高三",
+      "canonical": [
+        "s^2 = (1/n) Σ (xi - x̄)^2"
+      ],
+      "procedure": [
+        "离散程度度量；与标准差联动"
+      ],
+      "prereq": [
+        "stat.formula.mean",
+        "algebra.formula.identity.square_sum"
+      ],
+      "short_name": "方差（总体/样本表达可分版本）"
+    },
+    {
+      "id": "rv.formula.binomial_pmf",
+      "name": "二项分布概率质量函数",
+      "type": "formula",
+      "stage": "高中",
+      "grade_band": "高二-高三",
+      "canonical": [
+        "P(X=k)=C(n,k) p^k (1-p)^(n-k)"
+      ],
+      "procedure": [
+        "独立重复试验的计数概率模型"
+      ],
+      "prereq": [
+        "counting.formula.combination",
+        "prob.formula.multiplication_independent"
+      ],
+      "short_name": "二项分布概率质量函数"
+    },
+    {
+      "id": "number.concept.irrational",
+      "name": "无理数的概念与识别",
+      "type": "concept",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "arith.properties.commutative_add",
+        "arith.properties.commutative_mul",
+        "fraction.concept.value",
+        "fraction.formula.equivalent"
+      ],
+      "short_name": "无理数的概念与识别"
+    },
+    {
+      "id": "geom.formula.herons",
+      "name": "海伦公式（已知三边求三角形面积）",
+      "type": "formula",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "arith.properties.commutative_add",
+        "arith.properties.associative_add",
+        "number.concept.irrational"
+      ],
+      "short_name": "海伦公式（已知三边求三角形面积）"
+    },
+    {
+      "id": "root.concept.equal_roots",
+      "name": "平方根与立方根相等的数",
+      "type": "concept",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "arith.properties.commutative_mul",
+        "arith.properties.associative_mul",
+        "number.concept.irrational"
+      ],
+      "short_name": "平方根与立方根相等的数"
+    },
+    {
+      "id": "root.method.integer_condition",
+      "name": "二次根式为整数的条件",
+      "type": "method",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "exp.formula.laws"
+      ],
+      "short_name": "二次根式为整数的条件"
+    },
+    {
+      "id": "number.method.scientific_notation",
+      "name": "科学记数法",
+      "type": "method",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "科学记数法"
+    },
+    {
+      "id": "eq.theorem.quadratic_discriminant",
+      "name": "一元二次方程根的判别式",
+      "type": "theorem",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "eq.formula.quadratic_formula"
+      ],
+      "short_name": "一元二次方程根的判别式"
+    },
+    {
+      "id": "root.formula.div",
+      "name": "二次根式的除法法则",
+      "type": "formula",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "fraction.method.simplify"
+      ],
+      "short_name": "二次根式的除法法则"
+    },
+    {
+      "id": "root.formula.mul",
+      "name": "二次根式的乘法法则",
+      "type": "formula",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "exp.formula.laws"
+      ],
+      "short_name": "二次根式的乘法法则"
+    },
+    {
+      "id": "root.concept.simplest",
+      "name": "最简二次根式",
+      "type": "concept",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "root.formula.mul",
+        "root.formula.div"
+      ],
+      "short_name": "最简二次根式"
+    },
+    {
+      "id": "eq.method.quadratic_formula",
+      "name": "公式法解一元二次方程",
+      "type": "method",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "eq.formula.quadratic_formula",
+        "eq.theorem.quadratic_discriminant",
+        "root.concept.simplest",
+        "eq.method.linear_transpose"
+      ],
+      "short_name": "公式法解一元二次方程"
+    },
+    {
+      "id": "root.method.rationalize_denominator",
+      "name": "分母有理化",
+      "type": "method",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "root.formula.mul",
+        "algebra.formula.identity.diff_squares"
+      ],
+      "short_name": "分母有理化"
+    },
+    {
+      "id": "eq.theorem.vieta",
+      "name": "韦达定理（根与系数的关系）",
+      "type": "theorem",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "eq.formula.quadratic_formula"
+      ],
+      "short_name": "韦达定理（根与系数的关系）"
+    },
+    {
+      "id": "number.concept.real_numbers",
+      "name": "实数的概念与分类",
+      "type": "concept",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "number.concept.irrational"
+      ],
+      "short_name": "实数的概念与分类"
+    },
+    {
+      "id": "root.formula.sqrt_square",
+      "name": "二次根式的性质（√{a^2}=|a|）",
+      "type": "formula",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "number.concept.real_numbers"
+      ],
+      "short_name": "二次根式的性质（√{a^2}=|a|）"
+    },
+    {
+      "id": "number.theorem.non_negative_sum",
+      "name": "非负数的性质（几个非负数之和为0）",
+      "type": "theorem",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "number.concept.real_numbers",
+        "root.formula.sqrt_square"
+      ],
+      "short_name": "非负数的性质（几个非负数之和为0）"
+    },
+    {
+      "id": "root.concept.square_root",
+      "name": "平方根的概念",
+      "type": "concept",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "平方根的概念"
+    },
+    {
+      "id": "root.method.add_sub",
+      "name": "二次根式的加减",
+      "type": "method",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "root.concept.simplest",
+        "root.method.rationalize_denominator",
+        "arith.properties.distributive"
+      ],
+      "short_name": "二次根式的加减"
+    },
+    {
+      "id": "new.mock.skill",
+      "name": "new.mock.skill",
+      "type": "concept",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "new.mock.skill"
+    },
+    {
+      "id": "geom.theorem.congruence",
+      "name": "全等三角形的判定",
+      "type": "theorem",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [],
+      "short_name": "全等三角形的判定"
+    },
+    {
+      "id": "geom.properties.right_triangle",
+      "name": "直角三角形的性质",
+      "type": "theorem",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "geom.theorem.congruence",
+        "root.concept.square_root"
+      ],
+      "short_name": "直角三角形的性质"
+    },
+    {
+      "id": "geom.properties.equilateral_triangle",
+      "name": "等边三角形的性质",
+      "type": "theorem",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "geom.properties.right_triangle",
+        "geom.theorem.congruence"
+      ],
+      "short_name": "等边三角形的性质"
+    },
+    {
+      "id": "geom.method.construction",
+      "name": "尺规作图",
+      "type": "method",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "geom.theorem.congruence"
+      ],
+      "short_name": "尺规作图"
+    },
+    {
+      "id": "geom.theorem.pythagorean",
+      "name": "勾股定理",
+      "type": "theorem",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "geom.properties.right_triangle",
+        "root.concept.square_root"
+      ],
+      "short_name": "勾股定理"
+    },
+    {
+      "id": "geom.properties.angle_bisector",
+      "name": "角平分线的性质",
+      "type": "theorem",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "geom.properties.right_triangle",
+        "geom.theorem.congruence",
+        "ratio.concept.proportion"
+      ],
+      "short_name": "角平分线的性质"
+    },
+    {
+      "id": "ineq.method.solve_linear",
+      "name": "一元一次不等式的解法",
+      "type": "method",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": [
+        "algebra.concept.variable_expression",
+        "eq.method.linear_transpose",
+        "arith.properties.distributive"
+      ],
+      "short_name": "一元一次不等式的解法"
+    },
+    {
+      "id": "data.mean_median_variance",
+      "name": "data.mean_median_variance",
+      "short_name": "data.mean_median_variance",
+      "type": "concept",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": []
+    },
+    {
+      "id": "function.domain_range.basic",
+      "name": "function.domain_range.basic",
+      "short_name": "function.domain_range.basic",
+      "type": "concept",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": []
+    },
+    {
+      "id": "model.word_problem",
+      "name": "model.word_problem",
+      "short_name": "model.word_problem",
+      "type": "concept",
+      "stage": "",
+      "grade_band": "",
+      "canonical": [],
+      "procedure": [],
+      "prereq": []
+    }
+  ],
+  "dependency_graph": {
+    "arith.properties.associative_mul": [
+      "arith.properties.commutative_mul"
+    ],
+    "arith.properties.distributive": [
+      "arith.properties.associative_mul",
+      "arith.properties.associative_add"
+    ],
+    "fraction.formula.equivalent": [
+      "fraction.concept.value",
+      "arith.properties.commutative_mul"
+    ],
+    "fraction.method.simplify": [
+      "fraction.formula.equivalent"
+    ],
+    "fraction.formula.add_sub_diff_den": [
+      "fraction.formula.equivalent",
+      "fraction.formula.add_sub_same_den"
+    ],
+    "fraction.formula.mul": [
+      "fraction.method.simplify"
+    ],
+    "fraction.formula.div": [
+      "fraction.formula.mul"
+    ],
+    "ratio.concept.ratio": [
+      "fraction.method.simplify"
+    ],
+    "ratio.concept.proportion": [
+      "ratio.concept.ratio",
+      "arith.properties.distributive"
+    ],
+    "ratio.method.solve_proportion": [
+      "ratio.concept.proportion"
+    ],
+    "algebra.formula.expand_distribute": [
+      "arith.properties.distributive",
+      "algebra.concept.variable_expression"
+    ],
+    "algebra.formula.identity.square_sum": [
+      "algebra.formula.expand_distribute"
+    ],
+    "algebra.formula.identity.square_diff": [
+      "algebra.formula.expand_distribute"
+    ],
+    "algebra.formula.identity.diff_squares": [
+      "algebra.formula.expand_distribute"
+    ],
+    "algebra.method.factor_common": [
+      "algebra.formula.expand_distribute"
+    ],
+    "eq.method.linear_transpose": [
+      "algebra.formula.expand_distribute"
+    ],
+    "eq.method.linear_eliminate": [
+      "eq.method.linear_transpose"
+    ],
+    "eq.method.quadratic_complete_square": [
+      "algebra.formula.identity.square_sum",
+      "eq.method.linear_transpose"
+    ],
+    "eq.formula.quadratic_formula": [
+      "eq.method.quadratic_complete_square"
+    ],
+    "coord.formula.distance": [
+      "algebra.formula.identity.square_sum"
+    ],
+    "coord.formula.slope": [
+      "coord.formula.distance"
+    ],
+    "coord.method.line_equations": [
+      "coord.formula.slope",
+      "func.concept.linear"
+    ],
+    "func.formula.linear_kb": [
+      "coord.formula.slope",
+      "func.concept.linear"
+    ],
+    "func.concept.quadratic": [
+      "eq.formula.quadratic_formula"
+    ],
+    "func.formula.quadratic_vertex": [
+      "eq.method.quadratic_complete_square"
+    ],
+    "log.formula.laws": [
+      "exp.formula.laws"
+    ],
+    "trig.formula.basic_identities": [
+      "geo.theorem.pythagorean"
+    ],
+    "trig.formula.addition": [
+      "trig.formula.basic_identities"
+    ],
+    "calc.formula.derivative_rules": [
+      "exp.formula.laws",
+      "log.formula.laws"
+    ],
+    "calc.method.optimize_by_derivative": [
+      "calc.formula.derivative_rules"
+    ],
+    "stat.formula.variance": [
+      "stat.formula.mean",
+      "algebra.formula.identity.square_sum"
+    ],
+    "rv.formula.binomial_pmf": [
+      "counting.formula.combination",
+      "prob.formula.multiplication_independent"
+    ]
+  }
+}

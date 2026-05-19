@@ -1,0 +1,180 @@
+{
+  "question_type_rules": {
+    "choice": {
+      "number_sense": 0.05,
+      "symbol_awareness": 0.04,
+      "reasoning_awareness": 0.03
+    },
+    "blank": {
+      "number_sense": 0.05,
+      "symbol_awareness": 0.08,
+      "operation_ability": 0.08
+    },
+    "solution": {
+      "operation_ability": 0.1,
+      "reasoning_awareness": 0.1,
+      "model_awareness": 0.06,
+      "application_awareness": 0.05
+    },
+    "application": {
+      "model_awareness": 0.1,
+      "application_awareness": 0.12,
+      "innovation_awareness": 0.05
+    },
+    "unknown": {
+      "reasoning_awareness": 0.04
+    }
+  },
+  "skill_tag_rules": [
+    {
+      "pattern": "eq.",
+      "literacy_weights": {
+        "symbol_awareness": 0.12,
+        "operation_ability": 0.14,
+        "reasoning_awareness": 0.05
+      }
+    },
+    {
+      "pattern": "algebra.",
+      "literacy_weights": {
+        "symbol_awareness": 0.1,
+        "operation_ability": 0.12,
+        "number_sense": 0.05
+      }
+    },
+    {
+      "pattern": "geometry.",
+      "literacy_weights": {
+        "geometric_intuition": 0.14,
+        "spatial_concept": 0.09,
+        "reasoning_awareness": 0.1
+      }
+    },
+    {
+      "pattern": "stat.",
+      "literacy_weights": {
+        "data_awareness": 0.16,
+        "number_sense": 0.05,
+        "application_awareness": 0.05
+      }
+    },
+    {
+      "pattern": "probability.",
+      "literacy_weights": {
+        "data_awareness": 0.12,
+        "reasoning_awareness": 0.08
+      }
+    },
+    {
+      "pattern": "function.",
+      "literacy_weights": {
+        "model_awareness": 0.14,
+        "symbol_awareness": 0.08,
+        "application_awareness": 0.06
+      }
+    },
+    {
+      "pattern": "measure.",
+      "literacy_weights": {
+        "measurement_sense": 0.16,
+        "application_awareness": 0.04
+      }
+    },
+    {
+      "pattern": "number.",
+      "literacy_weights": {
+        "number_sense": 0.14,
+        "operation_ability": 0.05
+      }
+    }
+  ],
+  "error_type_penalties": {
+    "concept": {
+      "symbol_awareness": 0.1,
+      "reasoning_awareness": 0.08,
+      "model_awareness": 0.06
+    },
+    "calculation": {
+      "operation_ability": 0.14,
+      "number_sense": 0.08
+    },
+    "reading": {
+      "application_awareness": 0.1,
+      "model_awareness": 0.06,
+      "data_awareness": 0.04
+    },
+    "strategy": {
+      "reasoning_awareness": 0.12,
+      "innovation_awareness": 0.08,
+      "model_awareness": 0.08
+    },
+    "unknown": {
+      "reasoning_awareness": 0.04
+    }
+  },
+  "wrong_step_keyword_penalties": [
+    {
+      "keyword": "移项",
+      "literacy_weights": {
+        "symbol_awareness": 0.12,
+        "operation_ability": 0.08
+      }
+    },
+    {
+      "keyword": "化简",
+      "literacy_weights": {
+        "operation_ability": 0.1,
+        "symbol_awareness": 0.06
+      }
+    },
+    {
+      "keyword": "列式",
+      "literacy_weights": {
+        "model_awareness": 0.12,
+        "application_awareness": 0.08,
+        "symbol_awareness": 0.05
+      }
+    },
+    {
+      "keyword": "计算",
+      "literacy_weights": {
+        "operation_ability": 0.12,
+        "number_sense": 0.06
+      }
+    },
+    {
+      "keyword": "证明",
+      "literacy_weights": {
+        "reasoning_awareness": 0.14,
+        "geometric_intuition": 0.05
+      }
+    },
+    {
+      "keyword": "作图",
+      "literacy_weights": {
+        "geometric_intuition": 0.12,
+        "spatial_concept": 0.08
+      }
+    },
+    {
+      "keyword": "审题",
+      "literacy_weights": {
+        "application_awareness": 0.08,
+        "model_awareness": 0.06
+      }
+    },
+    {
+      "keyword": "统计",
+      "literacy_weights": {
+        "data_awareness": 0.12
+      }
+    },
+    {
+      "keyword": "规律",
+      "literacy_weights": {
+        "model_awareness": 0.08,
+        "innovation_awareness": 0.06
+      }
+    }
+  ]
+}

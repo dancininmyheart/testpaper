@@ -1,0 +1,67 @@
+/* Ant Design 全局覆盖 */
+body {
+  margin: 0;
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #bfbfbf;
+}
+
+/* 步骤条动画 */
+.ant-steps-item-process .ant-steps-item-icon {
+  animation: pulse-step 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-step {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(17, 95, 99, 0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(17, 95, 99, 0); }
+}
+
+/* 进度条过渡 */
+.ant-progress-bg {
+  transition: width 0.6s cubic-bezier(0.08, 0.82, 0.17, 1) !important;
+}
+
+/* 卡片悬停效果 */
+.ant-card-hoverable:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+  transition: all 0.25s ease;
+}
+
+/* 文件拖拽区美化 */
+.ant-upload-drag {
+  border-radius: 8px !important;
+  border: 2px dashed #d9d9d9 !important;
+  transition: border-color 0.3s, background 0.3s;
+}
+.ant-upload-drag:hover {
+  border-color: #115f63 !important;
+  background: #f0f8f8 !important;
+}
+
+/* 表格行悬停 */
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  background: #f7fafa !important;
+}
+
+/* 标签样式微调 */
+.ant-tag {
+  border-radius: 4px;
+  padding: 0 6px;
+  line-height: 20px;
+}

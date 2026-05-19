@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>个人时序分析与班级群体分析</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --line: #dce4f0;
+      --text: #0f2340;
+      --muted: #4f617d;
+      --accent: #1d5dff;
+      --accent-2: #1847bf;
+      --warn: #d9480f;
+      --good: #2b8a3e;
+      --violet: #7c4dff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 5% 0%, #dbeafe 0%, transparent 35%),
+        radial-gradient(circle at 90% 15%, #e0f2fe 0%, transparent 30%),
+        var(--bg);
+    }
+    .wrap {
+      max-width: 1280px;
+      margin: 20px auto 40px;
+      padding: 0 16px;
+      display: grid;
+      gap: 14px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 12px 24px rgba(15, 35, 64, 0.07);
+    }
+    h1, h2, h3 { margin: 0 0 8px; }
+    h2 { font-size: 20px; }
+    h3 { font-size: 16px; }
+    .muted { color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      align-items: center;
+    }
+    .field {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      background: #f3f7ff;
+      border: 1px solid #d4e0f4;
+      border-radius: 9px;
+      padding: 6px 8px;
+    }
+    .field input {
+      width: 92px;
+      border: 1px solid #c5d3ea;
+      border-radius: 6px;
+      padding: 4px 6px;
+      font-size: 13px;
+      color: var(--text);
+      background: #fff;
+    }
+    .field select {
+      min-width: 120px;
+      border: 1px solid #c5d3ea;
+      border-radius: 6px;
+      padding: 4px 6px;
+      font-size: 13px;
+      color: var(--text);
+      background: #fff;
+    }
+    .field input.text {
+      width: 120px;
+    }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 9px 13px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+    }
+    button.ghost {
+      color: #1a4ac7;
+      background: #e8f0ff;
+    }
+    button:disabled { opacity: 0.65; cursor: not-allowed; }
+    .status { font-size: 13px; color: var(--muted); }
+    .status.error { color: #c92a2a; font-weight: 700; }
+    .grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+    }
+    .metric {
+      border: 1px solid #d7e2f7;
+      border-radius: 11px;
+      background: #f7faff;
+      padding: 8px 10px;
+    }
+    .metric .k { font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+    .metric .v { font-size: 19px; font-weight: 800; line-height: 1.2; word-break: break-word; }
+    .row2 {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: start;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    th, td {
+      border: 1px solid #dde6f5;
+      padding: 7px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f2f7ff; }
+    .good { color: var(--good); font-weight: 700; }
+    .warn { color: var(--warn); font-weight: 700; }
+    .violet { color: var(--violet); font-weight: 700; }
+    .empty { color: var(--muted); font-size: 13px; }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      background: #1d5dff;
+    }
+    @media (max-width: 1024px) {
+      .grid { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+      .row2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="card">
+      <h1>个人时序分析 + 班级群体分析</h1>
+      <div class="muted">时序分析聚焦单个学生历史知识点掌握和素养变化；群体分析聚焦班级知识点掌握汇总与整体素养雷达图。</div>
+      <div class="toolbar">
+        <label class="field">随机种子 <input id="seedInput" type="number" value="20260418" /></label>
+        <label class="field">时间点数 <input id="periodInput" type="number" min="6" max="24" value="10" /></label>
+        <label class="field">知识点数 <input id="knowledgeInput" type="number" min="4" max="10" value="6" /></label>
+        <label class="field">班级人数 <input id="studentInput" type="number" min="30" max="300" value="120" /></label>
+        <label class="field">学生ID <input id="studentIdInput" class="text" type="text" value="S001" /></label>
+        <label class="field">班级名 <input id="classInput" class="text" type="text" value="八年级(1)班" /></label>
+        <label class="field">数据源
+          <select id="sourceInput">
+            <option value="analysis_mock">分析页仿真</option>
+            <option value="profile_export_mock">导出格式仿真</option>
+          </select>
+        </label>
+        <button id="genBtn">生成模拟数据</button>
+        <button id="sampleBtn" class="ghost">恢复默认参数</button>
+        <div id="status" class="status">等待生成</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>时序分析（个人）</h2>
+      <div id="temporalSummary" class="empty">暂无数据</div>
+      <div class="row2" style="margin-top: 10px;">
+        <div>
+          <h3>个人总体变化趋势（掌握度 / 素养）</h3>
+          <svg id="personalTrendChart" viewBox="0 0 760 260" width="100%" height="260" role="img" aria-label="personal trend chart"></svg>
+        </div>
+        <div>
+          <h3>最近学习事件</h3>
+          <div id="recentEventTable" class="empty">暂无数据</div>
+        </div>
+      </div>
+      <div class="row2" style="margin-top: 12px;">
+        <div>
+          <h3>历史知识点掌握变化</h3>
+          <div id="knowledgeHistoryTable" class="empty">暂无数据</div>
+        </div>
+        <div>
+          <h3>历史素养维度变化</h3>
+          <div id="literacyHistoryTable" class="empty">暂无数据</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>个人画像（导出格式）</h2>
+      <div id="profileSummary" class="empty">暂无数据</div>
+      <div class="row2" style="margin-top: 10px;">
+        <div>
+          <h3>掌握度画像</h3>
+          <div id="profileMasteryTable" class="empty">暂无数据</div>
+        </div>
+        <div>
+          <h3>错误类型分布</h3>
+          <div id="profileErrorTable" class="empty">暂无数据</div>
+        </div>
+      </div>
+      <div style="margin-top: 12px;">
+        <h3>薄弱点与改进计划</h3>
+        <div id="profileWeaknessTable" class="empty">暂无数据</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>群体分析（班级）</h2>
+      <div id="groupSummary" class="empty">暂无数据</div>
+      <div class="row2" style="margin-top: 10px;">
+        <div>
+          <h3>班级知识点掌握汇总</h3>
+          <div id="classKnowledgeTable" class="empty">暂无数据</div>
+        </div>
+        <div>
+          <h3>整体素养画像雷达图</h3>
+          <svg id="literacyRadarChart" viewBox="0 0 360 360" width="100%" height="340" role="img" aria-label="literacy radar chart"></svg>
+          <div id="radarLegend" class="legend"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (ch) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    })[ch]);
+    const pct = (v) => {
+      const n = Number(v);
+      if (!Number.isFinite(n)) return "-";
+      return `${(n * 100).toFixed(1)}%`;
+    };
+    const fmt = (v, d = 3) => {
+      const n = Number(v);
+      if (!Number.isFinite(n)) return "-";
+      return n.toFixed(d);
+    };
+    function clamp01(v) {
+      const n = Number(v);
+      if (!Number.isFinite(n)) return 0;
+      return Math.max(0, Math.min(1, n));
+    }
+    function levelByScore(score) {
+      const s = Number(score);
+      if (!Number.isFinite(s)) return "-";
+      if (s >= 0.8) return "熟练";
+      if (s >= 0.65) return "稳定";
+      if (s >= 0.5) return "发展中";
+      return "薄弱";
+    }
+    function buildRecentPeriods(count) {
+      const total = Math.max(2, Number(count) || 8);
+      const out = [];
+      const now = new Date();
+      for (let i = total - 1; i >= 0; i -= 1) {
+        const d = new Date(now.getTime() - i * 7 * 24 * 60 * 60 * 1000);
+        const mm = String(d.getMonth() + 1).padStart(2, "0");
+        const dd = String(d.getDate()).padStart(2, "0");
+        out.push(`${mm}-${dd}`);
+      }
+      return out;
+    }
+    function buildLinearSeries(start, end, count) {
+      const n = Math.max(2, Number(count) || 8);
+      const s = clamp01(start);
+      const e = clamp01(end);
+      return Array.from({ length: n }, (_, idx) => {
+        const t = idx / (n - 1);
+        return Number((s + (e - s) * t).toFixed(4));
+      });
+    }
+    function avgSeries(rows) {
+      if (!Array.isArray(rows) || rows.length === 0) return [];
+      const len = rows[0].length;
+      return Array.from({ length: len }, (_, idx) => {
+        const total = rows.reduce((sum, row) => sum + Number(row[idx] || 0), 0);
+        return Number((total / rows.length).toFixed(4));
+      });
+    }
+    function scoreClass(v) {
+      const n = Number(v);
+      if (!Number.isFinite(n)) return "";
+      if (n >= 0.7) return "good";
+      if (n < 0.5) return "warn";
+      return "";
+    }
+    function deltaClass(v) {
+      const n = Number(v);
+      if (!Number.isFinite(n)) return "";
+      return n >= 0 ? "good" : "warn";
+    }
+    function setStatus(text, isError = false) {
+      const el = $("status");
+      el.textContent = text;
+      el.className = isError ? "status error" : "status";
+    }
+    function readParams() {
+      return {
+        seed: Number($("seedInput").value || 0),
+        periods: Number($("periodInput").value || 10),
+        knowledge_points: Number($("knowledgeInput").value || 6),
+        students: Number($("studentInput").value || 120),
+        student_id: $("studentIdInput").value || "S001",
+        class_name: $("classInput").value || "八年级(1)班",
+        data_source: $("sourceInput").value || "analysis_mock",
+      };
+    }
+    function resetDefaults() {
+      $("seedInput").value = "20260418";
+      $("periodInput").value = "10";
+      $("knowledgeInput").value = "6";
+      $("studentInput").value = "120";
+      $("studentIdInput").value = "S001";
+      $("classInput").value = "八年级(1)班";
+      $("sourceInput").value = "analysis_mock";
+    }
+    function convertProfileExportToAnalysis(exportData, params) {
+      const analysisResult = (exportData && exportData.analysis_result) || {};
+      const profile = analysisResult.student_profile || {};
+      const masteryRows = Array.isArray(profile.mastery) ? profile.mastery : [];
+      const weaknesses = Array.isArray(profile.weaknesses) ? profile.weaknesses : [];
+      const errorProfile = (profile && typeof profile.error_profile === "object" && profile.error_profile) || {};
+      const periods = buildRecentPeriods(Math.max(6, Math.min(12, Number(params.periods) || 8)));
+      const takeCount = Math.max(1, Number(params.knowledge_points) || 6);
+      const selectedMastery = masteryRows.slice(0, takeCount);
+
+      const knowledgeHistory = selectedMastery.map((row, idx) => {
+        const current = clamp01(Number(row.value));
+        const start = clamp01(current - (0.06 + (idx % 3) * 0.02));
+        const series = buildLinearSeries(start, current, periods.length);
+        return {
+          knowledge_id: row.skill_id || `skill_${idx + 1}`,
+          knowledge_name: row.skill_id || `skill_${idx + 1}`,
+          periods,
+          series,
+          start_mastery: series[0],
+          current_mastery: series[series.length - 1],
+          delta_mastery: Number((series[series.length - 1] - series[0]).toFixed(4)),
+          level: levelByScore(series[series.length - 1]),
+        };
+      });
+
+      const totalErr =
+        Number(errorProfile.concept || 0) +
+        Number(errorProfile.calculation || 0) +
+        Number(errorProfile.reading || 0) +
+        Number(errorProfile.strategy || 0) +
+        Number(errorProfile.unknown || 0) || 1;
+
+      const logical = clamp01(0.82 - (Number(errorProfile.strategy || 0) / totalErr) * 0.45);
+      const abstraction = clamp01(0.8 - (Number(errorProfile.concept || 0) / totalErr) * 0.45);
+      const computation = clamp01(0.8 - (Number(errorProfile.calculation || 0) / totalErr) * 0.50);
+      const representation = clamp01(0.78 - (Number(errorProfile.reading || 0) / totalErr) * 0.40);
+      const reflection = clamp01(0.68 + (Number(errorProfile.unknown || 0) / totalErr) * 0.10);
+
+      const literacyDef = [
+        ["logical_reasoning", "逻辑推理", logical],
+        ["abstraction", "抽象建模", abstraction],
+        ["computation", "运算规范", computation],
+        ["representation", "表征转化", representation],
+        ["reflection", "反思修正", reflection],
+      ];
+      const literacyHistory = literacyDef.map((item, idx) => {
+        const current = Number(item[2]);
+        const start = clamp01(current - (0.04 + idx * 0.006));
+        const series = buildLinearSeries(start, current, periods.length);
+        return {
+          dimension_id: item[0],
+          dimension_name: item[1],
+          periods,
+          series,
+          start_score: series[0],
+          current_score: series[series.length - 1],
+          delta_score: Number((series[series.length - 1] - series[0]).toFixed(4)),
+        };
+      });
+
+      const overallMastery = avgSeries(knowledgeHistory.map((item) => item.series));
+      const overallLiteracy = avgSeries(literacyHistory.map((item) => item.series));
+      const weakest = knowledgeHistory
+        .slice()
+        .sort((a, b) => Number(a.current_mastery) - Number(b.current_mastery))[0];
+
+      const recentEvents = weaknesses.slice(0, 6).map((item, idx) => {
+        const sid = item.skill_id || `skill_${idx + 1}`;
+        const kh = knowledgeHistory.find((x) => x.knowledge_id === sid) || knowledgeHistory[idx % Math.max(knowledgeHistory.length, 1)];
+        const current = kh ? Number(kh.current_mastery || 0.6) : 0.6;
+        const before = clamp01(current - 0.04);
+        const impact =
+          item.priority === "high"
+            ? -0.04
+            : item.priority === "medium"
+              ? -0.02
+              : -0.01;
+        return {
+          date: periods[Math.max(0, periods.length - 1 - idx)],
+          knowledge_id: sid,
+          knowledge_name: sid,
+          mastery_before: Number(before.toFixed(4)),
+          mastery_after: Number(current.toFixed(4)),
+          literacy_impact: Number(impact.toFixed(4)),
+          note: item.symptom || item.suggestion || "错因归纳与复盘",
+        };
+      });
+
+      const classKnowledge = knowledgeHistory.map((item) => {
+        const avg = clamp01(Number(item.current_mastery) + 0.03);
+        const passRate = clamp01(avg * 0.92 + 0.04);
+        const lowCount = Math.round((1 - avg) * Number(params.students || 120) * 0.55);
+        return {
+          knowledge_id: item.knowledge_id,
+          knowledge_name: item.knowledge_name,
+          avg_mastery: Number(avg.toFixed(4)),
+          pass_rate: Number(passRate.toFixed(4)),
+          low_mastery_count: lowCount,
+          priority: avg < 0.5 ? "高" : avg < 0.65 ? "中" : "低",
+        };
+      }).sort((a, b) => Number(a.avg_mastery) - Number(b.avg_mastery));
+
+      const radarDims = literacyHistory.map((item) => ({
+        dimension_id: item.dimension_id,
+        dimension_name: item.dimension_name,
+        score: Number(item.current_score),
+      }));
+      const classAvgMastery = classKnowledge.length
+        ? Number((classKnowledge.reduce((s, x) => s + Number(x.avg_mastery || 0), 0) / classKnowledge.length).toFixed(4))
+        : 0.6;
+      const classAvgLiteracy = radarDims.length
+        ? Number((radarDims.reduce((s, x) => s + Number(x.score || 0), 0) / radarDims.length).toFixed(4))
+        : 0.62;
+      const riskRate = Number(clamp01(0.08 + (0.65 - classAvgMastery) * 0.5).toFixed(4));
+
+      return {
+        temporal_analysis: {
+          student: {
+            student_id: profile.student_id || params.student_id,
+            name: "模拟学生",
+            class_name: params.class_name,
+          },
+          summary: {
+            window_start: periods[0],
+            window_end: periods[periods.length - 1],
+            mastery_gain: Number((overallMastery[overallMastery.length - 1] - overallMastery[0]).toFixed(4)),
+            literacy_gain: Number((overallLiteracy[overallLiteracy.length - 1] - overallLiteracy[0]).toFixed(4)),
+            knowledge_points_count: knowledgeHistory.length,
+            current_literacy: overallLiteracy[overallLiteracy.length - 1] || 0,
+            weakest_knowledge: weakest ? weakest.knowledge_name : "-",
+            warning_events: weaknesses.filter((w) => w.priority === "high").length,
+          },
+          series: {
+            periods,
+            overall_mastery: overallMastery,
+            overall_literacy: overallLiteracy,
+          },
+          knowledge_history: knowledgeHistory,
+          literacy_history: literacyHistory,
+          recent_events: recentEvents,
+        },
+        group_analysis: {
+          class_profile: {
+            class_id: "CLS-01",
+            class_name: params.class_name,
+            student_count: Number(params.students || 120),
+            avg_mastery: classAvgMastery,
+            avg_literacy: classAvgLiteracy,
+            risk_rate: riskRate,
+            focus_weak_knowledge: classKnowledge.slice(0, 3).map((x) => x.knowledge_name),
+          },
+          knowledge_mastery_overview: classKnowledge,
+          literacy_radar: {
+            dimensions: radarDims,
+          },
+        },
+      };
+    }
+    function renderProfileExport(profile) {
+      if (!profile || typeof profile !== "object") {
+        $("profileSummary").innerHTML = '<div class="empty">当前数据源未提供 student_profile</div>';
+        $("profileMasteryTable").innerHTML = '<div class="empty">暂无数据</div>';
+        $("profileErrorTable").innerHTML = '<div class="empty">暂无数据</div>';
+        $("profileWeaknessTable").innerHTML = '<div class="empty">暂无数据</div>';
+        return;
+      }
+
+      const mastery = Array.isArray(profile.mastery) ? profile.mastery : [];
+      const weaknesses = Array.isArray(profile.weaknesses) ? profile.weaknesses : [];
+      const errorProfile = (profile.error_profile && typeof profile.error_profile === "object") ? profile.error_profile : {};
+
+      $("profileSummary").innerHTML = `
+        <div class="grid">
+          <div class="metric"><div class="k">student_id</div><div class="v">${esc(profile.student_id || "-")}</div></div>
+          <div class="metric"><div class="k">掌握技能数</div><div class="v">${esc(mastery.length)}</div></div>
+          <div class="metric"><div class="k">薄弱点数</div><div class="v warn">${esc(weaknesses.length)}</div></div>
+          <div class="metric"><div class="k">画像总结</div><div class="v" style="font-size:14px;font-weight:600;line-height:1.45;">${esc(profile.summary || "-")}</div></div>
+        </div>
+      `;
+
+      const masteryRows = mastery.map((item) => `
+        <tr>
+          <td>${esc(item.skill_id)}</td>
+          <td class="${scoreClass(item.value)}">${pct(item.value)}</td>
+          <td>${esc(item.reason || "-")}</td>
+        </tr>
+      `).join("");
+      $("profileMasteryTable").innerHTML = `
+        <table>
+          <thead><tr><th>skill_id</th><th>value</th><th>reason</th></tr></thead>
+          <tbody>${masteryRows || '<tr><td colspan="3">暂无</td></tr>'}</tbody>
+        </table>
+      `;
+
+      const errorRows = ["concept", "calculation", "reading", "strategy", "unknown"].map((k) => `
+        <tr>
+          <td>${k}</td>
+          <td>${esc(Number(errorProfile[k] || 0))}</td>
+        </tr>
+      `).join("");
+      $("profileErrorTable").innerHTML = `
+        <table>
+          <thead><tr><th>error_type</th><th>count</th></tr></thead>
+          <tbody>${errorRows}</tbody>
+        </table>
+      `;
+
+      const weaknessRows = weaknesses.map((item) => `
+        <tr>
+          <td>${esc(item.skill_id)}</td>
+          <td class="${item.priority === "high" ? "warn" : ""}">${esc(item.priority || "-")}</td>
+          <td>${esc(item.symptom || "-")}</td>
+          <td>${esc(item.cause || "-")}</td>
+          <td>${esc(Array.isArray(item.improvement_steps) ? item.improvement_steps.join("；") : "-")}</td>
+          <td>${esc(item.practice_plan || "-")}</td>
+          <td>${esc(item.success_criteria || "-")}</td>
+        </tr>
+      `).join("");
+      $("profileWeaknessTable").innerHTML = `
+        <table>
+          <thead><tr><th>skill_id</th><th>priority</th><th>symptom</th><th>cause</th><th>improvement_steps</th><th>practice_plan</th><th>success_criteria</th></tr></thead>
+          <tbody>${weaknessRows || '<tr><td colspan="7">暂无</td></tr>'}</tbody>
+        </table>
+      `;
+    }
+    function renderTemporalSummary(summary, student) {
+      if (!summary || typeof summary !== "object") {
+        $("temporalSummary").innerHTML = '<div class="empty">暂无数据</div>';
+        return;
+      }
+      $("temporalSummary").innerHTML = `
+        <div class="grid">
+          <div class="metric"><div class="k">学生</div><div class="v">${esc((student && student.name) || "-")} (${esc((student && student.student_id) || "-")})</div></div>
+          <div class="metric"><div class="k">时间窗口</div><div class="v">${esc(summary.window_start)} - ${esc(summary.window_end)}</div></div>
+          <div class="metric"><div class="k">掌握度增量</div><div class="v ${deltaClass(summary.mastery_gain)}">${pct(summary.mastery_gain)}</div></div>
+          <div class="metric"><div class="k">素养增量</div><div class="v ${deltaClass(summary.literacy_gain)}">${pct(summary.literacy_gain)}</div></div>
+          <div class="metric"><div class="k">当前知识点数</div><div class="v">${esc(summary.knowledge_points_count)}</div></div>
+          <div class="metric"><div class="k">当前素养均分</div><div class="v ${scoreClass(summary.current_literacy)}">${pct(summary.current_literacy)}</div></div>
+          <div class="metric"><div class="k">薄弱知识点</div><div class="v warn">${esc(summary.weakest_knowledge || "-")}</div></div>
+          <div class="metric"><div class="k">预警事件数</div><div class="v warn">${esc(summary.warning_events || 0)}</div></div>
+        </div>
+      `;
+    }
+    function renderDualLineChart(svgId, periods, seriesA, seriesB, labelA, labelB, colorA, colorB) {
+      const svg = $(svgId);
+      if (!svg || !Array.isArray(periods) || periods.length === 0) {
+        if (svg) svg.innerHTML = "";
+        return;
+      }
+      const width = 760;
+      const height = 260;
+      const left = 44;
+      const right = 18;
+      const top = 16;
+      const bottom = 42;
+      const cw = width - left - right;
+      const ch = height - top - bottom;
+      const xStep = periods.length > 1 ? cw / (periods.length - 1) : 0;
+      const y = (v) => top + (1 - Number(v || 0)) * ch;
+      const points = (arr) => arr.map((v, i) => `${left + i * xStep},${y(v)}`).join(" ");
+
+      const grid = [0, 0.25, 0.5, 0.75, 1].map((t) => {
+        const yy = y(t);
+        return `<line x1="${left}" y1="${yy}" x2="${width - right}" y2="${yy}" stroke="#e6edf9" />
+                <text x="8" y="${yy + 4}" font-size="11" fill="#6b7f9e">${(t * 100).toFixed(0)}%</text>`;
+      }).join("");
+
+      const labels = periods.map((label, idx) => (
+        `<text x="${left + idx * xStep}" y="${height - 16}" text-anchor="middle" font-size="11" fill="#6b7f9e">${esc(label)}</text>`
+      )).join("");
+
+      svg.innerHTML = `
+        <rect x="0" y="0" width="${width}" height="${height}" fill="#fff" />
+        ${grid}
+        <polyline fill="none" stroke="${colorA}" stroke-width="3" points="${points(seriesA || [])}" />
+        <polyline fill="none" stroke="${colorB}" stroke-width="3" stroke-dasharray="5 4" points="${points(seriesB || [])}" />
+        <text x="${left}" y="${top}" font-size="12" fill="${colorA}">${esc(labelA)}</text>
+        <text x="${left + 92}" y="${top}" font-size="12" fill="${colorB}">${esc(labelB)}</text>
+        ${labels}
+      `;
+    }
+    function renderRecentEvents(items) {
+      if (!Array.isArray(items) || items.length === 0) {
+        $("recentEventTable").innerHTML = '<div class="empty">暂无数据</div>';
+        return;
+      }
+      const rows = items.map((x) => `
+        <tr>
+          <td>${esc(x.date)}</td>
+          <td>${esc(x.knowledge_name)}</td>
+          <td>${fmt(x.mastery_before, 3)} -> ${fmt(x.mastery_after, 3)}</td>
+          <td class="${deltaClass(x.literacy_impact)}">${pct(x.literacy_impact)}</td>
+          <td>${esc(x.note)}</td>
+        </tr>
+      `).join("");
+      $("recentEventTable").innerHTML = `
+        <table>
+          <thead><tr><th>日期</th><th>知识点</th><th>掌握度变化</th><th>素养影响</th><th>说明</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+    function renderKnowledgeHistory(items) {
+      if (!Array.isArray(items) || items.length === 0) {
+        $("knowledgeHistoryTable").innerHTML = '<div class="empty">暂无数据</div>';
+        return;
+      }
+      const rows = items.map((x) => `
+        <tr>
+          <td>${esc(x.knowledge_name)}</td>
+          <td>${fmt(x.start_mastery, 3)}</td>
+          <td class="${scoreClass(x.current_mastery)}">${fmt(x.current_mastery, 3)}</td>
+          <td class="${deltaClass(x.delta_mastery)}">${pct(x.delta_mastery)}</td>
+          <td>${esc(x.level)}</td>
+        </tr>
+      `).join("");
+      $("knowledgeHistoryTable").innerHTML = `
+        <table>
+          <thead><tr><th>知识点</th><th>起始</th><th>当前</th><th>变化</th><th>水平</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+    function renderLiteracyHistory(items) {
+      if (!Array.isArray(items) || items.length === 0) {
+        $("literacyHistoryTable").innerHTML = '<div class="empty">暂无数据</div>';
+        return;
+      }
+      const rows = items.map((x) => `
+        <tr>
+          <td>${esc(x.dimension_name)}</td>
+          <td>${fmt(x.start_score, 3)}</td>
+          <td class="${scoreClass(x.current_score)}">${fmt(x.current_score, 3)}</td>
+          <td class="${deltaClass(x.delta_score)}">${pct(x.delta_score)}</td>
+        </tr>
+      `).join("");
+      $("literacyHistoryTable").innerHTML = `
+        <table>
+          <thead><tr><th>素养维度</th><th>起始</th><th>当前</th><th>变化</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+    function renderGroupSummary(profile) {
+      if (!profile || typeof profile !== "object") {
+        $("groupSummary").innerHTML = '<div class="empty">暂无数据</div>';
+        return;
+      }
+      $("groupSummary").innerHTML = `
+        <div class="grid">
+          <div class="metric"><div class="k">班级</div><div class="v">${esc(profile.class_name)} (${esc(profile.class_id)})</div></div>
+          <div class="metric"><div class="k">人数</div><div class="v">${esc(profile.student_count)}</div></div>
+          <div class="metric"><div class="k">班级平均掌握度</div><div class="v ${scoreClass(profile.avg_mastery)}">${pct(profile.avg_mastery)}</div></div>
+          <div class="metric"><div class="k">班级平均素养</div><div class="v ${scoreClass(profile.avg_literacy)}">${pct(profile.avg_literacy)}</div></div>
+          <div class="metric"><div class="k">风险学生占比</div><div class="v warn">${pct(profile.risk_rate)}</div></div>
+          <div class="metric"><div class="k">重点薄弱知识点</div><div class="v warn">${esc((profile.focus_weak_knowledge || []).join(", "))}</div></div>
+        </div>
+      `;
+    }
+    function renderClassKnowledge(items) {
+      if (!Array.isArray(items) || items.length === 0) {
+        $("classKnowledgeTable").innerHTML = '<div class="empty">暂无数据</div>';
+        return;
+      }
+      const rows = items.map((x) => `
+        <tr>
+          <td>${esc(x.knowledge_name)}</td>
+          <td class="${scoreClass(x.avg_mastery)}">${pct(x.avg_mastery)}</td>
+          <td>${pct(x.pass_rate)}</td>
+          <td class="warn">${esc(x.low_mastery_count)}</td>
+          <td>${esc(x.priority)}</td>
+        </tr>
+      `).join("");
+      $("classKnowledgeTable").innerHTML = `
+        <table>
+          <thead><tr><th>知识点</th><th>平均掌握度</th><th>达标率</th><th>低掌握人数</th><th>优先级</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+    function renderLiteracyRadar(radar) {
+      const svg = $("literacyRadarChart");
+      const legend = $("radarLegend");
+      if (!radar || !Array.isArray(radar.dimensions) || radar.dimensions.length < 3) {
+        svg.innerHTML = "";
+        legend.innerHTML = "";
+        return;
+      }
+      const dims = radar.dimensions;
+      const n = dims.length;
+      const cx = 180;
+      const cy = 180;
+      const r = 120;
+      const levels = [0.25, 0.5, 0.75, 1.0];
+      const angle = (idx) => (Math.PI * 2 * idx) / n - Math.PI / 2;
+      const point = (idx, scale) => ({
+        x: cx + Math.cos(angle(idx)) * r * scale,
+        y: cy + Math.sin(angle(idx)) * r * scale,
+      });
+
+      const rings = levels.map((lv) => {
+        const pts = dims.map((_, i) => {
+          const p = point(i, lv);
+          return `${p.x},${p.y}`;
+        }).join(" ");
+        return `<polygon points="${pts}" fill="none" stroke="#dce6f7" stroke-width="1" />`;
+      }).join("");
+
+      const axes = dims.map((d, i) => {
+        const p = point(i, 1);
+        const label = point(i, 1.1);
+        return `
+          <line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="#c9d8f2" stroke-width="1" />
+          <text x="${label.x}" y="${label.y}" font-size="11" fill="#4f617d" text-anchor="middle">${esc(d.dimension_name)}</text>
+        `;
+      }).join("");
+
+      const polyPts = dims.map((d, i) => {
+        const p = point(i, Number(d.score || 0));
+        return `${p.x},${p.y}`;
+      }).join(" ");
+
+      const points = dims.map((d, i) => {
+        const p = point(i, Number(d.score || 0));
+        return `<circle cx="${p.x}" cy="${p.y}" r="3" fill="#1d5dff" />`;
+      }).join("");
+
+      svg.innerHTML = `
+        <rect x="0" y="0" width="360" height="360" fill="#fff" />
+        ${rings}
+        ${axes}
+        <polygon points="${polyPts}" fill="rgba(29,93,255,0.24)" stroke="#1d5dff" stroke-width="2" />
+        ${points}
+      `;
+
+      legend.innerHTML = dims.map((d, idx) => `
+        <span class="legend-item">
+          <span class="dot" style="background:${idx % 2 === 0 ? "#1d5dff" : "#7c4dff"}"></span>
+          ${esc(d.dimension_name)}: <strong>${pct(d.score)}</strong>
+        </span>
+      `).join("");
+    }
+    function renderResult(result) {
+      const temporal = (result && result.temporal_analysis) || {};
+      const group = (result && result.group_analysis) || {};
+      renderTemporalSummary(temporal.summary || {}, temporal.student || {});
+      renderDualLineChart(
+        "personalTrendChart",
+        (temporal.series && temporal.series.periods) || [],
+        (temporal.series && temporal.series.overall_mastery) || [],
+        (temporal.series && temporal.series.overall_literacy) || [],
+        "总体知识掌握",
+        "总体素养",
+        "#1d5dff",
+        "#7c4dff"
+      );
+      renderRecentEvents(temporal.recent_events || []);
+      renderKnowledgeHistory(temporal.knowledge_history || []);
+      renderLiteracyHistory(temporal.literacy_history || []);
+      renderGroupSummary(group.class_profile || {});
+      renderClassKnowledge(group.knowledge_mastery_overview || []);
+      renderLiteracyRadar(group.literacy_radar || {});
+    }
+    async function generateData() {
+      const btn = $("genBtn");
+      btn.disabled = true;
+      setStatus("生成中...");
+      try {
+        const params = readParams();
+        if (params.data_source === "profile_export_mock") {
+          const resp = await fetch("/api/demo/profile/mock-export", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              seed: params.seed,
+              student_id: params.student_id,
+              input_mode: "paper_answer_sheet",
+              question_count: 27,
+              paper_image_count: 4,
+            }),
+          });
+          const exportData = await resp.json();
+          if (!resp.ok || !exportData.analysis_result) {
+            throw new Error((exportData && (exportData.error || exportData.detail)) || `HTTP ${resp.status}`);
+          }
+          const converted = convertProfileExportToAnalysis(exportData, params);
+          renderResult(converted);
+          renderProfileExport(exportData.analysis_result.student_profile || null);
+          setStatus(`已生成（导出格式），时间 ${new Date().toLocaleTimeString()}`);
+        } else {
+          const resp = await fetch("/api/demo/analysis/mock", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(params),
+          });
+          const data = await resp.json();
+          if (!resp.ok || !data.ok) {
+            throw new Error((data && (data.error || data.detail)) || `HTTP ${resp.status}`);
+          }
+          renderResult(data.result || {});
+          renderProfileExport(null);
+          setStatus(`已生成（分析页仿真），时间 ${new Date().toLocaleTimeString()}`);
+        }
+      } catch (err) {
+        renderResult({});
+        renderProfileExport(null);
+        setStatus(err.message || String(err), true);
+      } finally {
+        btn.disabled = false;
+      }
+    }
+    $("genBtn").addEventListener("click", generateData);
+    $("sampleBtn").addEventListener("click", () => {
+      resetDefaults();
+      setStatus("已恢复默认参数");
+    });
+    $("sourceInput").addEventListener("change", () => {
+      setStatus(`已切换数据源：${$("sourceInput").value}`);
+    });
+    generateData();
+  </script>
+</body>
+</html>

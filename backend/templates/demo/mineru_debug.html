@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MinerU 管线调试台</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Microsoft YaHei","PingFang SC",sans-serif; background: #f0f2f5; color: #1a1a2e; padding: 20px; }
+  h1 { font-size: 20px; margin-bottom: 16px; color: #115f63; }
+  h2 { font-size: 15px; margin-bottom: 8px; color: #333; }
+  h3 { font-size: 13px; margin-bottom: 6px; color: #555; }
+
+  .layout { display: flex; gap: 16px; max-width: 1400px; margin: 0 auto; }
+  .sidebar { width: 260px; flex-shrink: 0; }
+  .main { flex: 1; min-width: 0; }
+
+  .card { background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+  .project-item { padding: 8px 10px; cursor: pointer; border-radius: 6px; margin-bottom: 4px; font-size: 13px; }
+  .project-item:hover { background: #e6f7ff; }
+  .project-item.active { background: #115f63; color: #fff; }
+
+  .btn { padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; margin-right: 6px; }
+  .btn-primary { background: #115f63; color: #fff; }
+  .btn-secondary { background: #e8e8e8; color: #333; }
+  .btn-danger { background: #ff4d4f; color: #fff; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+  .btn:hover:not(:disabled) { opacity: 0.85; }
+
+  .step-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+  .step-status { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
+  .step-status.pending { background: #f0f0f0; color: #999; }
+  .step-status.done { background: #52c41a; color: #fff; }
+  .step-status.fail { background: #ff4d4f; color: #fff; }
+  .step-status.running { background: #1677ff; color: #fff; }
+
+  .result-box { background: #f6f8fa; border: 1px solid #e8e8e8; border-radius: 6px; padding: 12px; margin-top: 8px; font-size: 13px; max-height: 400px; overflow: auto; display: none; }
+  .result-box.open { display: block; }
+  .result-box pre { white-space: pre-wrap; word-break: break-word; font-family: "Cascadia Code","Fira Code",monospace; font-size: 12px; line-height: 1.6; margin: 0; }
+
+  .text-preview { background: #f6f8fa; border: 1px solid #e8e8e8; border-radius: 6px; padding: 12px; margin-top: 8px; font-size: 13px; line-height: 1.8; white-space: pre-wrap; max-height: 500px; overflow: auto; display: none; }
+  .text-preview.open { display: block; }
+
+  .badge { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11px; margin-left: 6px; }
+  .badge-green { background: #f6ffed; color: #52c41a; border: 1px solid #b7eb8f; }
+  .badge-red { background: #fff2f0; color: #ff4d4f; border: 1px solid #ffccc7; }
+  .badge-blue { background: #e6f7ff; color: #1677ff; border: 1px solid #91d5ff; }
+
+  .step-list { list-style: none; padding: 0; }
+  .step-list li { padding: 6px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+
+  .tabs { display: flex; gap: 0; margin-bottom: 12px; border-bottom: 2px solid #e8e8e8; }
+  .tab { padding: 8px 20px; cursor: pointer; font-size: 13px; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .tab.active { border-bottom-color: #115f63; color: #115f63; font-weight: 600; }
+
+  .loading { display: inline-block; width: 14px; height: 14px; border: 2px solid #e8e8e8; border-top-color: #115f63; border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(120px,1fr)); gap: 8px; margin: 8px 0; }
+  .stat-card { background: #fafafa; border-radius: 6px; padding: 10px; text-align: center; }
+  .stat-card .num { font-size: 22px; font-weight: 700; color: #115f63; }
+  .stat-card .label { font-size: 11px; color: #999; margin-top: 2px; }
+
+  .question-item { border: 1px solid #e8e8e8; border-radius: 6px; padding: 10px; margin-bottom: 8px; }
+  .question-item .qid { font-weight: 600; color: #115f63; }
+  .question-item .meta { color: #999; font-size: 12px; margin-left: 8px; }
+  .question-item .content { margin-top: 4px; font-size: 13px; white-space: pre-wrap; }
+  .question-item .images { margin-top: 4px; display: flex; gap: 4px; flex-wrap: wrap; }
+  .question-item .images img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #e8e8e8; cursor: pointer; }
+  .question-item .images img:hover { border-color: #115f63; }
+</style>
+</head>
+<body>
+
+<h1>🧪 MinerU 管线调试台</h1>
+
+<!-- Login bar -->
+<div class="card" id="login-card" style="margin-bottom:12px;padding:10px 16px;display:flex;align-items:center;gap:10px">
+  <span style="font-size:13px;color:#666">认证：</span>
+  <input id="login-user" value="teacher" style="width:100px;padding:4px 8px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px">
+  <input id="login-pass" type="password" value="teacher123" style="width:120px;padding:4px 8px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px">
+  <button class="btn btn-primary" onclick="doLogin()">登录</button>
+  <span id="login-status" style="font-size:12px;color:#999">未登录</span>
+</div>
+
+<div class="layout">
+  <!-- Sidebar: project list -->
+  <div class="sidebar">
+    <div class="card">
+      <h2>试卷项目</h2>
+      <div style="margin-bottom:8px">
+        <button class="btn btn-secondary" onclick="loadProjects()">🔄 刷新</button>
+      </div>
+      <div id="project-list"></div>
+    </div>
+    <div class="card" id="state-card" style="display:none">
+      <h2>当前状态</h2>
+      <div id="state-indicators"></div>
+    </div>
+  </div>
+
+  <!-- Main: test panel -->
+  <div class="main">
+    <div id="no-project" class="card" style="text-align:center;padding:60px 20px">
+      <p style="color:#999;font-size:14px">在左侧选择一个项目开始调试</p>
+    </div>
+
+    <div id="project-panel" style="display:none">
+      <!-- Project info -->
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <h2 id="proj-title" style="margin:0;display:inline"></h2>
+            <span id="proj-status" class="badge badge-blue" style="margin-left:8px"></span>
+          </div>
+          <div>
+            <span id="proj-files" style="font-size:12px;color:#999"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 1: MinerU Parse -->
+      <div class="card" id="step1-card">
+        <div class="step-row">
+          <div class="step-status pending" id="step1-status">1</div>
+          <div style="flex:1">
+            <strong>Step 1: MinerU 解析</strong>
+            <span style="font-size:12px;color:#999;margin-left:8px">POST /mineru/parse</span>
+          </div>
+          <button class="btn btn-primary" id="step1-btn" onclick="runStep1()">▶ 执行</button>
+          <button class="btn btn-secondary" id="step1-view-btn" style="display:none" onclick="toggleResult('step1')">📄 查看结果</button>
+        </div>
+        <div id="step1-summary" style="font-size:13px;color:#666;margin-top:4px"></div>
+        <div class="result-box" id="step1-result"></div>
+      </div>
+
+      <!-- Step 1b: View MinerU text -->
+      <div class="card" id="step1b-card" style="display:none">
+        <div class="step-row">
+          <strong>查看 MinerU 原始文本</strong>
+          <span style="font-size:12px;color:#999">GET /mineru/page-text?page=</span>
+          <input id="page-input" type="number" value="0" min="0" style="width:60px;padding:4px;border:1px solid #d9d9d9;border-radius:4px">
+          <button class="btn btn-secondary" onclick="viewPageText()">查看</button>
+        </div>
+        <div class="text-preview" id="page-text-area"></div>
+      </div>
+
+      <!-- Step 2: LLM Parse -->
+      <div class="card" id="step2-card" style="opacity:0.4">
+        <div class="step-row">
+          <div class="step-status pending" id="step2-status">2</div>
+          <div style="flex:1">
+            <strong>Step 2: LLM 整理题目</strong>
+            <span style="font-size:12px;color:#999;margin-left:8px">POST /mineru/llm-parse</span>
+          </div>
+          <button class="btn btn-primary" id="step2-btn" onclick="runStep2()" disabled>▶ 执行</button>
+          <button class="btn btn-secondary" id="step2-view-btn" style="display:none" onclick="toggleResult('step2')">📄 查看题目</button>
+        </div>
+        <div id="step2-summary" style="font-size:13px;color:#666;margin-top:4px"></div>
+        <div class="result-box" id="step2-result"></div>
+      </div>
+
+      <!-- Step 3: VLM Match -->
+      <div class="card" id="step3-card" style="opacity:0.4">
+        <div class="step-row">
+          <div class="step-status pending" id="step3-status">3</div>
+          <div style="flex:1">
+            <strong>Step 3: VLM 配图匹配</strong>
+            <span style="font-size:12px;color:#999;margin-left:8px">POST /mineru/vlm-match</span>
+          </div>
+          <button class="btn btn-primary" id="step3-btn" onclick="runStep3()" disabled>▶ 执行</button>
+          <button class="btn btn-secondary" id="step3-view-btn" style="display:none" onclick="toggleResult('step3')">📄 查看匹配</button>
+        </div>
+        <div id="step3-summary" style="font-size:13px;color:#666;margin-top:4px"></div>
+        <div class="result-box" id="step3-result"></div>
+      </div>
+
+      <!-- Step 4: Save -->
+      <div class="card" id="step4-card" style="opacity:0.4">
+        <div class="step-row">
+          <div class="step-status pending" id="step4-status">4</div>
+          <div style="flex:1">
+            <strong>Step 4: 保存结果</strong>
+            <span style="font-size:12px;color:#999;margin-left:8px">POST /mineru/save</span>
+          </div>
+          <button class="btn btn-primary" id="step4-btn" onclick="runStep4()" disabled>▶ 执行</button>
+          <button class="btn btn-secondary" id="step4-view-btn" style="display:none" onclick="toggleResult('step4')">📄 查看结果</button>
+        </div>
+        <div id="step4-summary" style="font-size:13px;color:#666;margin-top:4px"></div>
+        <div class="result-box" id="step4-result"></div>
+      </div>
+
+      <!-- Questions display -->
+      <div class="card" id="questions-card" style="display:none">
+        <h2>解析出的题目</h2>
+        <div id="questions-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentProjectId = null;
+let stepResults = {};
+let authToken = localStorage.getItem('mineru_debug_token') || '';
+
+async function api(method, url, body) {
+  const headers = {};
+  const isAuth = url.includes('/auth/login');
+  if (!isAuth && authToken) {
+    headers['Authorization'] = `Bearer ${authToken}`;
+  }
+  if (body) {
+    headers['Content-Type'] = 'application/json';
+  }
+  const resp = await fetch(url, { method, headers, body: body ? JSON.stringify(body) : undefined });
+  const raw = await resp.json();
+  if (!resp.ok) {
+    const msg = raw?.error?.message || raw?.message || `HTTP ${resp.status}`;
+    throw new Error(msg);
+  }
+  return raw.data !== undefined ? raw.data : raw;
+}
+
+async function doLogin() {
+  const user = document.getElementById('login-user').value;
+  const pass = document.getElementById('login-pass').value;
+  const statusEl = document.getElementById('login-status');
+  statusEl.textContent = '登录中...';
+  try {
+    const data = await api('POST', '/api/v1/auth/login', { username: user, password: pass });
+    authToken = data.token;
+    localStorage.setItem('mineru_debug_token', authToken);
+    statusEl.textContent = `✅ 已登录 (${data.user?.username || user})`;
+    document.getElementById('login-card').style.background = '#f6ffed';
+    loadProjects();
+  } catch (e) {
+    statusEl.textContent = `❌ 登录失败: ${e.message}`;
+  }
+}
+
+async function loadProjects() {
+  const el = document.getElementById('project-list');
+  el.innerHTML = '<span class="loading"></span> 加载中...';
+  try {
+    const resp = await fetch('/api/v1/paper-projects?limit=50');
+    const data = await resp.json();
+    const projects = data.data?.items || [];
+    el.innerHTML = projects.length === 0 ? '<p style="color:#999;font-size:13px">暂无项目</p>' : '';
+    for (const p of projects) {
+      const d = document.createElement('div');
+      d.className = 'project-item' + (p.project_id === currentProjectId ? ' active' : '');
+      d.textContent = `${p.title} (${p.status})`;
+      d.onclick = () => selectProject(p.project_id);
+      el.appendChild(d);
+    }
+  } catch (e) {
+    el.innerHTML = `<p style="color:#ff4d4f">加载失败: ${e.message}</p>`;
+  }
+}
+
+async function selectProject(id) {
+  currentProjectId = id;
+  document.getElementById('no-project').style.display = 'none';
+  document.getElementById('project-panel').style.display = 'block';
+  // Highlight in sidebar
+  document.querySelectorAll('.project-item').forEach(el => el.classList.remove('active'));
+  document.querySelector(`.project-item:nth-child(${document.querySelectorAll('.project-item').length > 0 ? 1 : 0})`)?.classList.remove('active');
+  // Just re-select visually by reloading
+  loadProjects();
+  await loadProjectDetail();
+  resetSteps();
+}
+
+async function loadProjectDetail() {
+  try {
+    const resp = await fetch(`/api/v1/paper-projects/${currentProjectId}`);
+    const data = await resp.json();
+    const p = data.data;
+    document.getElementById('proj-title').textContent = p.title;
+    document.getElementById('proj-status').textContent = p.status;
+    document.getElementById('proj-files').textContent = `题目: ${p.question_count || 0} | 学生: ${p.student_count || 0}`;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function resetSteps() {
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById(`step${i}-status`).className = 'step-status pending';
+    document.getElementById(`step${i}-status`).textContent = i;
+    document.getElementById(`step${i}-btn`).disabled = i > 1;
+    document.getElementById(`step${i}-card`).style.opacity = i > 1 ? '0.4' : '1';
+    document.getElementById(`step${i}-view-btn`).style.display = 'none';
+    document.getElementById(`step${i}-result`).className = 'result-box';
+    document.getElementById(`step${i}-result`).innerHTML = '';
+    document.getElementById(`step${i}-summary`).textContent = '';
+  }
+  document.getElementById('step1b-card').style.display = 'none';
+  document.getElementById('questions-card').style.display = 'none';
+  stepResults = {};
+  // Enable step 1
+  document.getElementById('step2-btn').disabled = true;
+  document.getElementById('step3-btn').disabled = true;
+  document.getElementById('step4-btn').disabled = true;
+}
+
+function toggleResult(step) {
+  const el = document.getElementById(`${step}-result`);
+  el.classList.toggle('open');
+}
+
+function showResult(step, data) {
+  stepResults[step] = data;
+  const el = document.getElementById(`${step}-result`);
+  el.innerHTML = `<pre>${escapeHtml(JSON.stringify(data, null, 2))}</pre>`;
+  el.classList.add('open');
+  document.getElementById(`${step}-view-btn`).style.display = 'inline-block';
+}
+
+function setStepDone(step, summary) {
+  const statusEl = document.getElementById(`step${step}-status`);
+  statusEl.className = 'step-status done';
+  statusEl.textContent = '✓';
+  document.getElementById(`step${step}-summary`).textContent = summary;
+  // Enable next step
+  if (step < 4) {
+    document.getElementById(`step${step + 1}-btn`).disabled = false;
+    document.getElementById(`step${step + 1}-card`).style.opacity = '1';
+  }
+}
+
+function setStepFail(step, err) {
+  const statusEl = document.getElementById(`step${step}-status`);
+  statusEl.className = 'step-status fail';
+  statusEl.textContent = '✗';
+  document.getElementById(`step${step}-summary`).textContent = `❌ ${err}`;
+  document.getElementById(`step${step}-btn`).disabled = false;
+}
+
+async function runStep1() {
+  const btn = document.getElementById('step1-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span> 执行中...';
+  setStepDone(1, ''); // reset
+  document.getElementById('step1-status').className = 'step-status running';
+  document.getElementById('step1-status').textContent = '⋯';
+  try {
+    const data = await api('POST', `/api/v1/paper-projects/${currentProjectId}/mineru/parse`);
+    showResult('step1', data);
+    document.getElementById('step1b-card').style.display = 'block';
+    const pages = data.pages || [];
+    const totalImages = pages.reduce((s, p) => s + (p.image_count || 0), 0);
+    setStepDone(1, `✅ ${pages.length} 页处理完成, ${totalImages} 张配图`);
+    // Show page text for page 0 by default
+    viewPageText();
+  } catch (e) {
+    setStepFail(1, e.message);
+  } finally {
+    btn.innerHTML = '▶ 执行';
+  }
+}
+
+async function viewPageText() {
+  const pageIdx = document.getElementById('page-input').value;
+  const el = document.getElementById('page-text-area');
+  try {
+    const resp = await fetch(`/api/v1/paper-projects/${currentProjectId}/mineru/page-text?page=${pageIdx}`);
+    const raw = await resp.json();
+    const data = raw.data || raw;
+    el.textContent = `--- 第 ${data.page_index} 页 ---\n配图: ${(data.image_names || []).join(', ') || '无'}\n\n${data.full_text || '(空)'}`;
+  } catch (e) {
+    el.textContent = `获取失败: ${e.message}`;
+  }
+  el.classList.add('open');
+}
+
+async function runStep2() {
+  const btn = document.getElementById('step2-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span> 执行中...';
+  document.getElementById('step2-status').className = 'step-status running';
+  document.getElementById('step2-status').textContent = '⋯';
+  try {
+    const data = await api('POST', `/api/v1/paper-projects/${currentProjectId}/mineru/llm-parse`);
+    showResult('step2', data);
+
+    // Show parsed questions in a nice format
+    const qs = data.questions || [];
+    const qContainer = document.getElementById('questions-list');
+    qContainer.innerHTML = '';
+    for (const q of qs) {
+      const div = document.createElement('div');
+      div.className = 'question-item';
+      div.innerHTML = `
+        <div>
+          <span class="qid">${escapeHtml(q.question_id || '?')}</span>
+          <span class="meta">${escapeHtml(q.question_type || '')} | 满分: ${q.max_score ?? '-'} | 第 ${q.page_index ?? 0} 页</span>
+        </div>
+        <div class="content">${escapeHtml(q.content || '')}</div>
+        ${q.images_on_page?.length ? `<div class="images"><span style="font-size:12px;color:#999">候选配图: ${q.images_on_page.join(', ')}</span></div>` : ''}
+      `;
+      qContainer.appendChild(div);
+    }
+    document.getElementById('questions-card').style.display = 'block';
+    setStepDone(2, `✅ ${qs.length} 道题`);
+  } catch (e) {
+    setStepFail(2, e.message);
+  } finally {
+    btn.innerHTML = '▶ 执行';
+  }
+}
+
+async function runStep3() {
+  const btn = document.getElementById('step3-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span> 执行中...';
+  document.getElementById('step3-status').className = 'step-status running';
+  document.getElementById('step3-status').textContent = '⋯';
+  try {
+    const data = await api('POST', `/api/v1/paper-projects/${currentProjectId}/mineru/vlm-match`);
+    showResult('step3', data);
+
+    // Update questions display with match results
+    const results = data.results || [];
+    const qContainer = document.getElementById('questions-list');
+    const items = qContainer.querySelectorAll('.question-item');
+    for (const r of results) {
+      for (const item of items) {
+        if (item.querySelector('.qid')?.textContent === r.question_id) {
+          const imgDiv = item.querySelector('.images');
+          if (imgDiv) {
+            const names = r.matched_images || [];
+            imgDiv.innerHTML = `<span style="font-size:12px;color:#115f63;font-weight:600">匹配配图: ${names.join(', ') || '无'}</span>`;
+          }
+        }
+      }
+    }
+    setStepDone(3, `✅ ${data.matched_count} 题匹配到配图`);
+  } catch (e) {
+    setStepFail(3, e.message);
+  } finally {
+    btn.innerHTML = '▶ 执行';
+  }
+}
+
+async function runStep4() {
+  const btn = document.getElementById('step4-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span> 执行中...';
+  document.getElementById('step4-status').className = 'step-status running';
+  document.getElementById('step4-status').textContent = '⋯';
+  try {
+    const data = await api('POST', `/api/v1/paper-projects/${currentProjectId}/mineru/save`);
+    showResult('step4', data);
+    setStepDone(4, `✅ ${data.question_count} 题, ${data.total_images} 张配图已保存`);
+    loadProjectDetail();
+    loadProjects();
+  } catch (e) {
+    setStepFail(4, e.message);
+  } finally {
+    btn.innerHTML = '▶ 执行';
+  }
+}
+
+function escapeHtml(text) {
+  if (text == null) return '';
+  const d = document.createElement('div');
+  d.textContent = String(text);
+  return d.innerHTML;
+}
+
+// Init
+loadProjects();
+</script>
+</body>
+</html>

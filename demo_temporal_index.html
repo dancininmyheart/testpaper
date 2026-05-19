@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>增量学生画像 Demo</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --line: #d9e2ef;
+      --ink: #11203b;
+      --muted: #50607a;
+      --accent: #165dff;
+      --accent-2: #0e42ba;
+      --danger: #c92a2a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 0% 0%, #dbeafe 0%, transparent 35%),
+        radial-gradient(circle at 100% 10%, #e0f2fe 0%, transparent 30%),
+        var(--bg);
+    }
+
+    .wrap {
+      max-width: 1160px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--card);
+      box-shadow: 0 10px 26px rgba(17, 32, 59, 0.08);
+      padding: 16px;
+    }
+
+    h1, h2 { margin: 0 0 10px; }
+    .muted { color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    textarea {
+      width: 100%;
+      min-height: 260px;
+      border: 1px solid #c7d4e7;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.45;
+      font-family: Consolas, "Courier New", monospace;
+      resize: vertical;
+      color: var(--ink);
+      background: #fbfdff;
+    }
+
+    .toolbar {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(125deg, var(--accent), var(--accent-2));
+    }
+
+    button.ghost {
+      color: var(--accent-2);
+      background: #e8f0ff;
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .status {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .status.error {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .summary-grid { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
+    }
+
+    .metric {
+      border: 1px solid #dae5fa;
+      border-radius: 12px;
+      background: #f8fbff;
+      padding: 10px 12px;
+    }
+
+    .metric .k {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .metric .v {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      border: 1px solid #dbe4f2;
+      padding: 7px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f2f7ff;
+      font-weight: 700;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="card">
+      <h1>增量学生画像 Demo</h1>
+      <div class="muted">
+        本页替换原时序实验：提交 <code>records[]</code> 事件记录，后端直接更新 <code>mastery.db</code>，返回最新掌握度向量与最近证据链。
+      </div>
+      <div class="muted" style="margin-top:4px;">
+        原主页面保持在 <code>/</code>，当前页面地址 <code>/temporal</code>。
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>输入记录</h2>
+      <textarea id="payloadInput"></textarea>
+      <div class="toolbar">
+        <button id="runBtn">提交并更新画像</button>
+        <button id="sampleBtn" class="ghost">填充示例</button>
+        <div id="status" class="status">等待提交</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>更新统计</h2>
+      <div id="summaryOut" class="empty">暂无数据</div>
+    </section>
+
+    <section class="card">
+      <h2>当前掌握度向量</h2>
+      <div id="skillsOut" class="empty">暂无数据</div>
+    </section>
+
+    <section class="card">
+      <h2>最近变更原因</h2>
+      <div id="recentOut" class="empty">暂无数据</div>
+    </section>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (ch) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[ch]);
+    }
+
+    function fmtNum(value, digits = 4) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return "-";
+      return n.toFixed(digits);
+    }
+
+    function setStatus(text, isError = false) {
+      const el = $("status");
+      el.textContent = text;
+      el.className = isError ? "status error" : "status";
+    }
+
+    function defaultPayload() {
+      return {
+        records: [
+          {
+            student_id: "S001",
+            timestamp: "2026-03-01T09:30:00+08:00",
+            problem_id: "Q-1001",
+            source_type: "exam",
+            source_id: "paper-midterm-01",
+            score: 4,
+            max_score: 10,
+            evidence: {
+              skill_tags: ["eq.method.linear_transpose"],
+              error_type: "concept",
+              method_correctness: 0.35,
+              solution_completeness: 0.45,
+              confidence: 0.82,
+              notes: "concept not stable",
+            },
+          },
+          {
+            student_id: "S001",
+            timestamp: "2026-03-15T10:05:00+08:00",
+            problem_id: "Q-1002",
+            source_type: "practice",
+            source_id: "practice-set-13",
+            score: 8,
+            max_score: 10,
+            evidence: {
+              skill_tags: ["eq.method.linear_transpose"],
+              error_type: "calculation",
+              method_correctness: 0.75,
+              solution_completeness: 0.8,
+              confidence: 0.86,
+              notes: "improved but still calculation slip",
+            },
+          },
+        ],
+      };
+    }
+
+    function renderSummary(result) {
+      if (!result || typeof result !== "object") {
+        $("summaryOut").innerHTML = '<div class="empty">暂无数据</div>';
+        return;
+      }
+      const html = `
+        <div class="summary-grid">
+          <div class="metric"><div class="k">student_id</div><div class="v">${esc(result.student_id)}</div></div>
+          <div class="metric"><div class="k">records_in</div><div class="v">${esc(result.records_in)}</div></div>
+          <div class="metric"><div class="k">updates_applied</div><div class="v">${esc(result.updates_applied)}</div></div>
+          <div class="metric"><div class="k">skills_count</div><div class="v">${esc((result.skills || []).length)}</div></div>
+        </div>
+      `;
+      $("summaryOut").innerHTML = html;
+    }
+
+    function renderSkills(skills) {
+      if (!Array.isArray(skills) || skills.length === 0) {
+        $("skillsOut").innerHTML = '<div class="empty">暂无技能掌握度</div>';
+        return;
+      }
+
+      const rows = skills.map((item) => `
+        <tr>
+          <td>${esc(item.skill_id)}</td>
+          <td>${fmtNum(item.mastery, 4)}</td>
+          <td>${esc(item.level)}</td>
+          <td>${fmtNum(item.uncertainty, 4)}</td>
+          <td>${esc(item.last_update)}</td>
+        </tr>
+      `).join("");
+
+      $("skillsOut").innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>skill_id</th>
+              <th>mastery</th>
+              <th>level</th>
+              <th>uncertainty</th>
+              <th>last_update</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    function renderRecent(items) {
+      if (!Array.isArray(items) || items.length === 0) {
+        $("recentOut").innerHTML = '<div class="empty">暂无变更记录</div>';
+        return;
+      }
+      const rows = items.map((item) => {
+        const evidence = item && typeof item.evidence === "object" ? item.evidence : {};
+        const detail = [
+          `error_type=${evidence.error_type || "-"}`,
+          `confidence=${fmtNum(evidence.confidence, 2)}`,
+          `method_correctness=${fmtNum(evidence.method_correctness, 2)}`,
+        ].join(", ");
+        return `
+          <tr>
+            <td>${esc(item.event_time)}</td>
+            <td>${esc(item.source_type)} / ${esc(item.source_id)}</td>
+            <td>${esc(item.problem_id)}</td>
+            <td>${esc(item.skill_id)}</td>
+            <td>${fmtNum(item.score_ratio, 4)}</td>
+            <td>${fmtNum(item.s_before, 4)} -> ${fmtNum(item.s_after, 4)}</td>
+            <td>${esc(detail)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      $("recentOut").innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>event_time</th>
+              <th>source</th>
+              <th>problem_id</th>
+              <th>skill_id</th>
+              <th>score_ratio</th>
+              <th>state_update</th>
+              <th>evidence</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    async function run() {
+      const btn = $("runBtn");
+      btn.disabled = true;
+      setStatus("Submitting...");
+      try {
+        let payload;
+        try {
+          payload = JSON.parse($("payloadInput").value);
+        } catch (err) {
+          throw new Error(`Invalid JSON payload: ${err.message}`);
+        }
+
+        const resp = await fetch("/api/demo/temporal/run", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const data = await resp.json();
+        if (!resp.ok || !data.ok) {
+          throw new Error((data && (data.error || data.detail)) || `HTTP ${resp.status}`);
+        }
+
+        const result = data.result || {};
+        renderSummary(result);
+        renderSkills(result.skills || []);
+        renderRecent(result.recent_change_reasons || []);
+        setStatus("Update succeeded");
+      } catch (err) {
+        renderSummary(null);
+        renderSkills([]);
+        renderRecent([]);
+        setStatus(err.message || String(err), true);
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    $("sampleBtn").addEventListener("click", () => {
+      $("payloadInput").value = JSON.stringify(defaultPayload(), null, 2);
+      setStatus("Sample loaded");
+    });
+
+    $("runBtn").addEventListener("click", run);
+
+    $("payloadInput").value = JSON.stringify(defaultPayload(), null, 2);
+  </script>
+</body>
+</html>

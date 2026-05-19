@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #6366f1;
+  --color-primary-light: #f0f0ff;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-text: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-border: #e5e7eb;
+  --color-bg: #fafbfc;
+}
+
+body {
+  font-family: -apple-system, "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  margin: 0;
+}

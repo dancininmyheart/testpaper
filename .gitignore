@@ -1,0 +1,80 @@
+# Python caches and test runtime files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest_tmp/
+.tmp_tests/
+
+# Local IDE / agent scratch files
+.codex_tmp/
+.codex-vite*.log
+.claude/settings.local.json
+.superpowers/
+.vs/
+
+# Frontend generated dependencies and builds
+frontend/node_modules/
+frontend/dist/
+frontend/tsconfig.tsbuildinfo
+
+# Local runtime and debug outputs
+outputs/
+
+# Images (all formats)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.webp
+*.tif
+*.tiff
+*.svg
+*.ico
+
+# Binary / database / archive files
+*.db
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.pt
+*.pth
+*.onnx
+*.bin
+*.pickle
+*.pkl
+
+# Environment secrets
+.env
+
+# AI/repository packing artifacts
+repomix-output.xml
+
+# Data / result JSON files (keep config JSONs like llm_config.json, package.json)
+analysis_export_*.json
+gaoshu_result.json
+history_records_template.json
+mastery_from_template.db
+mvp_records_example.json
+normalized_from_template.json
+paper_knowledge_records.json
+student_profile_template.json
+
+# Test fixture / result data
+test/demo_result.json
+test/vlm_bbox_raw.json
+test/vlm_bbox_result.json
+
+# Local paper/sheet data
+answer_sheet_crops/
+paper/
+all/
+major_seg_tool.zip

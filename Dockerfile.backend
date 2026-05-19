@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+COPY backend/requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+COPY . /app
+
+ENV APP_DB_PATH=/app/outputs/platform/app.db
+ENV APP_STORAGE_ROOT=/app/outputs/platform/storage
+ENV MASTERY_DB_PATH=/app/mastery.db
+ENV WORKER_ENABLED=true
+ENV DEMO_MOCK_MODE=true
+
+EXPOSE 8020
+CMD ["python", "run_platform_server.py", "--host", "0.0.0.0", "--port", "8020"]
+

@@ -1,0 +1,1191 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>答题卡模板裁剪器</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&family=ZCOOL+XiaoWei&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f4efe8;
+        --bg-2: #e8ddd0;
+        --ink: #1d1a16;
+        --muted: #6f655a;
+        --accent: #d46a4a;
+        --accent-2: #2f6b6f;
+        --card: #fffaf4;
+        --shadow: 0 24px 60px rgba(38, 31, 22, 0.14);
+        --radius-lg: 24px;
+        --radius-md: 14px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Noto Sans SC", sans-serif;
+        background: radial-gradient(circle at top, #fef9f1 0%, var(--bg) 45%, #e2d2c3 100%);
+        color: var(--ink);
+        min-height: 100vh;
+      }
+
+      header {
+        padding: 32px 20px 8px;
+        text-align: center;
+      }
+
+      header h1 {
+        margin: 0;
+        font-family: "ZCOOL XiaoWei", serif;
+        font-size: clamp(28px, 4vw, 44px);
+        letter-spacing: 1px;
+      }
+
+      header p {
+        margin: 10px auto 0;
+        max-width: 720px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      main {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 16px 20px 60px;
+        display: grid;
+        gap: 24px;
+      }
+
+      .section {
+        background: var(--card);
+        border-radius: var(--radius-lg);
+        padding: 22px;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(84, 64, 45, 0.08);
+      }
+
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section h2 span {
+        background: var(--accent);
+        color: white;
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 20px;
+      }
+
+      .grid.two {
+        grid-template-columns: 1fr;
+      }
+
+      .control-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin: 8px 0 16px;
+      }
+
+      label {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      input[type="file"] {
+        width: 100%;
+      }
+
+      .page-input {
+        width: 90px;
+        padding: 6px 8px;
+        border-radius: 10px;
+        border: 1px solid rgba(84, 64, 45, 0.2);
+        background: #fffdf9;
+        color: var(--ink);
+        font-size: 13px;
+      }
+
+      button,
+      .ghost {
+        border: none;
+        background: var(--accent);
+        color: white;
+        padding: 10px 16px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      button.secondary {
+        background: var(--accent-2);
+      }
+
+      button.ghost,
+      .ghost {
+        background: transparent;
+        border: 1px solid rgba(61, 52, 41, 0.2);
+        color: var(--ink);
+      }
+
+      button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      button:not(:disabled):hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 30px rgba(212, 106, 74, 0.25);
+      }
+
+      .canvas-wrap {
+        position: relative;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        border: 1px dashed rgba(84, 64, 45, 0.3);
+        background: #f2e7db;
+        padding: 10px;
+      }
+
+      canvas {
+        width: 100%;
+        height: auto;
+        display: block;
+        background: #fff;
+        border-radius: 10px;
+      }
+
+      .list {
+        max-height: 240px;
+        overflow: auto;
+        border: 1px solid rgba(84, 64, 45, 0.1);
+        border-radius: var(--radius-md);
+        padding: 8px;
+        background: #fffdf9;
+      }
+
+      .list-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        align-items: center;
+        padding: 8px;
+        border-radius: 10px;
+        border: 1px solid transparent;
+      }
+
+      .list-item.active {
+        border-color: rgba(212, 106, 74, 0.5);
+        background: rgba(212, 106, 74, 0.08);
+      }
+
+      .list-item input {
+        width: 100%;
+        border: none;
+        background: transparent;
+        font-size: 14px;
+        color: var(--ink);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(47, 107, 111, 0.1);
+        color: var(--accent-2);
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+      }
+
+      .status {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+
+      .output {
+        display: grid;
+        gap: 8px;
+        max-height: 240px;
+        overflow: auto;
+      }
+
+      .output a {
+        color: var(--accent-2);
+        text-decoration: none;
+      }
+
+      footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+        padding-bottom: 30px;
+      }
+
+      @media (max-width: 840px) {
+        header {
+          padding: 26px 18px 4px;
+        }
+
+        .section {
+          padding: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>答题卡模板裁剪器</h1>
+      <p>
+        上传模板图，手动框选每道题区域并保存为模板。随后上传多份答题卡正反面，即可批量裁剪出每题小图。
+      </p>
+    </header>
+    <main>
+      <section class="section">
+        <h2><span>STEP 1</span>模板图与区域框选</h2>
+        <div class="grid two">
+          <div>
+            <label>模板正面图片</label>
+            <input id="frontTemplateInput" type="file" accept="image/*" />
+            <div class="control-row">
+              <button id="frontClearBtn" class="ghost" type="button">清空正面区域</button>
+              <span class="pill" id="frontStatus">未载入</span>
+            </div>
+            <div class="canvas-wrap">
+              <canvas id="frontCanvas"></canvas>
+            </div>
+            <div class="list" id="frontList"></div>
+          </div>
+          <div>
+            <label>模板反面图片</label>
+            <input id="backTemplateInput" type="file" accept="image/*" />
+            <div class="control-row">
+              <button id="backClearBtn" class="ghost" type="button">清空反面区域</button>
+              <span class="pill" id="backStatus">未载入</span>
+            </div>
+            <div class="canvas-wrap">
+              <canvas id="backCanvas"></canvas>
+            </div>
+            <div class="list" id="backList"></div>
+          </div>
+        </div>
+        <div class="control-row">
+          <button id="saveTemplateBtn" type="button">下载模板 JSON</button>
+          <label class="ghost">
+            载入模板 JSON
+            <input id="loadTemplateInput" type="file" accept="application/json" hidden />
+          </label>
+          <button id="resetSelectionBtn" class="ghost" type="button">取消选中</button>
+          <span class="status">在图片上拖拽即可创建新区域；点击区域可选中，按 Delete 删除，方向键微调。</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2><span>STEP 2</span>批量裁剪</h2>
+        <div class="grid two">
+          <div>
+            <label>上传多张答题卡正面</label>
+            <input id="frontBatchInput" type="file" multiple accept="image/*" />
+          </div>
+          <div>
+            <label>上传多张答题卡反面</label>
+            <input id="backBatchInput" type="file" multiple accept="image/*" />
+          </div>
+        </div>
+        <div class="grid two" style="margin-top: 12px;">
+          <div>
+            <label>上传 all 文件夹（含(1)/(2) 标识）</label>
+            <input id="allBatchInput" type="file" multiple webkitdirectory accept="image/*" />
+          </div>
+          <div class="status">
+            文件名带 (1) 认为第一页，(2) 认为第二页，同名会被自动归为同一个学生。
+          </div>
+        </div>
+        <div class="control-row">
+          <button id="cropBtn" class="secondary" type="button">开始裁剪并打包</button>
+          <span class="status" id="batchStatus">请先加载模板与图片。</span>
+        </div>
+        <div class="output" id="outputList"></div>
+      </section>
+
+      <section class="section">
+        <h2><span>STEP 3</span>试卷 PDF 标注与裁剪</h2>
+        <div class="grid two">
+          <div>
+            <label>上传试卷 PDF（自动拼接为长图）</label>
+            <input id="pdfInput" type="file" accept="application/pdf" />
+            <div class="control-row">
+              <span class="pill" id="pdfPageInfo">共 0 页（已拼接）</span>
+            </div>
+            <div class="canvas-wrap">
+              <canvas id="pdfCanvas"></canvas>
+            </div>
+          </div>
+          <div>
+            <label>区域列表</label>
+            <div class="control-row">
+              <button id="pdfClearBtn" class="ghost" type="button">清空区域</button>
+              <button id="pdfResetBtn" class="ghost" type="button">取消选中</button>
+              <span class="pill" id="pdfStatus">未加载</span>
+            </div>
+            <div class="list" id="pdfList"></div>
+            <div class="control-row">
+              <button id="pdfCropBtn" class="secondary" type="button">裁剪 PDF 并打包</button>
+              <span class="status" id="pdfBatchStatus">请先上传 PDF 并标注区域。</span>
+            </div>
+            <div class="output" id="pdfOutputList"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>建议保持模板与答题卡扫描尺寸一致，裁剪效果更稳定。</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+    <script>
+      const template = {
+        version: 1,
+        sides: {
+          front: { width: 0, height: 0, regions: [] },
+          back: { width: 0, height: 0, regions: [] },
+        },
+      };
+
+      const state = {
+        activeSide: "front",
+        activeRegionId: null,
+        drawing: false,
+        start: null,
+        templateImages: {
+          front: null,
+          back: null,
+        },
+      };
+
+      const pdfState = {
+        file: null,
+        doc: null,
+        pageCount: 0,
+        renderScale: 2,
+        stitchedCanvas: null,
+        stitchedWidth: 0,
+        stitchedHeight: 0,
+        regions: [],
+        activeRegionId: null,
+        drawing: false,
+        start: null,
+      };
+
+      const elements = {
+        frontTemplateInput: document.getElementById("frontTemplateInput"),
+        backTemplateInput: document.getElementById("backTemplateInput"),
+        frontCanvas: document.getElementById("frontCanvas"),
+        backCanvas: document.getElementById("backCanvas"),
+        frontList: document.getElementById("frontList"),
+        backList: document.getElementById("backList"),
+        frontStatus: document.getElementById("frontStatus"),
+        backStatus: document.getElementById("backStatus"),
+        frontClearBtn: document.getElementById("frontClearBtn"),
+        backClearBtn: document.getElementById("backClearBtn"),
+        saveTemplateBtn: document.getElementById("saveTemplateBtn"),
+        loadTemplateInput: document.getElementById("loadTemplateInput"),
+        resetSelectionBtn: document.getElementById("resetSelectionBtn"),
+        frontBatchInput: document.getElementById("frontBatchInput"),
+        backBatchInput: document.getElementById("backBatchInput"),
+        allBatchInput: document.getElementById("allBatchInput"),
+        cropBtn: document.getElementById("cropBtn"),
+        batchStatus: document.getElementById("batchStatus"),
+        outputList: document.getElementById("outputList"),
+        pdfInput: document.getElementById("pdfInput"),
+        pdfCanvas: document.getElementById("pdfCanvas"),
+        pdfList: document.getElementById("pdfList"),
+        pdfStatus: document.getElementById("pdfStatus"),
+        pdfPageInfo: document.getElementById("pdfPageInfo"),
+        pdfClearBtn: document.getElementById("pdfClearBtn"),
+        pdfResetBtn: document.getElementById("pdfResetBtn"),
+        pdfCropBtn: document.getElementById("pdfCropBtn"),
+        pdfBatchStatus: document.getElementById("pdfBatchStatus"),
+        pdfOutputList: document.getElementById("pdfOutputList"),
+      };
+
+      const ctxMap = {
+        front: elements.frontCanvas.getContext("2d"),
+        back: elements.backCanvas.getContext("2d"),
+      };
+
+      const pdfCtx = elements.pdfCanvas.getContext("2d");
+
+      function loadImageFromFile(file) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+          img.src = URL.createObjectURL(file);
+        });
+      }
+
+      function setCanvasSize(side, img) {
+        const canvas = side === "front" ? elements.frontCanvas : elements.backCanvas;
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+      }
+
+      function drawTemplate(side) {
+        const canvas = side === "front" ? elements.frontCanvas : elements.backCanvas;
+        const ctx = ctxMap[side];
+        const img = state.templateImages[side];
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (img) {
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+        drawRegions(side);
+      }
+
+      function drawRegions(side) {
+        const ctx = ctxMap[side];
+        const regions = template.sides[side].regions;
+        regions.forEach((region) => {
+          ctx.save();
+          ctx.strokeStyle = region.id === state.activeRegionId ? "#d46a4a" : "#2f6b6f";
+          ctx.lineWidth = region.id === state.activeRegionId ? 4 : 2;
+          ctx.setLineDash(region.id === state.activeRegionId ? [6, 3] : []);
+          ctx.strokeRect(region.x, region.y, region.w, region.h);
+          ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+          ctx.fillRect(region.x, region.y, ctx.measureText(region.name).width + 12, 20);
+          ctx.fillStyle = "#1d1a16";
+          ctx.font = "14px Noto Sans SC";
+          ctx.fillText(region.name, region.x + 6, region.y + 15);
+          ctx.restore();
+        });
+      }
+
+      function updateStatus() {
+        elements.frontStatus.textContent = state.templateImages.front
+          ? `已载入 ${template.sides.front.regions.length} 区域`
+          : "未载入";
+        elements.backStatus.textContent = state.templateImages.back
+          ? `已载入 ${template.sides.back.regions.length} 区域`
+          : "未载入";
+      }
+
+      function renderList(side) {
+        const list = side === "front" ? elements.frontList : elements.backList;
+        list.innerHTML = "";
+        template.sides[side].regions.forEach((region) => {
+          const row = document.createElement("div");
+          row.className = "list-item" + (region.id === state.activeRegionId ? " active" : "");
+          const input = document.createElement("input");
+          input.value = region.name;
+          input.addEventListener("input", () => {
+            region.name = input.value.trim() || region.name;
+            drawTemplate(side);
+          });
+          const meta = document.createElement("span");
+          meta.textContent = `${Math.round(region.w)}x${Math.round(region.h)}`;
+          meta.className = "pill";
+          row.appendChild(input);
+          row.appendChild(meta);
+          row.addEventListener("click", () => {
+            state.activeRegionId = region.id;
+            state.activeSide = side;
+            drawTemplate(side);
+            renderList(side);
+          });
+          list.appendChild(row);
+        });
+      }
+
+      function createRegion(side, rect) {
+        const index = template.sides[side].regions.length + 1;
+        template.sides[side].regions.push({
+          id: `${side}-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`,
+          name: `Q${index}`,
+          ...rect,
+        });
+      }
+
+      function pointInRect(x, y, rect) {
+        return x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h;
+      }
+
+      function findRegionAt(side, x, y) {
+        return template.sides[side].regions.find((region) => pointInRect(x, y, region));
+      }
+
+      function sanitizeFileName(name) {
+        return name.replace(/[^\w\u4e00-\u9fa5-]+/gu, "_").replace(/^_+|_+$/g, "");
+      }
+
+      function updatePdfStatus() {
+        if (!elements.pdfStatus) return;
+        elements.pdfStatus.textContent = pdfState.doc
+          ? `已加载 ${pdfState.pageCount} 页`
+          : "未加载";
+        elements.pdfPageInfo.textContent = pdfState.doc
+          ? `共 ${pdfState.pageCount} 页（已拼接）`
+          : "共 0 页（已拼接）";
+      }
+
+      async function buildPdfStitchedCanvas() {
+        const pages = [];
+        let totalHeight = 0;
+        let maxWidth = 0;
+        for (let i = 1; i <= pdfState.pageCount; i += 1) {
+          const page = await pdfState.doc.getPage(i);
+          const viewport = page.getViewport({ scale: pdfState.renderScale });
+          const baseCanvas = document.createElement("canvas");
+          baseCanvas.width = viewport.width;
+          baseCanvas.height = viewport.height;
+          const baseCtx = baseCanvas.getContext("2d");
+          await page.render({ canvasContext: baseCtx, viewport }).promise;
+          pages.push({ canvas: baseCanvas, height: baseCanvas.height });
+          totalHeight += baseCanvas.height;
+          maxWidth = Math.max(maxWidth, baseCanvas.width);
+        }
+        const stitchedCanvas = document.createElement("canvas");
+        stitchedCanvas.width = maxWidth;
+        stitchedCanvas.height = totalHeight;
+        const stitchedCtx = stitchedCanvas.getContext("2d");
+        let offsetY = 0;
+        pages.forEach((item) => {
+          stitchedCtx.drawImage(item.canvas, 0, offsetY);
+          offsetY += item.height;
+        });
+        pdfState.stitchedCanvas = stitchedCanvas;
+        pdfState.stitchedWidth = maxWidth;
+        pdfState.stitchedHeight = totalHeight;
+      }
+
+      function drawPdfRegions() {
+        pdfState.regions.forEach((region) => {
+          pdfCtx.save();
+          pdfCtx.strokeStyle = region.id === pdfState.activeRegionId ? "#d46a4a" : "#2f6b6f";
+          pdfCtx.lineWidth = region.id === pdfState.activeRegionId ? 4 : 2;
+          pdfCtx.setLineDash(region.id === pdfState.activeRegionId ? [6, 3] : []);
+          pdfCtx.strokeRect(region.x, region.y, region.w, region.h);
+          pdfCtx.fillStyle = "rgba(255, 255, 255, 0.75)";
+          pdfCtx.fillRect(region.x, region.y, pdfCtx.measureText(region.name).width + 12, 20);
+          pdfCtx.fillStyle = "#1d1a16";
+          pdfCtx.font = "14px Noto Sans SC";
+          pdfCtx.fillText(region.name, region.x + 6, region.y + 15);
+          pdfCtx.restore();
+        });
+      }
+
+      function drawPdfDocument() {
+        pdfCtx.clearRect(0, 0, elements.pdfCanvas.width, elements.pdfCanvas.height);
+        if (pdfState.stitchedCanvas) {
+          pdfCtx.drawImage(pdfState.stitchedCanvas, 0, 0);
+        }
+        drawPdfRegions();
+      }
+
+      function renderPdfList() {
+        if (!elements.pdfList) return;
+        elements.pdfList.innerHTML = "";
+        pdfState.regions.forEach((region) => {
+          const row = document.createElement("div");
+          row.className = "list-item" + (region.id === pdfState.activeRegionId ? " active" : "");
+          const input = document.createElement("input");
+          input.value = region.name;
+          input.addEventListener("input", () => {
+            region.name = input.value.trim() || region.name;
+            drawPdfDocument();
+          });
+          const meta = document.createElement("span");
+          meta.textContent = `${Math.round(region.w)}x${Math.round(region.h)}`;
+          meta.className = "pill";
+          row.appendChild(input);
+          row.appendChild(meta);
+          row.addEventListener("click", () => {
+            pdfState.activeRegionId = region.id;
+            drawPdfDocument();
+            renderPdfList();
+          });
+          elements.pdfList.appendChild(row);
+        });
+      }
+
+      function createPdfRegion(rect) {
+        const index = pdfState.regions.length + 1;
+        pdfState.regions.push({
+          id: `pdf-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`,
+          name: `Q${index}`,
+          ...rect,
+        });
+      }
+
+      function findPdfRegionAt(x, y) {
+        return pdfState.regions.find((region) => pointInRect(x, y, region));
+      }
+
+      function clearPdfSelection() {
+        pdfState.activeRegionId = null;
+        if (pdfState.doc) {
+          drawPdfDocument();
+          renderPdfList();
+        }
+      }
+
+      function clearPdfRegions() {
+        pdfState.regions = [];
+        clearPdfSelection();
+        updatePdfStatus();
+      }
+
+      function removeActivePdfRegion() {
+        if (!pdfState.activeRegionId) return;
+        pdfState.regions = pdfState.regions.filter(
+          (region) => region.id !== pdfState.activeRegionId
+        );
+        clearPdfSelection();
+      }
+
+      function adjustActivePdfRegion(dx, dy) {
+        if (!pdfState.activeRegionId) return;
+        const region = pdfState.regions.find((item) => item.id === pdfState.activeRegionId);
+        if (!region) return;
+        region.x = Math.max(0, region.x + dx);
+        region.y = Math.max(0, region.y + dy);
+        drawPdfDocument();
+      }
+
+      async function loadPdfFromFile(file) {
+        if (!window.pdfjsLib) {
+          elements.pdfBatchStatus.textContent = "缺少 PDF.js 依赖，请检查网络。";
+          return;
+        }
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+          "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
+        const arrayBuffer = await file.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        pdfState.doc = await loadingTask.promise;
+        pdfState.file = file;
+        pdfState.pageCount = pdfState.doc.numPages || 0;
+        pdfState.activeRegionId = null;
+        pdfState.regions = [];
+        pdfState.stitchedCanvas = null;
+        pdfState.stitchedWidth = 0;
+        pdfState.stitchedHeight = 0;
+        updatePdfStatus();
+        await buildPdfStitchedCanvas();
+        elements.pdfCanvas.width = pdfState.stitchedWidth || 1;
+        elements.pdfCanvas.height = pdfState.stitchedHeight || 1;
+        drawPdfDocument();
+        renderPdfList();
+      }
+
+      function attachPdfCanvasHandlers() {
+        const canvas = elements.pdfCanvas;
+        canvas.addEventListener("mousedown", (event) => {
+          if (!pdfState.doc) return;
+          if (state.activeRegionId) {
+            state.activeRegionId = null;
+            drawTemplate("front");
+            drawTemplate("back");
+            renderList("front");
+            renderList("back");
+          }
+          const rect = canvas.getBoundingClientRect();
+          const scaleX = canvas.width / rect.width;
+          const scaleY = canvas.height / rect.height;
+          const x = (event.clientX - rect.left) * scaleX;
+          const y = (event.clientY - rect.top) * scaleY;
+          const hit = findPdfRegionAt(x, y);
+          if (hit) {
+            pdfState.activeRegionId = hit.id;
+            drawPdfDocument();
+            renderPdfList();
+            return;
+          }
+          pdfState.drawing = true;
+          pdfState.start = { x, y };
+          pdfState.activeRegionId = null;
+        });
+
+        canvas.addEventListener("mousemove", (event) => {
+          if (!pdfState.drawing) return;
+          const rect = canvas.getBoundingClientRect();
+          const scaleX = canvas.width / rect.width;
+          const scaleY = canvas.height / rect.height;
+          const x = (event.clientX - rect.left) * scaleX;
+          const y = (event.clientY - rect.top) * scaleY;
+          drawPdfDocument();
+          const width = x - pdfState.start.x;
+          const height = y - pdfState.start.y;
+          pdfCtx.save();
+          pdfCtx.strokeStyle = "#d46a4a";
+          pdfCtx.setLineDash([6, 3]);
+          pdfCtx.lineWidth = 2;
+          pdfCtx.strokeRect(pdfState.start.x, pdfState.start.y, width, height);
+          pdfCtx.restore();
+        });
+
+        canvas.addEventListener("mouseup", (event) => {
+          if (!pdfState.drawing) return;
+          pdfState.drawing = false;
+          const rect = canvas.getBoundingClientRect();
+          const scaleX = canvas.width / rect.width;
+          const scaleY = canvas.height / rect.height;
+          const x = (event.clientX - rect.left) * scaleX;
+          const y = (event.clientY - rect.top) * scaleY;
+          const w = x - pdfState.start.x;
+          const h = y - pdfState.start.y;
+          if (Math.abs(w) < 5 || Math.abs(h) < 5) {
+            drawPdfDocument();
+            return;
+          }
+          const newRect = {
+            x: w < 0 ? x : pdfState.start.x,
+            y: h < 0 ? y : pdfState.start.y,
+            w: Math.abs(w),
+            h: Math.abs(h),
+          };
+          createPdfRegion(newRect);
+          drawPdfDocument();
+          renderPdfList();
+          updatePdfStatus();
+        });
+      }
+
+      async function handlePdfCrop() {
+        elements.pdfOutputList.innerHTML = "";
+        if (!pdfState.doc) {
+          elements.pdfBatchStatus.textContent = "请先上传 PDF。";
+          return;
+        }
+        if (!pdfState.regions.length) {
+          elements.pdfBatchStatus.textContent = "请先标注区域。";
+          return;
+        }
+        if (!window.JSZip) {
+          elements.pdfBatchStatus.textContent = "缺少 JSZip 依赖，请检查网络。";
+          return;
+        }
+        if (!pdfState.stitchedCanvas) {
+          elements.pdfBatchStatus.textContent = "PDF 尚未拼接完成。";
+          return;
+        }
+        elements.pdfBatchStatus.textContent = "裁剪中，请稍候...";
+        const zip = new JSZip();
+        const baseNameRaw = pdfState.file?.name ? pdfState.file.name.replace(/\.[^.]+$/, "") : "pdf";
+        const baseName = sanitizeFileName(baseNameRaw) || "pdf";
+        const cropCanvas = document.createElement("canvas");
+        const cropCtx = cropCanvas.getContext("2d");
+        let index = 1;
+        for (const region of pdfState.regions) {
+          cropCanvas.width = region.w;
+          cropCanvas.height = region.h;
+          cropCtx.clearRect(0, 0, cropCanvas.width, cropCanvas.height);
+          cropCtx.drawImage(
+            pdfState.stitchedCanvas,
+            region.x,
+            region.y,
+            region.w,
+            region.h,
+            0,
+            0,
+            region.w,
+            region.h
+          );
+          const dataUrl = cropCanvas.toDataURL("image/png");
+          const base64 = dataUrl.split(",")[1];
+          const safeName = sanitizeFileName(region.name || `Q${index}`) || `Q${index}`;
+          zip.file(`${baseName}/${safeName}.png`, base64, { base64: true });
+          index += 1;
+        }
+        const blob = await zip.generateAsync({ type: "blob" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${baseName}_crops.zip`;
+        link.textContent = "下载 PDF 裁剪结果 ZIP";
+        elements.pdfOutputList.appendChild(link);
+        elements.pdfBatchStatus.textContent = `完成裁剪 ${pdfState.regions.length} 个区域`;
+      }
+
+      function attachCanvasHandlers(side) {
+        const canvas = side === "front" ? elements.frontCanvas : elements.backCanvas;
+        canvas.addEventListener("mousedown", (event) => {
+          if (!state.templateImages[side]) return;
+          if (pdfState.activeRegionId) {
+            clearPdfSelection();
+          }
+          const rect = canvas.getBoundingClientRect();
+          const scaleX = canvas.width / rect.width;
+          const scaleY = canvas.height / rect.height;
+          const x = (event.clientX - rect.left) * scaleX;
+          const y = (event.clientY - rect.top) * scaleY;
+          const hit = findRegionAt(side, x, y);
+          if (hit) {
+            state.activeRegionId = hit.id;
+            state.activeSide = side;
+            drawTemplate(side);
+            renderList(side);
+            return;
+          }
+          state.drawing = true;
+          state.start = { x, y };
+          state.activeSide = side;
+          state.activeRegionId = null;
+        });
+
+        canvas.addEventListener("mousemove", (event) => {
+          if (!state.drawing || state.activeSide !== side) return;
+          const rect = canvas.getBoundingClientRect();
+          const scaleX = canvas.width / rect.width;
+          const scaleY = canvas.height / rect.height;
+          const x = (event.clientX - rect.left) * scaleX;
+          const y = (event.clientY - rect.top) * scaleY;
+          drawTemplate(side);
+          const width = x - state.start.x;
+          const height = y - state.start.y;
+          ctxMap[side].save();
+          ctxMap[side].strokeStyle = "#d46a4a";
+          ctxMap[side].setLineDash([6, 3]);
+          ctxMap[side].lineWidth = 2;
+          ctxMap[side].strokeRect(state.start.x, state.start.y, width, height);
+          ctxMap[side].restore();
+        });
+
+        canvas.addEventListener("mouseup", (event) => {
+          if (!state.drawing || state.activeSide !== side) return;
+          state.drawing = false;
+          const rect = canvas.getBoundingClientRect();
+          const scaleX = canvas.width / rect.width;
+          const scaleY = canvas.height / rect.height;
+          const x = (event.clientX - rect.left) * scaleX;
+          const y = (event.clientY - rect.top) * scaleY;
+          const w = x - state.start.x;
+          const h = y - state.start.y;
+          if (Math.abs(w) < 5 || Math.abs(h) < 5) {
+            drawTemplate(side);
+            return;
+          }
+          const newRect = {
+            x: w < 0 ? x : state.start.x,
+            y: h < 0 ? y : state.start.y,
+            w: Math.abs(w),
+            h: Math.abs(h),
+          };
+          createRegion(side, newRect);
+          drawTemplate(side);
+          renderList(side);
+          updateStatus();
+        });
+      }
+
+      function removeActiveRegion() {
+        const side = state.activeSide;
+        if (!state.activeRegionId) return;
+        template.sides[side].regions = template.sides[side].regions.filter(
+          (region) => region.id !== state.activeRegionId
+        );
+        state.activeRegionId = null;
+        drawTemplate(side);
+        renderList(side);
+        updateStatus();
+      }
+
+      function adjustActiveRegion(dx, dy) {
+        if (!state.activeRegionId) return;
+        const region = template.sides[state.activeSide].regions.find(
+          (item) => item.id === state.activeRegionId
+        );
+        if (!region) return;
+        region.x = Math.max(0, region.x + dx);
+        region.y = Math.max(0, region.y + dy);
+        drawTemplate(state.activeSide);
+      }
+
+      function clearSide(side) {
+        template.sides[side].regions = [];
+        state.activeRegionId = null;
+        drawTemplate(side);
+        renderList(side);
+        updateStatus();
+      }
+
+      function serializeTemplate() {
+        return JSON.stringify(template, null, 2);
+      }
+
+      function downloadTemplate() {
+        const blob = new Blob([serializeTemplate()], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "answer_sheet_template.json";
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function applyTemplateData(data) {
+        if (!data?.sides?.front || !data?.sides?.back) return;
+        template.sides.front = data.sides.front;
+        template.sides.back = data.sides.back;
+        updateStatus();
+        drawTemplate("front");
+        drawTemplate("back");
+        renderList("front");
+        renderList("back");
+      }
+
+      async function handleTemplateLoad(side, file) {
+        const img = await loadImageFromFile(file);
+        state.templateImages[side] = img;
+        setCanvasSize(side, img);
+        template.sides[side].width = img.naturalWidth;
+        template.sides[side].height = img.naturalHeight;
+        drawTemplate(side);
+        renderList(side);
+        updateStatus();
+      }
+
+      function normalizeKey(name) {
+        return name
+          .toLowerCase()
+          .replace(/\.[^.]+$/, "")
+          .replace(/[（(]\s*[12]\s*[）)]/g, "")
+          .replace(/[_-](front|back|f|b|正|反)$/u, "")
+          .replace(/(front|back|f|b|正|反)[_-]/u, "")
+          .trim();
+      }
+
+      function splitAllFiles(allFiles) {
+        const front = [];
+        const back = [];
+        const unknown = [];
+        [...allFiles].forEach((file) => {
+          const name = file.name;
+          if (/[（(]\s*1\s*[）)]/.test(name)) {
+            front.push(file);
+          } else if (/[（(]\s*2\s*[）)]/.test(name)) {
+            back.push(file);
+          } else {
+            unknown.push(file);
+          }
+        });
+        return { front, back, unknown };
+      }
+
+      function groupFiles(frontFiles, backFiles) {
+        const pairs = [];
+        const frontMap = new Map();
+        const backMap = new Map();
+        [...frontFiles].forEach((file) => {
+          const key = normalizeKey(file.name);
+          frontMap.set(key, file);
+        });
+        [...backFiles].forEach((file) => {
+          const key = normalizeKey(file.name);
+          backMap.set(key, file);
+        });
+        const keys = new Set([...frontMap.keys(), ...backMap.keys()]);
+        keys.forEach((key) => {
+          const front = frontMap.get(key) || null;
+          const back = backMap.get(key) || null;
+          if (front || back) {
+            pairs.push({ key, front, back });
+          }
+        });
+        if (!pairs.length && (frontFiles.length || backFiles.length)) {
+          const count = Math.max(frontFiles.length, backFiles.length);
+          for (let i = 0; i < count; i += 1) {
+            pairs.push({
+              key: `sheet_${String(i + 1).padStart(3, "0")}`,
+              front: frontFiles[i] || null,
+              back: backFiles[i] || null,
+            });
+          }
+        }
+        return pairs;
+      }
+
+      async function cropSideToZip(zip, side, file, key) {
+        if (!file || !template.sides[side].regions.length) return;
+        const img = await loadImageFromFile(file);
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        template.sides[side].regions.forEach((region) => {
+          canvas.width = region.w;
+          canvas.height = region.h;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(
+            img,
+            region.x,
+            region.y,
+            region.w,
+            region.h,
+            0,
+            0,
+            region.w,
+            region.h
+          );
+          const dataUrl = canvas.toDataURL("image/png");
+          const base64 = dataUrl.split(",")[1];
+          const safeName = region.name.replace(/[^\w\u4e00-\u9fa5-]+/gu, "_");
+          zip.file(`${key}/${side}/${safeName}.png`, base64, { base64: true });
+        });
+      }
+
+      async function handleBatchCrop() {
+        elements.outputList.innerHTML = "";
+        const frontFiles = elements.frontBatchInput.files;
+        const backFiles = elements.backBatchInput.files;
+        const allFiles = elements.allBatchInput.files;
+        if (!template.sides.front.regions.length && !template.sides.back.regions.length) {
+          elements.batchStatus.textContent = "请先定义模板区域。";
+          return;
+        }
+        if (!frontFiles.length && !backFiles.length && !allFiles.length) {
+          elements.batchStatus.textContent = "请先上传答题卡图片。";
+          return;
+        }
+        if (!window.JSZip) {
+          elements.batchStatus.textContent = "缺少 JSZip 依赖，请检查网络或手动引入。";
+          return;
+        }
+        elements.batchStatus.textContent = "裁剪中，请稍候...";
+        const zip = new JSZip();
+        let frontList = [...frontFiles];
+        let backList = [...backFiles];
+        let unknownCount = 0;
+        if (allFiles.length) {
+          const split = splitAllFiles(allFiles);
+          frontList = frontList.concat(split.front);
+          backList = backList.concat(split.back);
+          unknownCount = split.unknown.length;
+        }
+        const pairs = groupFiles(frontList, backList);
+        for (const pair of pairs) {
+          await cropSideToZip(zip, "front", pair.front, pair.key);
+          await cropSideToZip(zip, "back", pair.back, pair.key);
+        }
+        const blob = await zip.generateAsync({ type: "blob" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "answer_sheet_crops.zip";
+        link.textContent = "下载裁剪结果 ZIP";
+        elements.outputList.appendChild(link);
+        const suffix = unknownCount ? `，已跳过 ${unknownCount} 个未识别标记的文件。` : "。";
+        elements.batchStatus.textContent = `完成 ${pairs.length} 份答题卡裁剪${suffix}`;
+      }
+
+      attachCanvasHandlers("front");
+      attachCanvasHandlers("back");
+      attachPdfCanvasHandlers();
+
+      elements.frontTemplateInput.addEventListener("change", async (event) => {
+        const file = event.target.files[0];
+        if (file) await handleTemplateLoad("front", file);
+      });
+
+      elements.backTemplateInput.addEventListener("change", async (event) => {
+        const file = event.target.files[0];
+        if (file) await handleTemplateLoad("back", file);
+      });
+
+      elements.frontClearBtn.addEventListener("click", () => clearSide("front"));
+      elements.backClearBtn.addEventListener("click", () => clearSide("back"));
+      elements.saveTemplateBtn.addEventListener("click", downloadTemplate);
+      elements.resetSelectionBtn.addEventListener("click", () => {
+        state.activeRegionId = null;
+        drawTemplate("front");
+        drawTemplate("back");
+        renderList("front");
+        renderList("back");
+      });
+
+      elements.loadTemplateInput.addEventListener("change", async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        const text = await file.text();
+        try {
+          const data = JSON.parse(text);
+          applyTemplateData(data);
+        } catch (err) {
+          alert("模板 JSON 解析失败，请检查文件。");
+        }
+      });
+
+      elements.cropBtn.addEventListener("click", handleBatchCrop);
+
+      elements.pdfInput.addEventListener("change", async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        elements.pdfBatchStatus.textContent = "PDF 加载中...";
+        try {
+          await loadPdfFromFile(file);
+          elements.pdfBatchStatus.textContent = "请在长图上标注区域。";
+        } catch (err) {
+          elements.pdfBatchStatus.textContent = "PDF 解析失败，请检查文件。";
+        }
+      });
+
+      elements.pdfClearBtn.addEventListener("click", () => {
+        if (!pdfState.doc) return;
+        clearPdfRegions();
+      });
+
+      elements.pdfResetBtn.addEventListener("click", clearPdfSelection);
+      elements.pdfCropBtn.addEventListener("click", handlePdfCrop);
+
+      document.addEventListener("keydown", (event) => {
+        const step = event.shiftKey ? 5 : 1;
+        if (pdfState.activeRegionId) {
+          if (event.key === "Delete" || event.key === "Backspace") {
+            removeActivePdfRegion();
+          } else if (event.key === "ArrowUp") {
+            adjustActivePdfRegion(0, -step);
+          } else if (event.key === "ArrowDown") {
+            adjustActivePdfRegion(0, step);
+          } else if (event.key === "ArrowLeft") {
+            adjustActivePdfRegion(-step, 0);
+          } else if (event.key === "ArrowRight") {
+            adjustActivePdfRegion(step, 0);
+          }
+          return;
+        }
+        if (!state.activeRegionId) return;
+        if (event.key === "Delete" || event.key === "Backspace") {
+          removeActiveRegion();
+        } else if (event.key === "ArrowUp") {
+          adjustActiveRegion(0, -step);
+        } else if (event.key === "ArrowDown") {
+          adjustActiveRegion(0, step);
+        } else if (event.key === "ArrowLeft") {
+          adjustActiveRegion(-step, 0);
+        } else if (event.key === "ArrowRight") {
+          adjustActiveRegion(step, 0);
+        }
+      });
+    </script>
+  </body>
+</html>

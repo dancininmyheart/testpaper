@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8020:8020"
+    environment:
+      APP_DB_PATH: /app/outputs/platform/app.db
+      APP_STORAGE_ROOT: /app/outputs/platform/storage
+      LLM_CONFIG_PATH: /app/llm_config.json
+      KEYWORD_PATH: /app/key_word.json
+      MASTERY_DB_PATH: /app/mastery.db
+      SESSION_TTL_HOURS: "12"
+      WORKER_POLL_SEC: "2"
+      WORKER_ENABLED: "true"
+      DEMO_MOCK_MODE: "true"
+      DEFAULT_ADMIN_USERNAME: "admin"
+      DEFAULT_ADMIN_PASSWORD: "admin123"
+      DEFAULT_TEACHER_USERNAME: "teacher"
+      DEFAULT_TEACHER_PASSWORD: "teacher123"
+    volumes:
+      - ./outputs:/app/outputs
+      - ./mastery.db:/app/mastery.db
+

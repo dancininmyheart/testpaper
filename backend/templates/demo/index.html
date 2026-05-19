@@ -1,0 +1,1558 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>学生画像 Demo</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]]
+      },
+      svg: {
+        fontCache: "global"
+      }
+    };
+  </script>
+  <script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <style>
+    :root {
+      --bg: #eef4fb;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --accent: #1d4ed8;
+      --accent-soft: #dbeafe;
+      --good: #059669;
+      --warn: #d97706;
+      --bad: #dc2626;
+      --line: #dbe3ef;
+    }
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 16% -10%, #bfdbfe 0%, transparent 34%),
+        radial-gradient(circle at 95% 5%, #fde68a 0%, transparent 22%),
+        var(--bg);
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px;
+      display: grid;
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 6px 24px rgba(2, 6, 23, 0.06);
+    }
+    h1, h2 {
+      margin: 0 0 10px;
+    }
+    h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+    .muted { color: var(--muted); font-size: 14px; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 840px) { .grid { grid-template-columns: 1fr; } }
+    label { display: block; font-weight: 700; margin: 10px 0 6px; }
+    select,
+    input[type="text"], input[type="file"], textarea {
+      width: 100%;
+      border: 1px solid #c7d2e1;
+      border-radius: 8px;
+      padding: 10px;
+      box-sizing: border-box;
+      background: #fff;
+    }
+    button {
+      margin-top: 14px;
+      background: var(--accent);
+      color: #fff;
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .actions button {
+      margin-top: 0;
+    }
+    .btn-secondary {
+      background: #334155;
+    }
+    button:disabled { opacity: .6; cursor: not-allowed; }
+    .status { margin-top: 10px; font-size: 14px; }
+    .step-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: #f8fbff;
+      margin-top: 12px;
+    }
+    .step-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .step-title {
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .step-tag {
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      background: #fff;
+    }
+    .thumb-pages {
+      display: grid;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .page-section {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px;
+    }
+    .candidate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+    .candidate-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 8px;
+      display: grid;
+      gap: 8px;
+    }
+    .candidate-card.selected {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+      background: #eff6ff;
+    }
+    .candidate-card img {
+      width: 100%;
+      aspect-ratio: 1.2;
+      object-fit: contain;
+      background: #f1f5f9;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+    .candidate-meta {
+      font-size: 12px;
+      color: var(--muted);
+      display: grid;
+      gap: 2px;
+    }
+    .candidate-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .summary-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    .panel-list {
+      display: grid;
+      gap: 10px;
+    }
+    .data-panel {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #f8fbff;
+    }
+    .kv {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 6px 10px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .kv .k {
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .detail-block {
+      margin-top: 12px;
+      border-top: 1px dashed var(--line);
+      padding-top: 10px;
+    }
+    .detail-block summary {
+      cursor: pointer;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .detail-kv {
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .step-list {
+      display: grid;
+      gap: 8px;
+    }
+    .step-item {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: #f8fbff;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    .step-item.math {
+      background: #fff;
+    }
+    .chip {
+      border: 1px solid #b6d4f1;
+      background: #eaf5ff;
+      color: #0b4a7d;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 12px;
+      line-height: 1.6;
+      white-space: nowrap;
+    }
+    .empty {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 6px 2px;
+    }
+    .profile-hero {
+      border: 1px solid #c7dbff;
+      background: linear-gradient(140deg, #eff6ff 0%, #ffffff 65%);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #fff;
+    }
+    .metric .k {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .metric .v {
+      font-size: 22px;
+      line-height: 1.1;
+      margin-top: 3px;
+      font-weight: 800;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 12px;
+      border: 1px solid transparent;
+    }
+    .badge.good { color: #065f46; background: #d1fae5; border-color: #a7f3d0; }
+    .badge.warn { color: #92400e; background: #fef3c7; border-color: #fde68a; }
+    .badge.bad { color: #991b1b; background: #fee2e2; border-color: #fecaca; }
+    .mastery-row {
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+    .bar {
+      width: 100%;
+      height: 9px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .bar > span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #60a5fa, #1d4ed8);
+    }
+    .error-bars {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .error-item {
+      display: grid;
+      grid-template-columns: 72px 1fr 46px;
+      gap: 8px;
+      align-items: center;
+      font-size: 13px;
+    }
+    .error-item .track {
+      height: 8px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+    .error-item .track > span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, #f59e0b, #ef4444);
+    }
+    .warn-list {
+      margin: 0;
+      padding-left: 18px;
+      color: #b45309;
+      font-size: 13px;
+      display: grid;
+      gap: 4px;
+    }
+    .radar-wrap {
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+    }
+    .radar-svg {
+      width: min(100%, 460px);
+      height: auto;
+      display: block;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    .radar-legend {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 6px 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .radar-legend strong {
+      color: var(--ink);
+    }
+    @media (max-width: 640px) {
+      .kv { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: 1fr 1fr; }
+      .mastery-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>学生画像简版 Demo</h1>
+      <div class="muted">支持四种输入：1) 试卷+答题卡+标准答案；2) 试卷+答题卡（自动生成标准答案）；3) 同卷作答（可选标准答案）；4) 预切分题目 JSON + 答题卡（可选标准答案）。自动完成作答抽取与标准答案优先判定。</div>
+    </div>
+
+    <div class="card">
+      <h2>输入</h2>
+      <div class="grid">
+        <div>
+          <label for="studentId">学生 ID</label>
+          <input id="studentId" type="text" value="41201200" />
+        </div>
+        <div>
+          <label for="inputMode">输入方式</label>
+          <select id="inputMode">
+            <option value="paper_answer_with_key">试卷 + 答题卡 + 标准答案</option>
+            <option value="paper_answer_auto_key">试卷 + 答题卡（自动标准答案）</option>
+            <option value="paper_same_page">同卷作答（可选标准答案）</option>
+            <option value="pre_split_questions">预切分题目 + 答题卡（可选标准答案）</option>
+          </select>
+        </div>
+        <div>
+          <label for="visionProfile">视觉模型</label>
+          <select id="visionProfile">
+            <option value="">服务端默认视觉模型</option>
+          </select>
+        </div>
+        <div>
+          <label for="textProfile">LLM 模型</label>
+          <select id="textProfile">
+            <option value="">服务端默认 LLM 模型</option>
+          </select>
+        </div>
+      </div>
+      <div id="paperInputs">
+        <label for="paperFiles">原始试卷文件（图片/PDF，可多份）</label>
+        <input id="paperFiles" type="file" accept="image/*,application/pdf" multiple />
+      </div>
+      <div id="answerSheetInputs">
+        <label for="answerSheetFiles">答题卡文件（图片/PDF，可多份）</label>
+        <input id="answerSheetFiles" type="file" accept="image/*,application/pdf" multiple />
+      </div>
+      <div id="combinedInputs" style="display:none;">
+        <label for="combinedFiles">同卷文件（题目与作答同页，图片/PDF，可多份）</label>
+        <input id="combinedFiles" type="file" accept="image/*,application/pdf" multiple />
+      </div>
+      <div id="preSplitInputs" style="display:none;">
+        <label for="preSplitQuestions">预切分题目 JSON（数组）</label>
+        <textarea id="preSplitQuestions" rows="8" placeholder='[{"question_id":"Q1","question_type":"solution","problem_text":"..."},{"question_id":"Q2","sub_questions":[{"sub_question_id":"Q2(1)","sub_text":"..."}]}]'></textarea>
+        <div class="muted" id="preSplitHint">至少包含 question_id；可附带 question_type、problem_text、problem_text_full、sub_questions、skill_tags。</div>
+      </div>
+      <div id="answerKeyInputs">
+        <label for="answerKeyFiles">标准答案文件（图片/PDF，可多份）</label>
+        <input id="answerKeyFiles" type="file" accept="image/*,application/pdf" multiple />
+        <div class="muted" id="answerKeyHint">当前模式下为必传。</div>
+      </div>
+      <div class="step-card">
+        <div class="step-head">
+          <div class="step-title">自动切图识别</div>
+          <span class="step-tag" id="runModeTag">待执行</span>
+        </div>
+        <div class="muted">答题页默认使用项目内切图工具自动分割。最终对错判定优先采用标准答案，教师批改仅作辅助校验。</div>
+        <div class="actions">
+          <button id="runBtn">开始分析</button>
+          <button id="exportBtn" class="btn-secondary" disabled>导出 JSON</button>
+          <button id="exportPdfBtn" class="btn-secondary" disabled>下载 PDF 报告</button>
+        </div>
+      </div>
+      <div id="status" class="status muted"></div>
+    </div>
+
+    <div class="card">
+      <h2>题目知识点分析</h2>
+      <div id="paperOut" class="panel-list"></div>
+    </div>
+    <div class="card">
+      <h2>答题痕迹</h2>
+      <div id="traceOut" class="panel-list"></div>
+    </div>
+    <div class="card">
+      <h2>学生画像</h2>
+      <div id="profileOut" class="panel-list"></div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const TEXT_EMPTY = "暂无数据";
+    let lastRunResult = null;
+    let lastRunRequest = null;
+    let modelOptionsCache = null;
+    const visionToTextProfileMap = {};
+    const MODE_CONFIG = {
+      paper_answer_with_key: {
+        usePaper: true,
+        useAnswerSheet: true,
+        useCombined: false,
+        useAnswerKey: true,
+        requirePaper: true,
+        requireAnswerSheet: true,
+        requireCombined: false,
+        requireAnswerKey: true,
+        showPaperInputs: true,
+        showAnswerSheetInputs: true,
+        showCombinedInputs: false,
+        showPreSplitInputs: false,
+        showAnswerKeyInputs: true,
+        answerKeyHint: "当前模式下为必传。",
+        runButtonText: "开始分析",
+        modeTagText: "答题卡模式",
+        usePreSplit: false,
+        requirePreSplit: false,
+      },
+      paper_answer_auto_key: {
+        usePaper: true,
+        useAnswerSheet: true,
+        useCombined: false,
+        useAnswerKey: false,
+        requirePaper: true,
+        requireAnswerSheet: true,
+        requireCombined: false,
+        requireAnswerKey: false,
+        showPaperInputs: true,
+        showAnswerSheetInputs: true,
+        showCombinedInputs: false,
+        showPreSplitInputs: false,
+        showAnswerKeyInputs: false,
+        answerKeyHint: "当前模式不使用上传标准答案。",
+        runButtonText: "开始分析（自动标准答案）",
+        modeTagText: "答题卡模式",
+        usePreSplit: false,
+        requirePreSplit: false,
+      },
+      paper_same_page: {
+        usePaper: false,
+        useAnswerSheet: false,
+        useCombined: true,
+        useAnswerKey: true,
+        requirePaper: false,
+        requireAnswerSheet: false,
+        requireCombined: true,
+        requireAnswerKey: false,
+        showPaperInputs: false,
+        showAnswerSheetInputs: false,
+        showCombinedInputs: true,
+        showPreSplitInputs: false,
+        showAnswerKeyInputs: true,
+        answerKeyHint: "当前模式下可选；不传则自动生成标准答案。",
+        runButtonText: "开始分析",
+        modeTagText: "同卷模式",
+        usePreSplit: false,
+        requirePreSplit: false,
+      },
+      pre_split_questions: {
+        usePaper: false,
+        useAnswerSheet: true,
+        useCombined: false,
+        useAnswerKey: true,
+        requirePaper: false,
+        requireAnswerSheet: true,
+        requireCombined: false,
+        requireAnswerKey: false,
+        showPaperInputs: false,
+        showAnswerSheetInputs: true,
+        showCombinedInputs: false,
+        showPreSplitInputs: true,
+        showAnswerKeyInputs: true,
+        answerKeyHint: "当前模式下可选；不传则自动生成标准答案。",
+        runButtonText: "开始分析（预切分题目）",
+        modeTagText: "预切分模式",
+        usePreSplit: true,
+        requirePreSplit: true,
+      },
+    };
+
+    function getModeConfig(mode) {
+      return MODE_CONFIG[mode] || MODE_CONFIG.paper_answer_with_key;
+    }
+
+    function resetRunArtifacts() {
+      lastRunResult = null;
+      lastRunRequest = null;
+      if ($("exportBtn")) $("exportBtn").disabled = true;
+      if ($("exportPdfBtn")) $("exportPdfBtn").disabled = true;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function toSafeText(value) {
+      if (value === null || value === undefined || value === "") return TEXT_EMPTY;
+      if (typeof value === "object") return escapeHtml(JSON.stringify(value));
+      return escapeHtml(value);
+    }
+
+    function renderChips(items) {
+      if (!Array.isArray(items) || items.length === 0) {
+        return `<span class="empty">${TEXT_EMPTY}</span>`;
+      }
+      return `<div class="chip-row">${items.map((item) => `<span class="chip">${toSafeText(item)}</span>`).join("")}</div>`;
+    }
+
+    function hasDisplayValue(value) {
+      if (value === null || value === undefined) return false;
+      if (typeof value === "string") return value.trim() !== "";
+      if (Array.isArray(value)) return value.length > 0;
+      if (typeof value === "object") return Object.keys(value).length > 0;
+      return true;
+    }
+
+    function kvRow(label, value, options = {}) {
+      const html = options.html === true;
+      const hideEmpty = options.hideEmpty !== false;
+      if (hideEmpty && !hasDisplayValue(value)) return "";
+      const rendered = html ? String(value || "") : toSafeText(value);
+      if (hideEmpty && (!rendered || rendered === TEXT_EMPTY || rendered === `<span class="empty">${TEXT_EMPTY}</span>`)) return "";
+      return `<div class="k">${toSafeText(label)}</div><div>${rendered}</div>`;
+    }
+
+    function detailBlock(summary, innerHtml) {
+      if (!hasDisplayValue(innerHtml)) return "";
+      return `
+        <details class="detail-block">
+          <summary>${toSafeText(summary)}</summary>
+          <div class="kv detail-kv">${innerHtml}</div>
+        </details>
+      `;
+    }
+
+    function correctnessLabel(value) {
+      return value === true ? "正确" : value === false ? "错误" : TEXT_EMPTY;
+    }
+
+    function stripStepQuestionPrefix(value) {
+      if (typeof value !== "string") return "";
+      let text = value.trim();
+      text = text.replace(/^\s*Q\d+(?:[\(（]\d+[\)）])?\s*[：:、.\-]\s*/i, "");
+      text = text.replace(/^\s*Q\d+(?:[\(（]\d+[\)）])?\s+/i, "");
+      text = text.replace(/^\s*题?\d+(?:[\(（]\d+[\)）])?\s*[：:、.\-]\s*/i, "");
+      return text.trim();
+    }
+
+    function looksLikeFormulaStep(value) {
+      if (typeof value !== "string") return false;
+      const text = value.trim();
+      if (!text) return false;
+      if (/[\u4e00-\u9fff]/.test(text)) {
+        return false;
+      }
+      return /[=+\-*/^<>]|\d|[A-Za-z]|\\frac|\\sqrt|\\times|\\div/.test(text);
+    }
+
+    function escapeMathText(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    function renderStepList(items) {
+      if (!Array.isArray(items) || items.length === 0) {
+        return `<span class="empty">${TEXT_EMPTY}</span>`;
+      }
+      const steps = items
+        .map((item) => stripStepQuestionPrefix(typeof item === "string" ? item : String(item ?? "")))
+        .filter((item) => item);
+      if (!steps.length) {
+        return `<span class="empty">${TEXT_EMPTY}</span>`;
+      }
+      return `<div class="step-list">${steps.map((step) => {
+        if (looksLikeFormulaStep(step)) {
+          return `<div class="step-item math">\\(${escapeMathText(step)}\\)</div>`;
+        }
+        return `<div class="step-item">${toSafeText(step)}</div>`;
+      }).join("")}</div>`;
+    }
+
+    function renderDiagnosisStepList(items, skillAliasMap) {
+      if (!Array.isArray(items) || items.length === 0) {
+        return `<span class="empty">${TEXT_EMPTY}</span>`;
+      }
+      const rows = items
+        .map((item) => item && typeof item === "object" ? item : null)
+        .filter(Boolean)
+        .map((item) => {
+          const content = typeof item.content === "string" ? item.content : "";
+          const evidence = typeof item.evidence === "string" ? item.evidence : "";
+          const skillTags = Array.isArray(item.skill_tags) ? item.skill_tags : [];
+          return `
+            <div class="step-item">
+              <div><strong>步骤 ${toSafeText(item.step_index)}</strong>：${toSafeText(content)}</div>
+              ${skillTags.length ? `<div style="margin-top:6px;">${renderSkillChips(skillTags, skillAliasMap)}</div>` : ""}
+              ${evidence ? `<div class="muted" style="margin-top:6px;">证据：${toSafeText(evidence)}</div>` : ""}
+            </div>
+          `;
+        });
+      return rows.length ? `<div class="step-list">${rows.join("")}</div>` : `<span class="empty">${TEXT_EMPTY}</span>`;
+    }
+
+    function renderValidationSummary(validation) {
+      const item = validation && typeof validation === "object" ? validation : {};
+      if (item.validated === true) return "已通过教师批改校验";
+      if (item.validated === false) return toSafeText(item.conflict_reason || "学生诊断与教师批改不一致");
+      return toSafeText(item.conflict_reason || "未执行交叉验证");
+    }
+
+    function resolveDeductedScore(primary, fallback) {
+      const readNumber = (obj, key) => {
+        if (!obj || typeof obj !== "object") return null;
+        const value = Number(obj[key]);
+        return Number.isFinite(value) ? value : null;
+      };
+      const direct = readNumber(primary, "deducted_score");
+      if (direct !== null) return direct;
+      const fallbackDirect = readNumber(fallback, "deducted_score");
+      if (fallbackDirect !== null) return fallbackDirect;
+
+      const score = readNumber(primary, "score");
+      const maxScore = readNumber(primary, "max_score");
+      if (score !== null && maxScore !== null && maxScore >= score) return maxScore - score;
+
+      const fallbackScore = readNumber(fallback, "score");
+      const fallbackMaxScore = readNumber(fallback, "max_score");
+      if (fallbackScore !== null && fallbackMaxScore !== null && fallbackMaxScore >= fallbackScore) {
+        return fallbackMaxScore - fallbackScore;
+      }
+      return null;
+    }
+
+    function resolveSkillLabel(skillId, skillAliasMap) {
+      if (typeof skillId !== "string" || !skillId.trim()) return TEXT_EMPTY;
+      const alias = skillAliasMap && typeof skillAliasMap === "object" ? skillAliasMap[skillId] : null;
+      if (typeof alias === "string" && alias.trim()) return alias;
+      return skillId;
+    }
+
+    function renderSkillChips(skillIds, skillAliasMap) {
+      if (!Array.isArray(skillIds) || skillIds.length === 0) {
+        return `<span class="empty">${TEXT_EMPTY}</span>`;
+      }
+      const labels = skillIds.map((id) => resolveSkillLabel(id, skillAliasMap));
+      return `<div class="chip-row">${labels.map((item) => `<span class="chip">${toSafeText(item)}</span>`).join("")}</div>`;
+    }
+
+    function normalizeLatex(html) {
+      let result = String(html ?? "");
+      // Convert $$...$$ to \[...\] first, then $...$ to \(...\)
+      result = result.replace(/\$\$(.+?)\$\$/gs, '\\[$1\\]');
+      result = result.replace(/\$(.+?)\$/g, '\\($1\\)');
+      return result;
+    }
+
+    function setHtml(id, html) {
+      const el = $(id);
+      if (el) {
+        el.innerHTML = normalizeLatex(html);
+        requestMathTypeset(el);
+      }
+    }
+
+    function requestMathTypeset(el) {
+      if (!el || !window.MathJax || typeof window.MathJax.typesetPromise !== "function") {
+        return;
+      }
+      if (typeof window.MathJax.typesetClear === "function") {
+        window.MathJax.typesetClear([el]);
+      }
+      window.MathJax.typesetPromise([el])
+        .then(function () {
+          el.querySelectorAll("mjx-merror").forEach(function (merr) {
+            var span = document.createElement("span");
+            span.className = "math-fallback";
+            span.textContent = "[公式]";
+            span.style.cssText = "color:#d97706;font-style:italic;";
+            merr.replaceWith(span);
+          });
+        })
+        .catch(function () {});
+    }
+
+    function clamp01(x) {
+      const n = Number(x);
+      if (Number.isNaN(n)) return 0;
+      return Math.max(0, Math.min(1, n));
+    }
+
+    function pct(x) {
+      return `${Math.round(clamp01(x) * 100)}%`;
+    }
+
+    function levelTag(v) {
+      const value = clamp01(v);
+      if (value >= 0.75) return `<span class="badge good">高掌握</span>`;
+      if (value >= 0.5) return `<span class="badge warn">中掌握</span>`;
+      return `<span class="badge bad">低掌握</span>`;
+    }
+
+    function renderLiteracyRadar(literacyItems) {
+      if (!Array.isArray(literacyItems) || literacyItems.length === 0) {
+        return `<div class="empty">${TEXT_EMPTY}</div>`;
+      }
+      const normalized = literacyItems
+        .map((itemRaw) => itemRaw && typeof itemRaw === "object" ? itemRaw : null)
+        .filter(Boolean)
+        .map((item) => ({
+          label: String(item.name || item.literacy_id || "未命名维度"),
+          value: clamp01(item.value),
+        }));
+      if (!normalized.length) {
+        return `<div class="empty">${TEXT_EMPTY}</div>`;
+      }
+
+      const size = 380;
+      const center = size / 2;
+      const radius = 130;
+      const levelCount = 4;
+      const n = normalized.length;
+      const axisPoints = normalized.map((item, idx) => {
+        const angle = -Math.PI / 2 + (2 * Math.PI * idx) / n;
+        const x = center + radius * Math.cos(angle);
+        const y = center + radius * Math.sin(angle);
+        const labelX = center + (radius + 28) * Math.cos(angle);
+        const labelY = center + (radius + 28) * Math.sin(angle);
+        const anchor = Math.abs(labelX - center) < 12 ? "middle" : (labelX > center ? "start" : "end");
+        return {
+          ...item,
+          angle,
+          x,
+          y,
+          labelX,
+          labelY,
+          anchor,
+        };
+      });
+
+      const rings = [];
+      for (let i = 1; i <= levelCount; i += 1) {
+        const r = radius * (i / levelCount);
+        const pts = axisPoints.map((p) => `${(center + r * Math.cos(p.angle)).toFixed(1)},${(center + r * Math.sin(p.angle)).toFixed(1)}`).join(" ");
+        rings.push(`<polygon points="${pts}" fill="none" stroke="#dbe3ef" stroke-width="1"></polygon>`);
+      }
+      const axes = axisPoints.map((p) => `<line x1="${center}" y1="${center}" x2="${p.x.toFixed(1)}" y2="${p.y.toFixed(1)}" stroke="#dbe3ef" stroke-width="1"></line>`).join("");
+      const valuePolygon = axisPoints
+        .map((p) => {
+          const r = radius * p.value;
+          const x = center + r * Math.cos(p.angle);
+          const y = center + r * Math.sin(p.angle);
+          return `${x.toFixed(1)},${y.toFixed(1)}`;
+        })
+        .join(" ");
+      const dots = axisPoints
+        .map((p) => {
+          const r = radius * p.value;
+          const x = center + r * Math.cos(p.angle);
+          const y = center + r * Math.sin(p.angle);
+          return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#1d4ed8"></circle>`;
+        })
+        .join("");
+      const labels = axisPoints
+        .map((p) => `<text x="${p.labelX.toFixed(1)}" y="${(p.labelY + 4).toFixed(1)}" text-anchor="${p.anchor}" font-size="12" fill="#334155">${toSafeText(p.label)}</text>`)
+        .join("");
+      const legend = normalized
+        .map((item) => `<div><strong>${toSafeText(item.label)}</strong>：${pct(item.value)}</div>`)
+        .join("");
+
+      return `
+        <div class="radar-wrap">
+          <svg class="radar-svg" viewBox="0 0 ${size} ${size}" role="img" aria-label="核心素养雷达图">
+            ${rings.join("")}
+            ${axes}
+            <polygon points="${valuePolygon}" fill="rgba(29, 78, 216, 0.20)" stroke="#1d4ed8" stroke-width="2"></polygon>
+            ${dots}
+            ${labels}
+            <circle cx="${center}" cy="${center}" r="2.5" fill="#1d4ed8"></circle>
+          </svg>
+          <div class="radar-legend">
+            ${legend}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderQuestionAnalysis(questions, skillAliasMap) {
+      const visibleQuestions = Array.isArray(questions)
+        ? questions
+        : [];
+      if (visibleQuestions.length === 0) {
+        setHtml("paperOut", `<div class="empty">${TEXT_EMPTY}</div>`);
+        return;
+      }
+      const html = visibleQuestions.map((q, idx) => {
+        const question = q && typeof q === "object" ? q : {};
+        const detailsHtml = [
+          kvRow("模型置信度", question.confidence),
+          kvRow("完整题干", question.problem_text_full),
+        ].join("");
+        return `
+          <section class="data-panel">
+            <h3>题目 ${idx + 1}（${toSafeText(question.question_id || "未标号")}）</h3>
+            <div class="kv">
+              ${kvRow("题型", question.question_type)}
+              ${kvRow("题目摘要", question.problem_text)}
+              ${kvRow("知识点", renderSkillChips(question.skill_tags, skillAliasMap), { html: true })}
+            </div>
+            ${detailBlock("题目技术详情", detailsHtml)}
+          </section>
+        `;
+      }).join("");
+      setHtml("paperOut", html);
+    }
+
+    function renderAnswerTrace(answers, skillAliasMap) {
+      const visibleAnswers = Array.isArray(answers)
+        ? answers
+        : [];
+      if (visibleAnswers.length === 0) {
+        setHtml("traceOut", `<div class="empty">${TEXT_EMPTY}</div>`);
+        return;
+      }
+      const html = visibleAnswers.map((a, idx) => {
+        const answer = a && typeof a === "object" ? a : {};
+        const trace = answer.trace && typeof answer.trace === "object" ? answer.trace : {};
+        const errorAnalysis = answer.error_analysis && typeof answer.error_analysis === "object" ? answer.error_analysis : {};
+        const blindDiagnosis = answer.blind_diagnosis && typeof answer.blind_diagnosis === "object" ? answer.blind_diagnosis : null;
+        const teacherReview = answer.teacher_review && typeof answer.teacher_review === "object" ? answer.teacher_review : {};
+        const diagnosisValidation = answer.diagnosis_validation && typeof answer.diagnosis_validation === "object" ? answer.diagnosis_validation : {};
+        const correctnessObj = answer.correctness && typeof answer.correctness === "object" ? answer.correctness : {};
+        const correctness = correctnessLabel(answer.is_correct);
+        const keyCorrectness = correctnessLabel(correctnessObj.by_answer_key);
+        const displayId = answer.display_question_id || answer.sub_question_id || answer.question_id || "未标号";
+        const parentQuestion = answer.parent_question_id && answer.parent_question_id !== displayId
+          ? answer.parent_question_id
+          : "";
+        const deductedScore = resolveDeductedScore(answer, teacherReview);
+        const teacherCorrectness = correctnessLabel(teacherReview.is_correct);
+        const hasConflict = correctnessObj.conflict_with_teacher === true;
+        const conflictText = correctnessObj.conflict_with_teacher === true ? "是" : correctnessObj.conflict_with_teacher === false ? "否" : "";
+        const diagnosisDetails = blindDiagnosis ? `
+          ${kvRow("标准步骤", renderDiagnosisStepList(blindDiagnosis.standard_steps, skillAliasMap), { html: true })}
+          ${kvRow("学生步骤", renderDiagnosisStepList(blindDiagnosis.student_steps, skillAliasMap), { html: true })}
+          ${kvRow("分歧点", blindDiagnosis.divergence_point)}
+          ${kvRow("错误类型", blindDiagnosis.error_type)}
+          ${kvRow("关键证据", blindDiagnosis.evidence_span)}
+          ${kvRow("诊断建议", blindDiagnosis.repair_suggestion || blindDiagnosis.suggestion)}
+        ` : "";
+        const technicalDetails = [
+          kvRow("所属大题", parentQuestion),
+          kvRow("小题说明", answer.sub_question_text),
+          kvRow("状态", answer.status),
+          kvRow("判定来源", correctnessObj.source),
+          kvRow("标准答案判定", keyCorrectness),
+          kvRow("与教师冲突", conflictText),
+          kvRow("教师批改校验", renderValidationSummary(diagnosisValidation), { html: true }),
+          kvRow(
+            "教师批改结果",
+            `扣分: ${toSafeText(resolveDeductedScore(teacherReview, answer))}；判定: ${toSafeText(teacherCorrectness)}`,
+            { html: true },
+          ),
+          kvRow(
+            "痕迹特征",
+            `涂写: ${trace.scratchwork === true ? "有" : trace.scratchwork === false ? "无" : TEXT_EMPTY}；修改: ${trace.corrections === true ? "有" : trace.corrections === false ? "无" : TEXT_EMPTY}；可读性: ${toSafeText(trace.readability)}；置信度: ${toSafeText(trace.confidence)}`,
+            { html: true },
+          ),
+          kvRow("空痕迹原因码", trace.reason_code),
+          kvRow("备注", trace.notes),
+          diagnosisDetails ? kvRow("双盲诊断", detailBlock("展开步骤级诊断", diagnosisDetails), { html: true }) : "",
+        ].join("");
+        return `
+          <section class="data-panel">
+            <h3>作答 ${idx + 1}（${toSafeText(displayId)}）</h3>
+            <div class="kv">
+              ${kvRow("判定", `${toSafeText(correctness)}${hasConflict ? "（与教师批改存在冲突）" : ""}`, { html: true })}
+              ${kvRow("扣分", deductedScore)}
+              ${kvRow("知识点", renderSkillChips(answer.skill_tags, skillAliasMap), { html: true })}
+              ${kvRow("学生作答", answer.student_answer_text || answer.answer_text)}
+              ${kvRow("填空题答案", answer.filled_value)}
+              ${kvRow("作答步骤", renderStepList(answer.steps), { html: true })}
+              ${kvRow("错误步骤", errorAnalysis.wrong_step)}
+              ${kvRow("错因", errorAnalysis.step_reason || errorAnalysis.reason)}
+              ${kvRow("修正建议", errorAnalysis.step_fix || errorAnalysis.suggestion)}
+              ${hasConflict ? kvRow("冲突说明", correctnessObj.reason) : kvRow("判定依据", correctnessObj.reason)}
+            </div>
+            ${detailBlock("技术详情", technicalDetails)}
+          </section>
+        `;
+      }).join("");
+      setHtml("traceOut", html);
+    }
+
+    function renderStudentProfile(profile, warnings, skillAliasMap) {
+      const p = profile && typeof profile === "object" ? profile : {};
+      const mastery = Array.isArray(p.mastery) ? p.mastery : [];
+      const literacy = Array.isArray(p.literacy) ? p.literacy : [];
+      const weaknesses = Array.isArray(p.weaknesses) ? p.weaknesses : [];
+      const errorProfile = p.error_profile && typeof p.error_profile === "object" ? p.error_profile : {};
+      const warningList = Array.isArray(warnings) ? warnings.filter((x) => typeof x === "string" && x.trim()) : [];
+
+      const avgMastery = mastery.length
+        ? mastery.reduce((acc, x) => acc + clamp01(x?.value), 0) / mastery.length
+        : 0;
+      const avgLiteracy = literacy.length
+        ? literacy.reduce((acc, x) => acc + clamp01(x?.value), 0) / literacy.length
+        : 0;
+      const lowCount = mastery.filter((x) => clamp01(x?.value) < 0.5).length;
+      const weaknessCount = weaknesses.length;
+      const riskBadge = avgMastery >= 0.75
+        ? `<span class="badge good">学习风险低</span>`
+        : avgMastery >= 0.5
+          ? `<span class="badge warn">学习风险中</span>`
+          : `<span class="badge bad">学习风险高</span>`;
+
+      const errorKeys = [
+        ["concept", "概念"],
+        ["calculation", "计算"],
+        ["reading", "审题"],
+        ["strategy", "策略"],
+        ["unknown", "未知"],
+      ];
+      const totalError = errorKeys.reduce((acc, [k]) => acc + (Number(errorProfile[k]) || 0), 0);
+      const errorBars = errorKeys.map(([k, label]) => {
+        const count = Number(errorProfile[k]) || 0;
+        const ratio = totalError > 0 ? count / totalError : 0;
+        return `
+          <div class="error-item">
+            <div>${label}</div>
+            <div class="track"><span style="width:${pct(ratio)}"></span></div>
+            <div>${count}</div>
+          </div>
+        `;
+      }).join("");
+
+      const masteryHtml = mastery.length ? mastery.map((m) => {
+        const item = m && typeof m === "object" ? m : {};
+        const value = clamp01(item.value);
+        return `
+          <div class="data-panel">
+            <div class="mastery-row">
+              <div>
+                <div><strong>${toSafeText(resolveSkillLabel(item.skill_id, skillAliasMap))}</strong> ${levelTag(value)}</div>
+                <div class="bar"><span style="width:${pct(value)}"></span></div>
+              </div>
+              <div class="muted">${toSafeText(item.reason)}</div>
+            </div>
+          </div>
+        `;
+      }).join("") : `<div class="empty">${TEXT_EMPTY}</div>`;
+      const weakMastery = mastery.filter((m) => clamp01(m?.value) < 0.75);
+      const focusedMasteryHtml = weakMastery.length ? weakMastery.map((m) => {
+        const item = m && typeof m === "object" ? m : {};
+        const value = clamp01(item.value);
+        return `
+          <div class="data-panel">
+            <div class="mastery-row">
+              <div>
+                <div><strong>${toSafeText(resolveSkillLabel(item.skill_id, skillAliasMap))}</strong> ${levelTag(value)}</div>
+                <div class="bar"><span style="width:${pct(value)}"></span></div>
+              </div>
+              <div class="muted">${toSafeText(item.reason)}</div>
+            </div>
+          </div>
+        `;
+      }).join("") : `<div class="empty">暂无明显薄弱知识点</div>`;
+
+      const literacyHtml = literacy.length ? literacy.map((itemRaw) => {
+        const item = itemRaw && typeof itemRaw === "object" ? itemRaw : {};
+        const value = clamp01(item.value);
+        return `
+          <div class="data-panel">
+            <div class="mastery-row">
+              <div>
+                <div><strong>${toSafeText(item.name || item.literacy_id)}</strong> ${levelTag(value)}</div>
+                <div class="bar"><span style="width:${pct(value)}"></span></div>
+              </div>
+              <div class="muted">${toSafeText(item.reason)}</div>
+            </div>
+            <div class="kv" style="margin-top:12px;">
+              ${kvRow("证据题号", renderChips(item.evidence), { html: true })}
+              ${kvRow("提升建议", item.suggestion)}
+            </div>
+            ${detailBlock("规则详情", [
+              kvRow("定义", item.definition),
+              kvRow("规则置信度", item.confidence),
+              kvRow(
+                "证据来源",
+                `知识点: ${toSafeText(item.source_breakdown?.skill_tag)}；题型: ${toSafeText(item.source_breakdown?.question_type)}；错因: ${toSafeText(item.source_breakdown?.error_type)}；错步: ${toSafeText(item.source_breakdown?.wrong_step)}`,
+                { html: true },
+              ),
+            ].join(""))}
+          </div>
+        `;
+      }).join("") : `<div class="empty">${TEXT_EMPTY}</div>`;
+
+      const weaknessHtml = weaknesses.length ? weaknesses.map((w) => {
+        const item = w && typeof w === "object" ? w : {};
+        return `
+          <div class="data-panel">
+            <div class="kv">
+              <div class="k">薄弱知识点</div>
+              <div>${toSafeText(resolveSkillLabel(item.skill_id, skillAliasMap))}</div>
+              <div class="k">优先级</div>
+              <div>${toSafeText(item.priority)}</div>
+              <div class="k">证据题号</div>
+              <div>${renderChips(item.evidence)}</div>
+              <div class="k">典型表现</div>
+              <div>${toSafeText(item.symptom)}</div>
+              <div class="k">可能原因</div>
+              <div>${toSafeText(item.cause)}</div>
+              <div class="k">改进建议</div>
+              <div>${toSafeText(item.suggestion || item.practice_plan)}</div>
+            </div>
+            ${detailBlock("训练细节", [
+              kvRow("改进步骤", renderChips(item.improvement_steps), { html: true }),
+              kvRow("训练计划", item.practice_plan),
+              kvRow("达标标准", item.success_criteria),
+            ].join(""))}
+          </div>
+        `;
+      }).join("") : `<div class="empty">${TEXT_EMPTY}</div>`;
+
+      const warningsSection = warningList.length
+        ? `
+          <section class="data-panel">
+            <h3>运行告警</h3>
+            <div>
+              <ul class="warn-list">${warningList.map((w) => `<li>${toSafeText(w)}</li>`).join("")}</ul>
+            </div>
+          </section>
+        `
+        : "";
+      const literacyRadarHtml = renderLiteracyRadar(literacy);
+
+      setHtml("profileOut", `
+        <section class="profile-hero">
+          <h3>学习总览</h3>
+          <div class="kv">
+            <div class="k">学生 ID</div>
+            <div>${toSafeText(p.student_id)} ${riskBadge}</div>
+            <div class="k">诊断总结</div>
+            <div>${toSafeText(p.summary)}</div>
+          </div>
+          <div class="metric-grid">
+            <div class="metric"><div class="k">平均掌握度</div><div class="v">${pct(avgMastery)}</div></div>
+            <div class="metric"><div class="k">平均素养值</div><div class="v">${pct(avgLiteracy)}</div></div>
+            <div class="metric"><div class="k">低掌握知识点</div><div class="v">${toSafeText(lowCount)}</div></div>
+            <div class="metric"><div class="k">薄弱点数量</div><div class="v">${toSafeText(weaknessCount)}</div></div>
+          </div>
+        </section>
+        <section class="data-panel">
+          <h3>核心素养雷达图</h3>
+          ${literacyRadarHtml}
+        </section>
+        <section class="data-panel">
+          <h3>错误画像分布</h3>
+          <div class="error-bars">
+            ${errorBars}
+          </div>
+        </section>
+        ${warningsSection}
+        <section>
+          <h3>需关注知识点</h3>
+          <div class="panel-list">${focusedMasteryHtml}</div>
+          ${detailBlock("查看全部掌握度", masteryHtml)}
+        </section>
+        <section>
+          <h3>核心素养画像</h3>
+          <div class="panel-list">${literacyHtml}</div>
+        </section>
+        <section>
+          <h3>薄弱点与建议</h3>
+          <div class="panel-list">${weaknessHtml}</div>
+        </section>
+      `);
+    }
+
+    function renderEmpty() {
+      setHtml("paperOut", `<div class="empty">${TEXT_EMPTY}</div>`);
+      setHtml("traceOut", `<div class="empty">${TEXT_EMPTY}</div>`);
+      setHtml("profileOut", `<div class="empty">${TEXT_EMPTY}</div>`);
+    }
+
+    renderEmpty();
+
+    function buildModelOptionLabel(item) {
+      const model = item && typeof item === "object" ? String(item.model || "") : "";
+      const name = item && typeof item === "object" ? String(item.name || "") : "";
+      const provider = item && typeof item === "object" ? String(item.provider || "") : "";
+      const parts = [name];
+      if (model) parts.push(model);
+      if (provider) parts.push(provider);
+      return parts.filter(Boolean).join(" | ");
+    }
+
+    function populateModelSelect(selectEl, items, defaultName, emptyLabel) {
+      if (!selectEl) return;
+      const options = [];
+      options.push(`<option value="">${toSafeText(emptyLabel)}</option>`);
+      if (Array.isArray(items)) {
+        for (const item of items) {
+          if (!item || typeof item !== "object") continue;
+          const name = typeof item.name === "string" ? item.name.trim() : "";
+          if (!name) continue;
+          options.push(`<option value="${escapeHtml(name)}">${toSafeText(buildModelOptionLabel(item))}</option>`);
+          if (selectEl.id === "visionProfile") {
+            const recommended = typeof item.recommended_text_profile === "string" ? item.recommended_text_profile.trim() : "";
+            if (recommended) visionToTextProfileMap[name] = recommended;
+          }
+        }
+      }
+      selectEl.innerHTML = options.join("");
+      if (typeof defaultName === "string" && defaultName.trim()) {
+        selectEl.value = defaultName.trim();
+      }
+    }
+
+    async function loadModelOptions() {
+      const status = $("status");
+      try {
+        const resp = await fetch("/api/demo/model-options", { method: "GET" });
+        const data = await resp.json();
+        if (!resp.ok || !data || data.ok !== true) {
+          throw new Error((data && data.error) || `HTTP ${resp.status}`);
+        }
+        const result = data.result && typeof data.result === "object" ? data.result : {};
+        modelOptionsCache = result;
+        for (const key of Object.keys(visionToTextProfileMap)) delete visionToTextProfileMap[key];
+        populateModelSelect(
+          $("visionProfile"),
+          Array.isArray(result.vision_profiles) ? result.vision_profiles : [],
+          typeof result.default_vision_profile === "string" ? result.default_vision_profile : "",
+          "服务端默认视觉模型"
+        );
+        populateModelSelect(
+          $("textProfile"),
+          Array.isArray(result.text_profiles) ? result.text_profiles : [],
+          typeof result.default_text_profile === "string" ? result.default_text_profile : "",
+          "服务端默认 LLM 模型"
+        );
+      } catch (err) {
+        if (status) {
+          status.textContent = `模型列表加载失败，继续使用服务端默认模型：${err?.message || err}`;
+        }
+      }
+    }
+
+    async function toDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function collectPayload() {
+      const studentId = $("studentId").value.trim();
+      const inputMode = $("inputMode").value;
+      const visionProfile = $("visionProfile") ? $("visionProfile").value.trim() : "";
+      const textProfile = $("textProfile") ? $("textProfile").value.trim() : "";
+      const config = getModeConfig(inputMode);
+      const paperFiles = Array.from($("paperFiles").files || []);
+      const answerSheetFiles = Array.from($("answerSheetFiles").files || []);
+      const combinedFiles = Array.from($("combinedFiles").files || []);
+      const answerKeyFiles = Array.from($("answerKeyFiles").files || []);
+      const preSplitRaw = $("preSplitQuestions") ? $("preSplitQuestions").value.trim() : "";
+      const effectivePaperFiles = config.usePaper ? paperFiles : [];
+      const effectiveAnswerSheetFiles = config.useAnswerSheet ? answerSheetFiles : [];
+      const effectiveCombinedFiles = config.useCombined ? combinedFiles : [];
+      const effectiveAnswerKeyFiles = config.useAnswerKey ? answerKeyFiles : [];
+      let preSplitQuestions = [];
+      if (!studentId) throw new Error("请填写学生 ID");
+      if (config.requirePaper && effectivePaperFiles.length === 0) {
+        throw new Error("请上传原始试卷文件");
+      }
+      if (config.requireAnswerSheet && effectiveAnswerSheetFiles.length === 0) {
+        throw new Error("请上传答题卡文件");
+      }
+      if (config.requireAnswerKey && effectiveAnswerKeyFiles.length === 0) {
+        throw new Error("请上传标准答案文件");
+      }
+      if (config.requireCombined && effectiveCombinedFiles.length === 0) {
+        throw new Error("请上传同卷作答文件");
+      }
+      if (config.usePreSplit) {
+        if (!preSplitRaw) {
+          throw new Error("请填写预切分题目 JSON");
+        }
+        let parsed;
+        try {
+          parsed = JSON.parse(preSplitRaw);
+        } catch (err) {
+          throw new Error("预切分题目 JSON 解析失败");
+        }
+        if (!Array.isArray(parsed) || parsed.length === 0) {
+          throw new Error("预切分题目 JSON 必须是非空数组");
+        }
+        const normalized = [];
+        parsed.forEach((item, index) => {
+          if (!item || typeof item !== "object" || Array.isArray(item)) {
+            throw new Error(`pre_split_questions[${index}] 必须是对象`);
+          }
+          const qid = typeof item.question_id === "string" ? item.question_id.trim() : "";
+          if (!qid) {
+            throw new Error(`pre_split_questions[${index}] 缺少 question_id`);
+          }
+          normalized.push(item);
+        });
+        preSplitQuestions = normalized;
+      }
+      if (config.requirePreSplit && preSplitQuestions.length === 0) {
+        throw new Error("请提供预切分题目");
+      }
+
+      const toPayloadFiles = async (files) => {
+        const items = [];
+        for (const file of files) {
+          items.push({ name: file.name, data_url: await toDataUrl(file) });
+        }
+        return items;
+      };
+
+      return {
+        student_id: studentId,
+        input_mode: inputMode,
+        vision_profile: visionProfile,
+        text_profile: textProfile,
+        paper_files: await toPayloadFiles(effectivePaperFiles),
+        answer_sheet_files: await toPayloadFiles(effectiveAnswerSheetFiles),
+        combined_files: await toPayloadFiles(effectiveCombinedFiles),
+        answer_key_files: await toPayloadFiles(effectiveAnswerKeyFiles),
+        pre_split_questions: preSplitQuestions,
+      };
+    }
+
+
+    function updateModeUI() {
+      const mode = $("inputMode").value;
+      const config = getModeConfig(mode);
+      const paperInputs = $("paperInputs");
+      const answerSheetInputs = $("answerSheetInputs");
+      const combinedInputs = $("combinedInputs");
+      const preSplitInputs = $("preSplitInputs");
+      const answerKeyInputs = $("answerKeyInputs");
+      const answerKeyHint = $("answerKeyHint");
+      if (paperInputs) paperInputs.style.display = config.showPaperInputs ? "block" : "none";
+      if (answerSheetInputs) answerSheetInputs.style.display = config.showAnswerSheetInputs ? "block" : "none";
+      if (combinedInputs) combinedInputs.style.display = config.showCombinedInputs ? "block" : "none";
+      if (preSplitInputs) preSplitInputs.style.display = config.showPreSplitInputs ? "block" : "none";
+      if (answerKeyInputs) answerKeyInputs.style.display = config.showAnswerKeyInputs ? "block" : "none";
+      if (answerKeyHint) {
+        answerKeyHint.textContent = config.answerKeyHint;
+      }
+      $("runBtn").textContent = config.runButtonText;
+      $("runModeTag").textContent = config.modeTagText;
+    }
+
+    function toExportRequestPayload(payload) {
+      const p = payload && typeof payload === "object" ? payload : {};
+      const exportFiles = (files) => (Array.isArray(files) ? files : []).map((item) => ({
+        name: item && typeof item === "object" ? item.name : null,
+      }));
+      return {
+        student_id: p.student_id || "",
+        input_mode: p.input_mode || "",
+        vision_profile: p.vision_profile || "",
+        text_profile: p.text_profile || "",
+        paper_files: exportFiles(p.paper_files),
+        answer_sheet_files: exportFiles(p.answer_sheet_files),
+        combined_files: exportFiles(p.combined_files),
+        answer_key_files: exportFiles(p.answer_key_files),
+        pre_split_questions: (Array.isArray(p.pre_split_questions) ? p.pre_split_questions : []).map((item) => ({
+          question_id: item && typeof item === "object" ? item.question_id || null : null,
+          question_type: item && typeof item === "object" ? item.question_type || null : null,
+        })),
+      };
+    }
+
+    async function postJson(url, payload) {
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await resp.json();
+      if (!resp.ok || !data.ok) {
+        throw new Error(data.error || (`HTTP ${resp.status}`));
+      }
+      return data.result || {};
+    }
+
+    async function run() {
+      const status = $("status");
+      const btn = $("runBtn");
+      const exportBtn = $("exportBtn");
+      const exportPdfBtn = $("exportPdfBtn");
+      try {
+        btn.disabled = true;
+        if (exportBtn) exportBtn.disabled = true;
+        if (exportPdfBtn) exportPdfBtn.disabled = true;
+        const payload = await collectPayload();
+        status.textContent = "正在调用模型，请稍候...";
+        const result = await postJson("/api/demo/run", payload);
+        const skillAliasMap = result.skill_alias_map && typeof result.skill_alias_map === "object"
+          ? result.skill_alias_map
+          : {};
+        renderQuestionAnalysis(result.question_analysis || [], skillAliasMap);
+        renderAnswerTrace(result.answer_trace_display || result.answer_trace || [], skillAliasMap);
+        renderStudentProfile(result.student_profile || {}, result.warnings || [], skillAliasMap);
+        lastRunResult = result;
+        lastRunRequest = toExportRequestPayload(payload);
+        const keySource = result && typeof result === "object" ? result.answer_key_source : "";
+        const modelSelection = result && typeof result === "object" && result.model_selection && typeof result.model_selection === "object"
+          ? result.model_selection
+          : {};
+        const visionLabel = modelSelection.vision_profile || "默认视觉模型";
+        const textLabel = modelSelection.text_profile || "默认LLM模型";
+        status.textContent = keySource
+          ? `分析完成（标准答案来源: ${keySource}；视觉模型: ${visionLabel}；LLM模型: ${textLabel}）`
+          : `分析完成（视觉模型: ${visionLabel}；LLM模型: ${textLabel}）`;
+      } catch (err) {
+        status.textContent = `失败: ${err?.message || err}`;
+      } finally {
+        btn.disabled = false;
+        const canExport = Boolean(lastRunResult && lastRunRequest);
+        if (exportBtn) exportBtn.disabled = !canExport;
+        if (exportPdfBtn) exportPdfBtn.disabled = !canExport;
+      }
+    }
+
+    async function exportJson() {
+      const status = $("status");
+      const exportBtn = $("exportBtn");
+      const exportPdfBtn = $("exportPdfBtn");
+      if (!lastRunResult || !lastRunRequest) {
+        status.textContent = "请先完成一次分析再导出";
+        return;
+      }
+      try {
+        if (exportBtn) exportBtn.disabled = true;
+        if (exportPdfBtn) exportPdfBtn.disabled = true;
+        status.textContent = "正在导出 JSON...";
+        const resp = await fetch("/api/demo/export", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            request_payload: lastRunRequest,
+            result: lastRunResult,
+          }),
+        });
+        if (!resp.ok) {
+          let msg = `HTTP ${resp.status}`;
+          try {
+            const errData = await resp.json();
+            if (errData && typeof errData === "object" && errData.error) {
+              msg = errData.error;
+            }
+          } catch (_) {}
+          throw new Error(msg);
+        }
+
+        const blob = await resp.blob();
+        let filename = `analysis_export_${Date.now()}.json`;
+        const disposition = resp.headers.get("Content-Disposition") || "";
+        const match = disposition.match(/filename=\"?([^\";]+)\"?/i);
+        if (match && match[1]) filename = match[1];
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        status.textContent = "导出完成";
+      } catch (err) {
+        status.textContent = `导出失败: ${err?.message || err}`;
+      } finally {
+        if (exportBtn) exportBtn.disabled = false;
+        if (exportPdfBtn) exportPdfBtn.disabled = false;
+      }
+    }
+
+    async function exportPdf() {
+      const status = $("status");
+      const exportBtn = $("exportBtn");
+      const exportPdfBtn = $("exportPdfBtn");
+      if (!lastRunResult || !lastRunRequest) {
+        status.textContent = "请先完成一次分析再导出";
+        return;
+      }
+      try {
+        if (exportBtn) exportBtn.disabled = true;
+        if (exportPdfBtn) exportPdfBtn.disabled = true;
+        status.textContent = "正在生成 PDF 报告...";
+        const resp = await fetch("/api/demo/export/pdf", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            request_payload: lastRunRequest,
+            result: lastRunResult,
+          }),
+        });
+        if (!resp.ok) {
+          let msg = `HTTP ${resp.status}`;
+          try {
+            const errData = await resp.json();
+            if (errData && typeof errData === "object" && errData.error) {
+              msg = errData.error;
+            }
+          } catch (_) {}
+          throw new Error(msg);
+        }
+
+        const blob = await resp.blob();
+        let filename = `analysis_report_${Date.now()}.pdf`;
+        const disposition = resp.headers.get("Content-Disposition") || "";
+        const match = disposition.match(/filename=\"?([^\";]+)\"?/i);
+        if (match && match[1]) filename = match[1];
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        status.textContent = "PDF 报告下载完成";
+      } catch (err) {
+        status.textContent = `PDF 导出失败: ${err?.message || err}`;
+      } finally {
+        if (exportBtn) exportBtn.disabled = false;
+        if (exportPdfBtn) exportPdfBtn.disabled = false;
+      }
+    }
+
+    ["studentId", "paperFiles", "answerSheetFiles", "combinedFiles", "answerKeyFiles", "visionProfile", "textProfile"].forEach((id) => {
+      const el = $(id);
+      if (el) {
+        el.addEventListener("change", resetRunArtifacts);
+      }
+    });
+    const preSplitEl = $("preSplitQuestions");
+    if (preSplitEl) {
+      preSplitEl.addEventListener("input", resetRunArtifacts);
+      preSplitEl.addEventListener("change", resetRunArtifacts);
+    }
+    $("inputMode").addEventListener("change", () => {
+      resetRunArtifacts();
+      updateModeUI();
+    });
+    const visionProfileEl = $("visionProfile");
+    const textProfileEl = $("textProfile");
+    if (visionProfileEl && textProfileEl) {
+      visionProfileEl.addEventListener("change", () => {
+        const selectedVision = visionProfileEl.value;
+        const recommendedText = visionToTextProfileMap[selectedVision];
+        if (typeof recommendedText === "string" && recommendedText) {
+          const hasOption = Array.from(textProfileEl.options).some((item) => item.value === recommendedText);
+          if (hasOption) textProfileEl.value = recommendedText;
+        }
+      });
+    }
+    $("runBtn").addEventListener("click", run);
+    $("exportBtn").addEventListener("click", exportJson);
+    $("exportPdfBtn").addEventListener("click", exportPdf);
+    updateModeUI();
+    loadModelOptions();
+  </script>
+</body>
+</html>

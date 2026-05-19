@@ -1,0 +1,1695 @@
+[
+  {
+    "id": "1",
+    "type": "chapter",
+    "title": "第1章 基本知识",
+    "page": 1,
+    "children": [
+      {
+        "id": "1.1",
+        "type": "section",
+        "title": "1.1 实数与实数集",
+        "page": 1,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、集合",
+            "page": 1
+          },
+          {
+            "type": "subsection",
+            "title": "二、集合的运算",
+            "page": 2
+          },
+          {
+            "type": "subsection",
+            "title": "三、数集的演进",
+            "page": 2
+          },
+          {
+            "type": "subsection",
+            "title": "四、区间和邻域",
+            "page": 3
+          },
+          {
+            "type": "subsection",
+            "title": "*五、实数的完备性",
+            "page": 4
+          },
+          {
+            "type": "subsection",
+            "title": "习题 1.1",
+            "page": 5
+          }
+        ]
+      },
+      {
+        "id": "1.2",
+        "type": "section",
+        "title": "1.2 函数",
+        "page": 6,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、函数的概念",
+            "page": 6
+          },
+          {
+            "type": "subsection",
+            "title": "二、函数的一些特性",
+            "page": 9
+          },
+          {
+            "type": "subsection",
+            "title": "三、反函数与复合函数",
+            "page": 11
+          },
+          {
+            "type": "subsection",
+            "title": "四、初等函数",
+            "page": 13
+          },
+          {
+            "type": "subsection",
+            "title": "习题 1.2",
+            "page": 18
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "type": "chapter",
+    "title": "第2章 极限与连续",
+    "page": 21,
+    "children": [
+      {
+        "id": "2.1",
+        "type": "section",
+        "title": "2.1 数列极限",
+        "page": 21,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、数列",
+            "page": 21
+          },
+          {
+            "type": "subsection",
+            "title": "二、数列的极限",
+            "page": 23
+          },
+          {
+            "type": "subsection",
+            "title": "三、收敛数列的性质与极限的运算法则",
+            "page": 26
+          },
+          {
+            "type": "subsection",
+            "title": "四、数列极限存在的条件",
+            "page": 33
+          },
+          {
+            "type": "subsection",
+            "title": "习题 2.1",
+            "page": 36
+          }
+        ]
+      },
+      {
+        "id": "2.2",
+        "type": "section",
+        "title": "2.2 函数极限",
+        "page": 37,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、自变量趋于无穷大时函数的极限",
+            "page": 37
+          },
+          {
+            "type": "subsection",
+            "title": "二、自变量趋于有限值时函数的极限",
+            "page": 38
+          },
+          {
+            "type": "subsection",
+            "title": "三、函数极限的性质及其运算法则",
+            "page": 42
+          },
+          {
+            "type": "subsection",
+            "title": "四、两个重要的极限",
+            "page": 47
+          },
+          {
+            "type": "subsection",
+            "title": "习题 2.2",
+            "page": 50
+          }
+        ]
+      },
+      {
+        "id": "2.3",
+        "type": "section",
+        "title": "2.3 无穷小与无穷大",
+        "page": 52,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、无穷小",
+            "page": 52
+          },
+          {
+            "type": "subsection",
+            "title": "二、无穷大",
+            "page": 54
+          },
+          {
+            "type": "subsection",
+            "title": "三、无穷小的比较",
+            "page": 56
+          },
+          {
+            "type": "subsection",
+            "title": "习题 2.3",
+            "page": 59
+          }
+        ]
+      },
+      {
+        "id": "2.4",
+        "type": "section",
+        "title": "2.4 连续函数",
+        "page": 60,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、函数的连续性",
+            "page": 60
+          },
+          {
+            "type": "subsection",
+            "title": "二、间断点及其分类",
+            "page": 63
+          },
+          {
+            "type": "subsection",
+            "title": "三、连续函数的运算和初等函数的连续性",
+            "page": 64
+          },
+          {
+            "type": "subsection",
+            "title": "四、闭区间上连续函数的性质",
+            "page": 68
+          },
+          {
+            "type": "subsection",
+            "title": "*五、函数的一致连续性",
+            "page": 71
+          },
+          {
+            "type": "subsection",
+            "title": "习题 2.4",
+            "page": 72
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "总练习题",
+        "page": 74
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "type": "chapter",
+    "title": "第3章 导数与微分",
+    "page": 76,
+    "children": [
+      {
+        "id": "3.1",
+        "type": "section",
+        "title": "3.1 导数的概念",
+        "page": 76,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、导数的定义",
+            "page": 76
+          },
+          {
+            "type": "subsection",
+            "title": "二、可导与连续",
+            "page": 78
+          },
+          {
+            "type": "subsection",
+            "title": "三、求导数的例",
+            "page": 79
+          },
+          {
+            "type": "subsection",
+            "title": "四、平面曲线的切线方程和法线方程",
+            "page": 80
+          },
+          {
+            "type": "subsection",
+            "title": "习题 3.1",
+            "page": 82
+          }
+        ]
+      },
+      {
+        "id": "3.2",
+        "type": "section",
+        "title": "3.2 求导法则",
+        "page": 83,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、导数的四则运算",
+            "page": 83
+          },
+          {
+            "type": "subsection",
+            "title": "二、反函数的导数",
+            "page": 85
+          },
+          {
+            "type": "subsection",
+            "title": "三、复合函数的导数",
+            "page": 86
+          },
+          {
+            "type": "subsection",
+            "title": "四、基本初等函数的导数公式与求导法则",
+            "page": 88
+          },
+          {
+            "type": "subsection",
+            "title": "习题 3.2",
+            "page": 89
+          }
+        ]
+      },
+      {
+        "id": "3.3",
+        "type": "section",
+        "title": "3.3 高阶导数",
+        "page": 91,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、高阶导数概念及计算",
+            "page": 91
+          },
+          {
+            "type": "subsection",
+            "title": "二、高阶导数运算法则及莱布尼茨公式",
+            "page": 93
+          },
+          {
+            "type": "subsection",
+            "title": "习题 3.3",
+            "page": 94
+          }
+        ]
+      },
+      {
+        "id": "3.4",
+        "type": "section",
+        "title": "3.4 隐函数和由参数方程确定的函数的导数",
+        "page": 95,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、隐函数的导数",
+            "page": 95
+          },
+          {
+            "type": "subsection",
+            "title": "二、由参数方程确定的函数的导数",
+            "page": 98
+          },
+          {
+            "type": "subsection",
+            "title": "三、相关变化率",
+            "page": 99
+          },
+          {
+            "type": "subsection",
+            "title": "习题 3.4",
+            "page": 101
+          }
+        ]
+      },
+      {
+        "id": "3.5",
+        "type": "section",
+        "title": "3.5 微分",
+        "page": 102,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、微分的概念",
+            "page": 102
+          },
+          {
+            "type": "subsection",
+            "title": "二、微分基本公式与运算法则",
+            "page": 104
+          },
+          {
+            "type": "subsection",
+            "title": "三、利用微分进行近似计算",
+            "page": 107
+          },
+          {
+            "type": "subsection",
+            "title": "*四、误差估计",
+            "page": 108
+          },
+          {
+            "type": "subsection",
+            "title": "习题 3.5",
+            "page": 109
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "总练习题",
+        "page": 110
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "type": "chapter",
+    "title": "第4章 微分中值定理与导数的应用",
+    "page": 113,
+    "children": [
+      {
+        "id": "4.1",
+        "type": "section",
+        "title": "4.1 微分中值定理",
+        "page": 113,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、费马(Fermat)定理",
+            "page": 113
+          },
+          {
+            "type": "subsection",
+            "title": "二、罗尔(Rolle)中值定理",
+            "page": 114
+          },
+          {
+            "type": "subsection",
+            "title": "三、拉格朗日(Lagrange)中值定理",
+            "page": 115
+          },
+          {
+            "type": "subsection",
+            "title": "四、柯西(Cauchy)中值定理",
+            "page": 117
+          },
+          {
+            "type": "subsection",
+            "title": "习题 4.1",
+            "page": 119
+          }
+        ]
+      },
+      {
+        "id": "4.2",
+        "type": "section",
+        "title": "4.2 洛必达(L'Hospital)法则",
+        "page": 120,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、0/0型和∞/∞型不定式极限",
+            "page": 120
+          },
+          {
+            "type": "subsection",
+            "title": "二、其他类型不定式极限",
+            "page": 122
+          },
+          {
+            "type": "subsection",
+            "title": "习题 4.2",
+            "page": 125
+          }
+        ]
+      },
+      {
+        "id": "4.3",
+        "type": "section",
+        "title": "4.3 泰勒(Taylor)公式",
+        "page": 126,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、泰勒公式",
+            "page": 126
+          },
+          {
+            "type": "subsection",
+            "title": "二、几个初等函数带佩亚诺余项的麦克劳林(Maclaurin)公式",
+            "page": 128
+          },
+          {
+            "type": "subsection",
+            "title": "习题 4.3",
+            "page": 132
+          }
+        ]
+      },
+      {
+        "id": "4.4",
+        "type": "section",
+        "title": "4.4 函数的单调性、极值和最值",
+        "page": 132,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、函数的单调性的判别法",
+            "page": 132
+          },
+          {
+            "type": "subsection",
+            "title": "二、函数的极值的判别法",
+            "page": 135
+          },
+          {
+            "type": "subsection",
+            "title": "三、函数的最值",
+            "page": 137
+          },
+          {
+            "type": "subsection",
+            "title": "习题 4.4",
+            "page": 139
+          }
+        ]
+      },
+      {
+        "id": "4.5",
+        "type": "section",
+        "title": "4.5 函数图形的讨论",
+        "page": 140,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、曲线的凸性与拐点",
+            "page": 140
+          },
+          {
+            "type": "subsection",
+            "title": "二、曲线的渐近线",
+            "page": 143
+          },
+          {
+            "type": "subsection",
+            "title": "三、函数图形的描绘",
+            "page": 145
+          },
+          {
+            "type": "subsection",
+            "title": "习题 4.5",
+            "page": 147
+          }
+        ]
+      },
+      {
+        "id": "4.6",
+        "type": "section",
+        "title": "*4.6 曲率",
+        "page": 148,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "习题 4.6",
+            "page": 152
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "总练习题",
+        "page": 152
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "type": "chapter",
+    "title": "第5章 积分",
+    "page": 155,
+    "children": [
+      {
+        "id": "5.1",
+        "type": "section",
+        "title": "5.1 定积分的概念和基本性质",
+        "page": 155,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、实例",
+            "page": 155
+          },
+          {
+            "type": "subsection",
+            "title": "二、定积分的定义",
+            "page": 157
+          },
+          {
+            "type": "subsection",
+            "title": "三、定积分的基本性质",
+            "page": 159
+          },
+          {
+            "type": "subsection",
+            "title": "习题 5.1",
+            "page": 163
+          }
+        ]
+      },
+      {
+        "id": "5.2",
+        "type": "section",
+        "title": "5.2 原函数和微积分学基本定理",
+        "page": 164,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、原函数",
+            "page": 164
+          },
+          {
+            "type": "subsection",
+            "title": "二、积分上限的函数及其导数",
+            "page": 165
+          },
+          {
+            "type": "subsection",
+            "title": "三、牛顿-莱布尼茨公式",
+            "page": 167
+          },
+          {
+            "type": "subsection",
+            "title": "习题 5.2",
+            "page": 168
+          }
+        ]
+      },
+      {
+        "id": "5.3",
+        "type": "section",
+        "title": "5.3 不定积分",
+        "page": 169,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、不定积分的概念",
+            "page": 169
+          },
+          {
+            "type": "subsection",
+            "title": "二、直接积分法",
+            "page": 169
+          },
+          {
+            "type": "subsection",
+            "title": "三、不定积分的第一类换元积分法",
+            "page": 172
+          },
+          {
+            "type": "subsection",
+            "title": "四、不定积分的第二类换元积分法",
+            "page": 177
+          },
+          {
+            "type": "subsection",
+            "title": "五、不定积分的分部积分法",
+            "page": 182
+          },
+          {
+            "type": "subsection",
+            "title": "*六、有理函数的不定积分",
+            "page": 186
+          },
+          {
+            "type": "subsection",
+            "title": "*七、三角函数有理式的不定积分",
+            "page": 190
+          },
+          {
+            "type": "subsection",
+            "title": "*八、简单无理函数的不定积分",
+            "page": 192
+          },
+          {
+            "type": "subsection",
+            "title": "习题 5.3",
+            "page": 193
+          }
+        ]
+      },
+      {
+        "id": "5.4",
+        "type": "section",
+        "title": "5.4 定积分的积分法",
+        "page": 196,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、直接利用牛顿-莱布尼茨公式",
+            "page": 196
+          },
+          {
+            "type": "subsection",
+            "title": "二、定积分的换元积分法",
+            "page": 197
+          },
+          {
+            "type": "subsection",
+            "title": "三、定积分的分部积分法",
+            "page": 201
+          },
+          {
+            "type": "subsection",
+            "title": "习题 5.4",
+            "page": 204
+          }
+        ]
+      },
+      {
+        "id": "5.5",
+        "type": "section",
+        "title": "*5.5 定积分的近似计算",
+        "page": 205,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、矩形法",
+            "page": 206
+          },
+          {
+            "type": "subsection",
+            "title": "二、梯形法",
+            "page": 206
+          },
+          {
+            "type": "subsection",
+            "title": "三、抛物线法",
+            "page": 208
+          },
+          {
+            "type": "subsection",
+            "title": "习题 5.5",
+            "page": 209
+          }
+        ]
+      },
+      {
+        "id": "5.6",
+        "type": "section",
+        "title": "5.6 广义积分、Γ 函数",
+        "page": 210,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、无限区间上的广义积分",
+            "page": 210
+          },
+          {
+            "type": "subsection",
+            "title": "二、无界函数的广义积分",
+            "page": 212
+          },
+          {
+            "type": "subsection",
+            "title": "*三、Γ 函数",
+            "page": 215
+          },
+          {
+            "type": "subsection",
+            "title": "习题 5.6",
+            "page": 217
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "总练习题",
+        "page": 218
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "type": "chapter",
+    "title": "第6章 定积分的应用",
+    "page": 221,
+    "children": [
+      {
+        "id": "6.1",
+        "type": "section",
+        "title": "6.1 微元法",
+        "page": 221
+      },
+      {
+        "id": "6.2",
+        "type": "section",
+        "title": "6.2 平面图形的面积",
+        "page": 222,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、直角坐标系下的面积公式",
+            "page": 222
+          },
+          {
+            "type": "subsection",
+            "title": "二、极坐标系下的面积公式",
+            "page": 224
+          },
+          {
+            "type": "subsection",
+            "title": "习题 6.2",
+            "page": 225
+          }
+        ]
+      },
+      {
+        "id": "6.3",
+        "type": "section",
+        "title": "6.3 体积",
+        "page": 226,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、平行截面面积为已知的立体的体积",
+            "page": 226
+          },
+          {
+            "type": "subsection",
+            "title": "二、旋转体的体积",
+            "page": 227
+          },
+          {
+            "type": "subsection",
+            "title": "习题 6.3",
+            "page": 229
+          }
+        ]
+      },
+      {
+        "id": "6.4",
+        "type": "section",
+        "title": "6.4 平面曲线的弧长与旋转曲面的面积",
+        "page": 230,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、平面曲线的弧长",
+            "page": 230
+          },
+          {
+            "type": "subsection",
+            "title": "二、旋转曲面的面积",
+            "page": 232
+          },
+          {
+            "type": "subsection",
+            "title": "习题 6.4",
+            "page": 233
+          }
+        ]
+      },
+      {
+        "id": "6.5",
+        "type": "section",
+        "title": "6.5 若干物理应用",
+        "page": 234,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、物体的质量",
+            "page": 234
+          },
+          {
+            "type": "subsection",
+            "title": "二、引力",
+            "page": 235
+          },
+          {
+            "type": "subsection",
+            "title": "三、液体的压力",
+            "page": 236
+          },
+          {
+            "type": "subsection",
+            "title": "四、功",
+            "page": 236
+          },
+          {
+            "type": "subsection",
+            "title": "习题 6.5",
+            "page": 238
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "总练习题",
+        "page": 238
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "type": "chapter",
+    "title": "第7章 空间解析几何",
+    "page": 240,
+    "children": [
+      {
+        "id": "7.1",
+        "type": "section",
+        "title": "7.1 空间直角坐标系",
+        "page": 240,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "习题 7.1",
+            "page": 242
+          }
+        ]
+      },
+      {
+        "id": "7.2",
+        "type": "section",
+        "title": "7.2 向量及其线性运算、向量的坐标",
+        "page": 242,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、向量的基本运算",
+            "page": 242
+          },
+          {
+            "type": "subsection",
+            "title": "二、向量的坐标、向量运算的坐标表示",
+            "page": 244
+          },
+          {
+            "type": "subsection",
+            "title": "习题 7.2",
+            "page": 245
+          }
+        ]
+      },
+      {
+        "id": "7.3",
+        "type": "section",
+        "title": "7.3 向量的数量积、向量积",
+        "page": 246,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、向量的数量积",
+            "page": 246
+          },
+          {
+            "type": "subsection",
+            "title": "二、向量的向量积",
+            "page": 248
+          },
+          {
+            "type": "subsection",
+            "title": "*三、向量的混合积",
+            "page": 250
+          },
+          {
+            "type": "subsection",
+            "title": "习题 7.3",
+            "page": 251
+          }
+        ]
+      },
+      {
+        "id": "7.4",
+        "type": "section",
+        "title": "7.4 平面的方程",
+        "page": 252,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "习题 7.4",
+            "page": 255
+          }
+        ]
+      },
+      {
+        "id": "7.5",
+        "type": "section",
+        "title": "7.5 空间直线的方程",
+        "page": 256,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "习题 7.5",
+            "page": 258
+          }
+        ]
+      },
+      {
+        "id": "7.6",
+        "type": "section",
+        "title": "7.6 曲面与空间曲线",
+        "page": 259,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "习题 7.6",
+            "page": 261
+          }
+        ]
+      },
+      {
+        "id": "7.7",
+        "type": "section",
+        "title": "7.7 旋转面、柱面",
+        "page": 262,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "一、旋转面",
+            "page": 262
+          },
+          {
+            "type": "subsection",
+            "title": "二、柱面",
+            "page": 264
+          },
+          {
+            "type": "subsection",
+            "title": "习题 7.7",
+            "page": 267
+          }
+        ]
+      },
+      {
+        "id": "7.8",
+        "type": "section",
+        "title": "7.8 二次曲面",
+        "page": 268,
+        "children": [
+          {
+            "type": "subsection",
+            "title": "习题 7.8",
+            "page": 272
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "title": "总练习题",
+        "page": 272
+      }
+    ]
+  },
+  {
+    "id": "appendix-1",
+    "type": "appendix",
+    "title": "附录 I 几种常用的曲线",
+    "page": 274
+  },
+  {
+    "id": "appendix-2",
+    "type": "appendix",
+    "title": "附录 II 积分表",
+    "page": 277
+  },
+  {
+    "id": "answers",
+    "type": "appendix",
+    "title": "习题答案与提示",
+    "page": 278
+  },
+  {
+    "id": "8",
+    "type": "chapter",
+    "title": "第8章 空间解析几何",
+    "page": 1,
+    "children": [
+      {
+        "id": "8.1",
+        "type": "section",
+        "title": "8.1 空间直角坐标系",
+        "page": 1,
+        "children": [
+          {
+            "id": "8.1.1",
+            "type": "subsection",
+            "title": "空间直角坐标系",
+            "page": 1
+          },
+          {
+            "id": "8.1.2",
+            "type": "subsection",
+            "title": "空间两点之间的距离",
+            "page": 3
+          }
+        ]
+      },
+      {
+        "id": "8.2",
+        "type": "section",
+        "title": "8.2 向量及其线性运算",
+        "page": 5,
+        "children": [
+          {
+            "id": "8.2.1",
+            "type": "subsection",
+            "title": "向量的概念",
+            "page": 5
+          },
+          {
+            "id": "8.2.2",
+            "type": "subsection",
+            "title": "向量的线性运算",
+            "page": 5
+          },
+          {
+            "id": "8.2.3",
+            "type": "subsection",
+            "title": "向量的坐标与分解",
+            "page": 8
+          }
+        ]
+      },
+      {
+        "id": "8.3",
+        "type": "section",
+        "title": "8.3 向量的数量积与向量积",
+        "page": 13,
+        "children": [
+          {
+            "id": "8.3.1",
+            "type": "subsection",
+            "title": "向量的数量积",
+            "page": 13
+          },
+          {
+            "id": "8.3.2",
+            "type": "subsection",
+            "title": "向量的向量积",
+            "page": 16
+          },
+          {
+            "id": "8.3.3",
+            "type": "subsection",
+            "title": "*8.3.3 向量的混合积",
+            "page": 18
+          }
+        ]
+      },
+      {
+        "id": "8.4",
+        "type": "section",
+        "title": "8.4 平面与空间直线",
+        "page": 22,
+        "children": [
+          {
+            "id": "8.4.1",
+            "type": "subsection",
+            "title": "平面方程",
+            "page": 22
+          },
+          {
+            "id": "8.4.2",
+            "type": "subsection",
+            "title": "空间直线方程",
+            "page": 28
+          }
+        ]
+      },
+      {
+        "id": "8.5",
+        "type": "section",
+        "title": "8.5 曲面与空间曲线",
+        "page": 33,
+        "children": [
+          {
+            "id": "8.5.1",
+            "type": "subsection",
+            "title": "球面方程",
+            "page": 33
+          },
+          {
+            "id": "8.5.2",
+            "type": "subsection",
+            "title": "柱面方程",
+            "page": 34
+          },
+          {
+            "id": "8.5.3",
+            "type": "subsection",
+            "title": "旋转面方程",
+            "page": 35
+          },
+          {
+            "id": "8.5.4",
+            "type": "subsection",
+            "title": "二次曲面",
+            "page": 36
+          },
+          {
+            "id": "8.5.5",
+            "type": "subsection",
+            "title": "空间曲线",
+            "page": 41
+          },
+          {
+            "id": "8.5.6",
+            "type": "subsection",
+            "title": "空间曲线在坐标面上的投影",
+            "page": 43
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "type": "chapter",
+    "title": "第9章 多元函数微分学及其应用",
+    "page": 48,
+    "children": [
+      {
+        "id": "9.1",
+        "type": "section",
+        "title": "9.1 多元函数",
+        "page": 48,
+        "children": [
+          {
+            "id": "9.1.1",
+            "type": "subsection",
+            "title": "多元函数的概念",
+            "page": 48
+          },
+          {
+            "id": "9.1.2",
+            "type": "subsection",
+            "title": "二元函数的几何表示",
+            "page": 51
+          },
+          {
+            "id": "9.1.3",
+            "type": "subsection",
+            "title": "多元函数的极限",
+            "page": 52
+          },
+          {
+            "id": "9.1.4",
+            "type": "subsection",
+            "title": "多元函数的连续性",
+            "page": 53
+          }
+        ]
+      },
+      {
+        "id": "9.2",
+        "type": "section",
+        "title": "9.2 多元函数的偏导数与全微分",
+        "page": 56,
+        "children": [
+          {
+            "id": "9.2.1",
+            "type": "subsection",
+            "title": "偏导数",
+            "page": 56
+          },
+          {
+            "id": "9.2.2",
+            "type": "subsection",
+            "title": "高阶偏导数",
+            "page": 60
+          },
+          {
+            "id": "9.2.3",
+            "type": "subsection",
+            "title": "全微分",
+            "page": 62
+          },
+          {
+            "id": "9.2.4",
+            "type": "subsection",
+            "title": "*9.2.4 全微分在近似计算中的应用",
+            "page": 65
+          }
+        ]
+      },
+      {
+        "id": "9.3",
+        "type": "section",
+        "title": "9.3 复合函数和隐函数的求导法则",
+        "page": 69,
+        "children": [
+          {
+            "id": "9.3.1",
+            "type": "subsection",
+            "title": "多元复合函数的求导法则",
+            "page": 69
+          },
+          {
+            "id": "9.3.2",
+            "type": "subsection",
+            "title": "一阶全微分形式不变性",
+            "page": 74
+          },
+          {
+            "id": "9.3.3",
+            "type": "subsection",
+            "title": "隐函数的求导法则",
+            "page": 76
+          }
+        ]
+      },
+      {
+        "id": "9.4",
+        "type": "section",
+        "title": "*9.4 方向导数与梯度",
+        "page": 82
+      },
+      {
+        "id": "9.5",
+        "type": "section",
+        "title": "9.5 多元函数微分学的几何应用",
+        "page": 87,
+        "children": [
+          {
+            "id": "9.5.1",
+            "type": "subsection",
+            "title": "空间曲线的切线与法平面",
+            "page": 87
+          },
+          {
+            "id": "9.5.2",
+            "type": "subsection",
+            "title": "曲面的切平面与法线",
+            "page": 88
+          }
+        ]
+      },
+      {
+        "id": "9.6",
+        "type": "section",
+        "title": "9.6 多元函数的极值",
+        "page": 92,
+        "children": [
+          {
+            "id": "9.6.1",
+            "type": "subsection",
+            "title": "多元函数的极值",
+            "page": 92
+          },
+          {
+            "id": "9.6.2",
+            "type": "subsection",
+            "title": "*9.6.2 条件极值",
+            "page": 97
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "type": "chapter",
+    "title": "第10章 重积分及其应用",
+    "page": 103,
+    "children": [
+      {
+        "id": "10.1",
+        "type": "section",
+        "title": "10.1 重积分的概念与性质",
+        "page": 103,
+        "children": [
+          {
+            "id": "10.1.1",
+            "type": "subsection",
+            "title": "二重积分的概念",
+            "page": 103
+          },
+          {
+            "id": "10.1.2",
+            "type": "subsection",
+            "title": "可积性条件与二重积分的性质",
+            "page": 106
+          },
+          {
+            "id": "10.1.3",
+            "type": "subsection",
+            "title": "三重积分的概念和性质",
+            "page": 108
+          }
+        ]
+      },
+      {
+        "id": "10.2",
+        "type": "section",
+        "title": "10.2 二重积分的计算",
+        "page": 112,
+        "children": [
+          {
+            "id": "10.2.1",
+            "type": "subsection",
+            "title": "化二重积分为累次积分",
+            "page": 112
+          },
+          {
+            "id": "10.2.2",
+            "type": "subsection",
+            "title": "在极坐标系中计算二重积分",
+            "page": 117
+          }
+        ]
+      },
+      {
+        "id": "10.3",
+        "type": "section",
+        "title": "10.3 三重积分的计算",
+        "page": 126,
+        "children": [
+          {
+            "id": "10.3.1",
+            "type": "subsection",
+            "title": "化三重积分为累次积分",
+            "page": 126
+          },
+          {
+            "id": "10.3.2",
+            "type": "subsection",
+            "title": "*10.3.2 在柱面坐标系中计算三重积分",
+            "page": 128
+          },
+          {
+            "id": "10.3.3",
+            "type": "subsection",
+            "title": "*10.3.3 在球面坐标系中计算三重积分",
+            "page": 130
+          }
+        ]
+      },
+      {
+        "id": "10.4",
+        "type": "section",
+        "title": "10.4 重积分的应用",
+        "page": 134,
+        "children": [
+          {
+            "id": "10.4.1",
+            "type": "subsection",
+            "title": "曲面的面积",
+            "page": 134
+          },
+          {
+            "id": "10.4.2",
+            "type": "subsection",
+            "title": "物体的重心",
+            "page": 136
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "type": "chapter",
+    "title": "*第11章 曲线积分与曲面积分",
+    "page": 139,
+    "children": [
+      {
+        "id": "11.1",
+        "type": "section",
+        "title": "11.1 第一型曲线积分",
+        "page": 139,
+        "children": [
+          {
+            "id": "11.1.1",
+            "type": "subsection",
+            "title": "第一型曲线积分的概念",
+            "page": 139
+          },
+          {
+            "id": "11.1.2",
+            "type": "subsection",
+            "title": "第一型曲线积分的计算",
+            "page": 141
+          }
+        ]
+      },
+      {
+        "id": "11.2",
+        "type": "section",
+        "title": "11.2 第二型曲线积分",
+        "page": 145,
+        "children": [
+          {
+            "id": "11.2.1",
+            "type": "subsection",
+            "title": "第二型曲线积分的概念",
+            "page": 145
+          },
+          {
+            "id": "11.2.2",
+            "type": "subsection",
+            "title": "第二型曲线积分的计算",
+            "page": 148
+          }
+        ]
+      },
+      {
+        "id": "11.3",
+        "type": "section",
+        "title": "11.3 格林公式·第二型曲线积分与路径无关的条件",
+        "page": 154,
+        "children": [
+          {
+            "id": "11.3.1",
+            "type": "subsection",
+            "title": "格林公式",
+            "page": 154
+          },
+          {
+            "id": "11.3.2",
+            "type": "subsection",
+            "title": "曲线积分与路径无关的条件",
+            "page": 158
+          }
+        ]
+      },
+      {
+        "id": "11.4",
+        "type": "section",
+        "title": "11.4 第一型曲面积分",
+        "page": 165,
+        "children": [
+          {
+            "id": "11.4.1",
+            "type": "subsection",
+            "title": "第一型曲面积分的概念",
+            "page": 165
+          },
+          {
+            "id": "11.4.2",
+            "type": "subsection",
+            "title": "第一型曲面积分的计算",
+            "page": 167
+          }
+        ]
+      },
+      {
+        "id": "11.5",
+        "type": "section",
+        "title": "11.5 第二型曲面积分",
+        "page": 169,
+        "children": [
+          {
+            "id": "11.5.1",
+            "type": "subsection",
+            "title": "第二型曲面积分的概念",
+            "page": 169
+          },
+          {
+            "id": "11.5.2",
+            "type": "subsection",
+            "title": "第二型曲面积分的计算",
+            "page": 172
+          }
+        ]
+      },
+      {
+        "id": "11.6",
+        "type": "section",
+        "title": "11.6 斯托克斯公式",
+        "page": 175
+      },
+      {
+        "id": "11.7",
+        "type": "section",
+        "title": "11.7 高斯公式",
+        "page": 178
+      }
+    ]
+  },
+  {
+    "id": "12",
+    "type": "chapter",
+    "title": "第12章 常微分方程与差分方程",
+    "page": 181,
+    "children": [
+      {
+        "id": "12.1",
+        "type": "section",
+        "title": "12.1 一阶微分方程",
+        "page": 181,
+        "children": [
+          {
+            "id": "12.1.1",
+            "type": "subsection",
+            "title": "微分方程的一般概念",
+            "page": 181
+          },
+          {
+            "id": "12.1.2",
+            "type": "subsection",
+            "title": "可分离变量型微分方程",
+            "page": 184
+          },
+          {
+            "id": "12.1.3",
+            "type": "subsection",
+            "title": "齐次型微分方程",
+            "page": 187
+          },
+          {
+            "id": "12.1.4",
+            "type": "subsection",
+            "title": "一阶线性微分方程",
+            "page": 189
+          },
+          {
+            "id": "12.1.5",
+            "type": "subsection",
+            "title": "*12.1.5 全微分方程",
+            "page": 193
+          },
+          {
+            "id": "12.1.6",
+            "type": "subsection",
+            "title": "一阶微分方程应用举例",
+            "page": 194
+          }
+        ]
+      },
+      {
+        "id": "12.2",
+        "type": "section",
+        "title": "12.2 二阶微分方程",
+        "page": 202,
+        "children": [
+          {
+            "id": "12.2.1",
+            "type": "subsection",
+            "title": "可降阶的微分方程",
+            "page": 203
+          },
+          {
+            "id": "12.2.2",
+            "type": "subsection",
+            "title": "二阶线性微分方程解的性质",
+            "page": 206
+          },
+          {
+            "id": "12.2.3",
+            "type": "subsection",
+            "title": "二阶常系数线性齐次方程的解",
+            "page": 210
+          },
+          {
+            "id": "12.2.4",
+            "type": "subsection",
+            "title": "二阶常系数线性非齐次方程的解",
+            "page": 214
+          }
+        ]
+      },
+      {
+        "id": "12.3",
+        "type": "section",
+        "title": "*12.3 微分方程应用举例",
+        "page": 223
+      },
+      {
+        "id": "12.4",
+        "type": "section",
+        "title": "*12.4 差分与差分方程简介",
+        "page": 235,
+        "children": [
+          {
+            "id": "12.4.1",
+            "type": "subsection",
+            "title": "差分的概念",
+            "page": 235
+          },
+          {
+            "id": "12.4.2",
+            "type": "subsection",
+            "title": "差分方程的基本概念",
+            "page": 235
+          },
+          {
+            "id": "12.4.3",
+            "type": "subsection",
+            "title": "线性差分方程解的性质",
+            "page": 237
+          },
+          {
+            "id": "12.4.4",
+            "type": "subsection",
+            "title": "常系数线性齐次差分方程的解",
+            "page": 238
+          },
+          {
+            "id": "12.4.5",
+            "type": "subsection",
+            "title": "常系数线性非齐次差分方程的解",
+            "page": 240
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "answers",
+    "type": "appendix",
+    "title": "习题答案与提示",
+    "page": 248
+  },
+  {
+    "id": "appendix",
+    "type": "appendix",
+    "title": "附录 常用曲线",
+    "page": 263
+  }
+]
