@@ -7,7 +7,7 @@ from typing import Optional, Dict, Any, Iterable
 
 BASE_URL = "http://152.136.59.78:8001"
 OCR_PATH = "/ocr"
-API_KEY = "sk_9f3A2KxR7MZQwD8hP5YcLJtV4BNeU6mS"
+API_KEY = ""
 
 class OCRError(Exception):
     """封装 OCR 接口相关错误的自定义异常。"""
