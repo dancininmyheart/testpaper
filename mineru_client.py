@@ -33,7 +33,7 @@ def _ensure_file_exists(file_path: Path) -> Path:
 
 def load_mineru_config(config_path: Path, profile_name: Optional[str] = None) -> Dict[str, Any]:
     resolved = _ensure_file_exists(config_path)
-    payload = json.loads(resolved.read_text(encoding="utf-8"))
+    payload = json.loads(resolved.read_text(encoding="utf-8-sig"))
 
     defaults = payload.get("defaults")
     if not profile_name and isinstance(defaults, dict):

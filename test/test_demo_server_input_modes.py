@@ -527,7 +527,7 @@ class DemoServerCorrectnessPolicyTests(unittest.TestCase):
 
 class DemoServerFlowSimplifyTests(unittest.TestCase):
     def setUp(self) -> None:
-        for env_name in ("ARK_API_KEY", "DASHSCOPE_API_KEY", "OPENAI_API_KEY", "PACKYAPI_KEY"):
+        for env_name in ("ARK_API_KEY", "DASHSCOPE_API_KEY", "OPENAI_API_KEY", "PACKYAPI_KEY", "GEMINI_API_KEY"):
             os.environ.setdefault(env_name, "test-key")
         self.service = demo_server.DemoService(
             Path("llm_config.json"),

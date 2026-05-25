@@ -53,3 +53,10 @@ def test_question_review_uses_larger_question_image_previews():
     assert "h-[140px]" in source
     assert "w-[min(220px,100%)]" in source
     assert "object-contain" in source
+
+
+def test_question_review_displays_knowledge_points():
+    source = Path("frontend/src/pages/QuestionReview.tsx").read_text(encoding="utf-8")
+
+    assert "skill_tags" in source
+    assert "考查知识点" in source

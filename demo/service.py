@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import ast
@@ -190,14 +190,14 @@ else:
 def _load_literacy_mapping_payload(path: Path) -> Dict[str, Any]:
     if not path.exists():
         return {}
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload = json.loads(path.read_text(encoding="utf-8-sig"))
     return payload if isinstance(payload, dict) else {}
 
 
 def _read_llm_config_payload(config_path: Path) -> Dict[str, Any]:
     if not config_path.exists():
         raise ValueError(f"LLM config not found: {config_path}")
-    payload = json.loads(config_path.read_text(encoding="utf-8"))
+    payload = json.loads(config_path.read_text(encoding="utf-8-sig"))
     if not isinstance(payload, dict):
         raise ValueError("LLM config must be a JSON object")
     profiles = payload.get("openai_profiles")
@@ -1777,12 +1777,25 @@ def _build_answer_key_correctness_items(
     return list(items_by_key.values())
 
 
+def _clean_math_expression(s: str) -> str:
+    if not isinstance(s, str):
+        return ""
+    # Remove math delimiters, spaces, quotes, newlines, brackets, parentheses, backslashes
+    s = s.strip().replace("$", "").replace(" ", "").replace("\n", "").replace("\r", "")
+    s = s.replace("{", "").replace("}", "").replace("[", "").replace("]", "")
+    s = s.replace("(", "").replace(")", "").replace("\\", "")
+    s = s.replace("sqrt", "√")
+    s = s.replace("根号", "√")
+    return s.lower()
+
+
 def _apply_answer_key_correctness_policy(
     answers: List[Dict[str, Any]],
     structured_questions_full: List[Dict[str, Any]],
     correctness_items: List[Dict[str, Any]],
     teacher_review_by_id: Dict[str, Dict[str, Any]],
     answer_key_source: str = "uploaded",
+    reference_answers: Optional[List[Dict[str, Any]]] = None,
 ) -> int:
     correctness_map: Dict[tuple[str, Optional[str]], Dict[str, Any]] = {}
     for item in correctness_items:
@@ -1794,12 +1807,37 @@ def _apply_answer_key_correctness_policy(
         sub_qid = item.get("sub_question_id") if isinstance(item.get("sub_question_id"), str) else None
         correctness_map[(qid, sub_qid)] = item
 
+    by_question = {}
+    by_sub = {}
+    if reference_answers:
+        by_question, by_sub = _reference_answer_maps(reference_answers)
+
     verdict_count = 0
 
     def _attach(trace_item: Dict[str, Any], qid: str, sub_qid: Optional[str], teacher_review: Optional[Dict[str, Any]]) -> None:
         nonlocal verdict_count
         key_item = correctness_map.get((qid, sub_qid)) or correctness_map.get((qid, None))
         by_answer_key = key_item.get("by_answer_key") if isinstance(key_item, dict) and isinstance(key_item.get("by_answer_key"), bool) else None
+
+        # Robust string matching fallback for math answers / choices / fills
+        if by_answer_key is False:
+            ref = _find_reference_answer_for_trace(
+                qid=qid,
+                sub_qid=sub_qid,
+                by_question=by_question,
+                by_sub=by_sub,
+            )
+            if isinstance(ref, dict):
+                student_val = trace_item.get("student_answer_text") or trace_item.get("answer_text") or ""
+                ref_val = ref.get("reference_final_answer") or ref.get("reference_answer_text") or ""
+                clean_stud = _clean_math_expression(student_val)
+                clean_ref = _clean_math_expression(ref_val)
+                if clean_ref and clean_stud == clean_ref:
+                    by_answer_key = True
+                    if isinstance(key_item, dict):
+                        key_item["by_answer_key"] = True
+                        key_item["reason"] = ""
+
         teacher_verdict = _teacher_review_verdict(teacher_review or {})
         legacy_verdict = trace_item.get("is_correct") if isinstance(trace_item.get("is_correct"), bool) else None
         conflict_with_teacher = (
@@ -2100,8 +2138,6 @@ def _should_run_blind_diagnosis_for_answer(
     if isinstance(score, (int, float)) and isinstance(max_score, (int, float)) and float(max_score) > 0:
         if float(score) < float(max_score):
             return True
-        return False
-    if legacy_verdict is True or teacher_verdict is True:
         return False
     status = str(answer.get("status") or "").strip().lower()
     if status in {"unclear", "unseen"}:
@@ -3010,7 +3046,7 @@ class DemoService:
         self.question_page_batch_size = 1
         self.max_tokens = 8192
         self.use_env_proxy = True
-        self.question_chunk_size = 12
+        self.question_chunk_size = 4
         self.reference_answer_chunk_size = 4
         self.score_chunk_size = 6
         self.answer_chunk_size = 8
@@ -5502,6 +5538,8 @@ class DemoService:
         warnings: List[str],
         *,
         raw_stage_stats: Dict[str, Any],
+        answer_urls: Optional[List[str]] = None,
+        student_id: Optional[str] = None,
     ) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]], Dict[str, Any]]:
         answer_contexts = _build_answer_contexts(questions)
         answer_context_map = _build_answer_context_map(answer_contexts)
@@ -5818,6 +5856,22 @@ class DemoService:
             unmatched_count=len(unmatched_answer_traces),
             elapsed_ms=structuring_ms,
         )
+        # 局部高精选择题识别流程集成
+        choice_raw_answers = self._extract_cropped_choice_answers(
+            questions=questions,
+            answer_urls=answer_urls or [],
+            student_id=student_id,
+            answer_context_map=answer_context_map,
+            warnings=warnings,
+            structuring_debug_root=structuring_debug_root,
+        )
+        if choice_raw_answers:
+            choice_map = {item["question_id"]: item for item in choice_raw_answers if item.get("question_id")}
+            filtered_raw_answers = [item for item in raw_answers if item.get("question_id") not in choice_map]
+            filtered_raw_answers.extend(choice_raw_answers)
+            raw_answers = filtered_raw_answers
+            warnings.append(f"merged {len(choice_raw_answers)} choice answers from high-precision cropped VLM recognition.")
+
         answer_stats = dict(raw_stage_stats)
         answer_stats["structuring_ms"] = structuring_ms
         answer_stats["alignment_ms"] = alignment_ms
@@ -5826,6 +5880,114 @@ class DemoService:
         answer_stats["structuring_debug_json_path"] = structuring_debug_json_path
         answer_stats["alignment_debug_json_path"] = alignment_debug_json_path
         return raw_answers, unmatched_answer_traces, answer_stats
+
+    def _extract_cropped_choice_answers(
+        self,
+        questions: List[Dict[str, Any]],
+        answer_urls: List[str],
+        student_id: Optional[str],
+        answer_context_map: Dict[str, Dict[str, Any]],
+        warnings: List[str],
+        structuring_debug_root: Optional[Path],
+    ) -> List[Dict[str, Any]]:
+        if cv2 is None or np is None:
+            warnings.append("choice crop skipped: cv2 or numpy is not available")
+            return []
+
+        choice_questions = [
+            q for q in questions
+            if _is_choice_question_type(q.get("question_type"))
+        ]
+        if not choice_questions:
+            return []
+
+        choice_raw_answers = []
+        for page_index, page_url in enumerate(answer_urls):
+            try:
+                prepared_page_url = self._prepare_student_trace_data_url(page_url, warnings, f"page_{page_index+1}_choice_loc")
+                loc_prompt = (
+                    "帮我定位图片中选择题的区域，使用bbox坐标指出。如果不存在选择题区域，请返回空列表。"
+                    "输出格式必须为 JSON 对象，包含 'box_2d' 和 'label'，例如: "
+                    "{'box_2d': [ymin, xmin, ymax, xmax], 'label': '选择题涂卡区域'}"
+                )
+                loc_res = self._call_json_with_profile(
+                    self.profile,
+                    prompt=loc_prompt,
+                    data_urls=[prepared_page_url]
+                )
+                
+                box_2d = loc_res.get("box_2d")
+                if isinstance(box_2d, list) and len(box_2d) > 0:
+                    if isinstance(box_2d[0], list):
+                        box_2d = box_2d[0]
+                    if len(box_2d) == 4:
+                        ymin, xmin, ymax, xmax = box_2d
+                        
+                        mime, image_bytes = _decode_image_data_url(page_url)
+                        page_image = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_COLOR)
+                        if page_image is not None:
+                            height, width = page_image.shape[:2]
+                            ymin_px = int(ymin * height / 1000.0)
+                            xmin_px = int(xmin * width / 1000.0)
+                            ymax_px = int(ymax * height / 1000.0)
+                            xmax_px = int(xmax * width / 1000.0)
+                            
+                            left = max(0, min(xmin_px, width))
+                            upper = max(0, min(ymin_px, height))
+                            right = max(0, min(xmax_px, width))
+                            lower = max(0, min(ymax_px, height))
+                            
+                            if right > left and lower > upper:
+                                crop = page_image[upper:lower, left:right]
+                                ok, encoded = cv2.imencode(".jpg", crop, [cv2.IMWRITE_JPEG_QUALITY, 90])
+                                if ok:
+                                    crop_data_url = _image_bytes_to_data_url(encoded.tobytes(), "jpeg")
+                                    
+                                    saved_crop_path = None
+                                    if self.answer_segment_save_crops and structuring_debug_root is not None:
+                                        crop_name = f"choice_crop_page_{page_index+1}.jpg"
+                                        crop_save_path = structuring_debug_root / crop_name
+                                        try:
+                                            structuring_debug_root.mkdir(parents=True, exist_ok=True)
+                                            cv2.imwrite(str(crop_save_path), crop)
+                                            saved_crop_path = str(crop_save_path)
+                                        except Exception as write_err:
+                                            warnings.append(f"failed to save choice crop: {write_err}")
+                                    
+                                    choice_candidates = [
+                                        {
+                                            "question_id": q.get("question_id"),
+                                            "question_type": "choice",
+                                            "knowledge_points": q.get("knowledge_points") or []
+                                        }
+                                        for q in choice_questions
+                                    ]
+                                    choice_prompt = PromptStore.vlm_answer_parser_prompt(choice_candidates)
+                                    choice_vlm_res = self._call_json_with_profile(
+                                        self.profile,
+                                        prompt=choice_prompt,
+                                        data_urls=[crop_data_url]
+                                    )
+                                    
+                                    vlm_answers = choice_vlm_res.get("answers", [])
+                                    if isinstance(vlm_answers, list):
+                                        for raw_ans in vlm_answers:
+                                            if not isinstance(raw_ans, dict):
+                                                continue
+                                            normalized = _normalize_answer_item(
+                                                raw_ans,
+                                                answer_context_map,
+                                                source_stage="choice_crop_vlm",
+                                                page_index=page_index
+                                            )
+                                            if normalized is not None:
+                                                normalized["choice_crop_extracted"] = True
+                                                if saved_crop_path:
+                                                    normalized["trace"]["crop_path"] = saved_crop_path
+                                                choice_raw_answers.append(normalized)
+            except Exception as ex:
+                warnings.append(f"choice crop and recognition failed at page={page_index+1}: {ex}")
+        return choice_raw_answers
 
     def _run_answer_score_recognition(
         self,
@@ -7598,6 +7760,8 @@ class DemoService:
             page_raw_items,
             warnings,
             raw_stage_stats=raw_stage_stats,
+            answer_urls=answer_urls,
+            student_id=student_id,
         )
         answer_batches_success = answer_stats["batches_success"]
         answer_batches_failed = answer_stats["batches_failed"]
@@ -7878,6 +8042,7 @@ class DemoService:
             correctness_items=correctness_items,
             teacher_review_by_id=teacher_review_by_id,
             answer_key_source=answer_key_source,
+            reference_answers=reference_answers,
         )
         record_stage(
             "answer_key_correctness",

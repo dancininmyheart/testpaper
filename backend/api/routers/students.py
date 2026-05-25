@@ -61,6 +61,42 @@ def list_student_projects(student_id: str) -> Response:
     return _json_response({"items": items})
 
 
+@bp.get("/api/v1/students/<student_id>/state")
+def get_student_state(student_id: str) -> Response:
+    ctx = _get_ctx()
+    user, _ = _require_user("teacher", "admin")
+    if ctx.student_state_service is None:
+        raise ApiError(status_code=500, message="student state service unavailable")
+    try:
+        state = ctx.student_state_service.get_student_state(
+            student_id=student_id,
+            actor_user_id=user.id,
+        )
+    except LookupError as exc:
+        raise ApiError(status_code=404, message=str(exc)) from exc
+    except ValueError as exc:
+        raise ApiError(status_code=400, message=str(exc)) from exc
+    return _json_response(state)
+
+
+@bp.post("/api/v1/students/<student_id>/state:rebuild")
+def rebuild_student_state(student_id: str) -> Response:
+    ctx = _get_ctx()
+    user, _ = _require_user("teacher", "admin")
+    if ctx.student_state_service is None:
+        raise ApiError(status_code=500, message="student state service unavailable")
+    try:
+        state = ctx.student_state_service.refresh_student_state(
+            student_id=student_id,
+            actor_user_id=user.id,
+        )
+    except LookupError as exc:
+        raise ApiError(status_code=404, message=str(exc)) from exc
+    except ValueError as exc:
+        raise ApiError(status_code=400, message=str(exc)) from exc
+    return _json_response(state)
+
+
 @bp.get("/api/v1/students/<student_id>/projects/<project_id>/report")
 def get_student_project_report(student_id: str, project_id: str) -> Response:
     ctx = _get_ctx()

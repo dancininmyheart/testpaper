@@ -88,7 +88,7 @@ def _normalize_image_pixel_limit(value: Any) -> Optional[Dict[str, int]]:
 
 
 def _load_key_word_payload(path: Path) -> Dict[str, Any]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload = json.loads(path.read_text(encoding="utf-8-sig"))
     if not isinstance(payload, dict):
         raise ValueError("key_word.json must be a JSON object")
     return payload
@@ -117,7 +117,7 @@ def _extract_points_from_nodes(nodes: Any) -> List[Dict[str, str]]:
 def _load_llm_profile(config_path: Path, profile_name: Optional[str]) -> Dict[str, Any]:
     if not config_path.exists():
         raise SystemExit(f"LLM config not found: {config_path}")
-    payload = json.loads(config_path.read_text(encoding="utf-8"))
+    payload = json.loads(config_path.read_text(encoding="utf-8-sig"))
     profiles = payload.get("openai_profiles")
     if not isinstance(profiles, dict) or not profiles:
         raise SystemExit("Invalid LLM config: missing openai_profiles.")

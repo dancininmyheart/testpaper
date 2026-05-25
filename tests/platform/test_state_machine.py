@@ -25,7 +25,9 @@ def test_draft_to_analyzing_raises():
 
 
 def test_completed_is_terminal():
-    assert _ALLOWED[PaperProjectStatus.COMPLETED] == frozenset()
+    assert _ALLOWED[PaperProjectStatus.COMPLETED] == frozenset({
+        PaperProjectStatus.GENERATING_PAPER,
+    })
     with pytest.raises(InvalidProjectTransition):
         validate_transition(
             PaperProjectStatus.COMPLETED.value,

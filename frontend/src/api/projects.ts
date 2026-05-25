@@ -160,6 +160,27 @@ export async function deleteProject(projectId: string): Promise<{ deleted: boole
   return data;
 }
 
+// Exam generation endpoints
+export async function generateSimilarPaper(projectId: string): Promise<{ project_id: string; status: string }> {
+  return apiPost(`/paper-projects/${encodeURIComponent(projectId)}/generate-similar-paper`);
+}
+
+export async function resetProjectToReady(projectId: string): Promise<{ project_id: string; status: string }> {
+  return apiPost(`/paper-projects/${encodeURIComponent(projectId)}/reset-to-ready`);
+}
+
+export async function downloadGeneratedPaper(projectId: string): Promise<Blob> {
+  return apiGetBlob(`/paper-projects/${encodeURIComponent(projectId)}/generated-paper`);
+}
+
+export async function fetchGeneratedPaperContent(projectId: string): Promise<{ content: string }> {
+  return apiGet(`/paper-projects/${encodeURIComponent(projectId)}/generated-paper/content`);
+}
+
+export async function downloadGeneratedPaperPdf(projectId: string): Promise<Blob> {
+  return apiGetBlob(`/paper-projects/${encodeURIComponent(projectId)}/generated-paper/pdf`);
+}
+
 // MinerU endpoints
 const MINERU_REQUEST_TIMEOUT_MS = 1_800_000;
 
@@ -169,6 +190,10 @@ export async function mineruParse(projectId: string, profiles?: ModelProfiles): 
 
 export async function mineruLlmParse(projectId: string, profiles?: ModelProfiles): Promise<{ question_count: number; questions: Array<Record<string, unknown>> }> {
   return apiPost(appendModelProfileQuery(`/paper-projects/${encodeURIComponent(projectId)}/mineru/llm-parse`, profiles), undefined, { timeout: MINERU_REQUEST_TIMEOUT_MS });
+}
+
+export async function mineruTagKnowledge(projectId: string, profiles?: ModelProfiles): Promise<{ question_count: number; tagged_count: number }> {
+  return apiPost(appendModelProfileQuery(`/paper-projects/${encodeURIComponent(projectId)}/mineru/tag-knowledge`, profiles), undefined, { timeout: MINERU_REQUEST_TIMEOUT_MS });
 }
 
 export async function mineruVlmMatch(projectId: string, profiles?: ModelProfiles): Promise<{ matched_count: number; results: Array<Record<string, unknown>> }> {

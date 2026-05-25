@@ -62,6 +62,33 @@ CREATE TABLE IF NOT EXISTS analysis_results (
   FOREIGN KEY(job_id) REFERENCES analysis_jobs(job_id)
 );
 
+CREATE TABLE IF NOT EXISTS analysis_job_reviews (
+  job_id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL,
+  student_id TEXT NOT NULL,
+  review_status TEXT NOT NULL,
+  reviewed_by INTEGER NOT NULL,
+  reviewed_at TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  FOREIGN KEY(job_id) REFERENCES analysis_jobs(job_id),
+  FOREIGN KEY(reviewed_by) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS student_state_snapshots (
+  student_id TEXT NOT NULL,
+  created_by INTEGER NOT NULL,
+  summary_json TEXT NOT NULL,
+  mastery_json TEXT NOT NULL,
+  literacy_json TEXT NOT NULL,
+  evidence_json TEXT NOT NULL,
+  source_report_ids_json TEXT NOT NULL,
+  source_version TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  PRIMARY KEY(student_id, created_by),
+  FOREIGN KEY(created_by) REFERENCES users(id)
+);
+
 CREATE TABLE IF NOT EXISTS mastery_events (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   student_id TEXT NOT NULL,
@@ -88,6 +115,8 @@ CREATE INDEX IF NOT EXISTS idx_analysis_job_files_job_id
 ON analysis_job_files(job_id);
 CREATE INDEX IF NOT EXISTS idx_audit_logs_created_at
 ON audit_logs(created_at);
+CREATE INDEX IF NOT EXISTS idx_analysis_job_reviews_student
+ON analysis_job_reviews(student_id, reviewed_by, reviewed_at);
 
 CREATE TABLE IF NOT EXISTS students (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -234,6 +263,13 @@ class Database:
                 self.conn.execute("ALTER TABLE paper_projects ADD COLUMN mineru_artifact_dir TEXT")
             except Exception:
                 pass
+        # Extra data for project metadata (generated paper paths, etc.)
+        pp_cols4 = {row[1] for row in self.conn.execute("PRAGMA table_info(paper_projects)")}
+        if "extra_data" not in pp_cols4:
+            try:
+                self.conn.execute("ALTER TABLE paper_projects ADD COLUMN extra_data TEXT DEFAULT '{}'")
+            except Exception:
+                pass
         if "updated_at" not in cols:
             try:
                 self.conn.execute(
@@ -248,6 +284,43 @@ class Database:
                 self.conn.execute("ALTER TABLE paper_reference_answers ADD COLUMN analysis TEXT NOT NULL DEFAULT ''")
             except Exception:
                 pass
+        self.conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS analysis_job_reviews (
+              job_id TEXT PRIMARY KEY,
+              project_id TEXT NOT NULL,
+              student_id TEXT NOT NULL,
+              review_status TEXT NOT NULL,
+              reviewed_by INTEGER NOT NULL,
+              reviewed_at TEXT NOT NULL,
+              created_at TEXT NOT NULL,
+              updated_at TEXT NOT NULL,
+              FOREIGN KEY(job_id) REFERENCES analysis_jobs(job_id),
+              FOREIGN KEY(reviewed_by) REFERENCES users(id)
+            )
+            """
+        )
+        self.conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS student_state_snapshots (
+              student_id TEXT NOT NULL,
+              created_by INTEGER NOT NULL,
+              summary_json TEXT NOT NULL,
+              mastery_json TEXT NOT NULL,
+              literacy_json TEXT NOT NULL,
+              evidence_json TEXT NOT NULL,
+              source_report_ids_json TEXT NOT NULL,
+              source_version TEXT NOT NULL,
+              updated_at TEXT NOT NULL,
+              PRIMARY KEY(student_id, created_by),
+              FOREIGN KEY(created_by) REFERENCES users(id)
+            )
+            """
+        )
+        self.conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_analysis_job_reviews_student "
+            "ON analysis_job_reviews(student_id, reviewed_by, reviewed_at)"
+        )
 
     def execute(self, sql: str, params: tuple[Any, ...] = ()) -> sqlite3.Cursor:
         with self._lock:

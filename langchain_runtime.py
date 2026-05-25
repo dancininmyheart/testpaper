@@ -244,7 +244,7 @@ class LangChainAgentRuntime:
         detail: Optional[str],
     ) -> str:
         return self._invoke(
-            system_prompt="You are a precise educational analysis assistant.",
+            system_prompt="You are a precise educational analysis assistant. Be concise and to the point. Avoid unnecessary elaboration.",
             prompt=prompt,
             data_urls=data_urls,
             max_tokens=max_tokens,
@@ -267,7 +267,7 @@ class LangChainAgentRuntime:
         detail: Optional[str],
     ) -> str:
         return self._invoke(
-            system_prompt="You are a strict JSON generator.",
+            system_prompt="You are a strict JSON generator. Output valid JSON matching the requested schema. Be concise, avoid verbosity. No markdown fences, no extra text outside the JSON.",
             prompt=prompt,
             data_urls=data_urls,
             max_tokens=max_tokens,

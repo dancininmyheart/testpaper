@@ -207,10 +207,17 @@ class PromptStore:
     @staticmethod
     def answer_key_correctness_prompt(items: List[Dict[str, Any]]) -> str:
         return (
-            "判定规则：reference_source=uploaded 时，以上传的标准答案为主要依据；teacher_review 只用于辅助校验和标记冲突。\n"
-            "reference_source=generated 时，reference_* 是模型先独立解题得到的参考答案；请结合该参考答案和 teacher_review 批改痕迹分析。\n"
-            "教师批改痕迹与参考答案不一致时，不要直接照抄教师结论，要在 reason 中说明冲突。\n"
-            "请对照参考答案判断学生作答是否正确。只返回 JSON 对象。\n"
+            "逐题比对学生的作答与参考答案，给出对错判定。比对要点：\n"
+            "1. 优先比对最终答案/结论是否一致，一致即判为正确，不拘泥于步骤差异；\n"
+            "2. 选择题比对学生所选选项与参考答案选项是否一致；\n"
+            "3. 数学表达式中等价形式（如分数/小数互化、因式展开/分解、单位换算）视为一致；\n"
+            "4. 忽略书写格式差异（空格、换行、大小写）；\n"
+            "5. 绝对不要尝试自己去重新演算或验证参考答案的正确性，也不要自己重新做题。必须无条件信任并以给出的参考答案（reference_final_answer / reference_answer_text）作为判定对错的唯一基准；\n"
+            "6. 判定为错误时，reason 必须写明具体错因"
+            "（如选项选错应选C、最终结果符号错误、关键步骤遗漏），"
+            "不可只写答案不一致。\n"
+            "判定规则：无论 reference_source 是 uploaded 还是 generated，均须以给出的参考答案为唯一标准进行正误判定。结合给出的参考答案与教师批改痕迹（如有）进行正误分析。\n"
+            "只返回 JSON 对象。不要过度展开解释，不要输出 schema 之外的字段。reason 字段≤30字。\n"
             f"{response_contract('answer_key_correctness')}\n"
             f"items={json.dumps(items, ensure_ascii=False)}"
         )
@@ -227,8 +234,11 @@ class PromptStore:
     @staticmethod
     def error_analysis_prompt(items: List[Dict[str, Any]]) -> str:
         return (
-            "你是数学错因分析助手。请结合题目、作答痕迹与失分信息输出错误分析。\n"
-            "只返回 JSON 对象。\n"
+            "数学错因分析。结合题目、作答痕迹与失分信息，深入诊断错因。要求：\n"
+            "1. 必须定位并指出具体是在哪一步（如第几步，或推导的哪一个公式）开始出错，详细描述该错误步骤的内容；\n"
+            "2. 深度剖析错误的具体成因（如：概念混淆、计算失误、审题不清、公式记忆错误等），并写出详细的错误原因分析；\n"
+            "3. 给出针对性的订正步骤与具体的修复建议。\n"
+            "只返回 JSON 对象。在保证表述详尽、准确的前提下，输出限制为：wrong_step/step_reason/step_fix/suggestion 各≤60字，避免空泛描述。\n"
             f"{response_contract('error_analysis')}\n"
             f"items={json.dumps(items, ensure_ascii=False)}"
         )

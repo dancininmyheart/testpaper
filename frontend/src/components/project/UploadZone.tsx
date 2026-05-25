@@ -1,4 +1,5 @@
 import { useState, useRef, type DragEvent } from "react";
+import { UploadCloud, X, FileImage } from "lucide-react";
 
 interface Props {
   label: string;
@@ -30,11 +31,13 @@ export default function UploadZone({ label, hint, files, onFiles }: Props) {
   };
 
   return (
-    <div>
-      <div className="text-xs font-medium text-[var(--color-text-secondary)] mb-2">
-        {label}
+    <div className="w-full">
+      <div className="text-xs font-bold text-slate-600 mb-2 flex items-center justify-between">
+        <span>{label}</span>
         {files.length > 0 && (
-          <span className="ml-1 text-primary font-semibold">({files.length} 个文件)</span>
+          <span className="text-primary font-bold text-[11px] bg-indigo-50 px-2 py-0.5 rounded-md">
+            已选 {files.length} 个文件
+          </span>
         )}
       </div>
 
@@ -44,15 +47,19 @@ export default function UploadZone({ label, hint, files, onFiles }: Props) {
         onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
-        className={`border-2 border-dashed rounded-card p-6 text-center transition-colors cursor-pointer ${
-          dragging ? "border-primary bg-primary-light/50" : "border-[var(--color-border)] hover:border-primary/50 hover:bg-gray-50"
+        className={`group border-2 border-dashed rounded-card p-8 text-center transition-all duration-300 cursor-pointer ${
+          dragging
+            ? "border-primary bg-indigo-50/30 shadow-inner"
+            : "border-slate-200 hover:border-primary/40 hover:bg-slate-50/50"
         }`}
       >
-        <div className="text-2xl mb-2">📤</div>
-        <p className="text-xs text-[var(--color-text-muted)] mb-1">
-          {files.length > 0 ? `已选择 ${files.length} 个文件` : "点击或拖拽文件到此处"}
+        <div className={`p-3.5 rounded-full bg-slate-50 mb-3 mx-auto w-fit group-hover:scale-105 group-hover:bg-indigo-50/80 transition-all duration-300 ${dragging ? "scale-105 bg-indigo-50" : ""}`}>
+          <UploadCloud className={`w-8 h-8 ${dragging ? "text-primary" : "text-slate-400 group-hover:text-primary"} transition-colors`} />
+        </div>
+        <p className="text-xs text-slate-500 font-semibold mb-1">
+          {files.length > 0 ? "继续拖入或点击添加" : "点击或拖入图片文件到此处"}
         </p>
-        <p className="text-[10px] text-[var(--color-text-muted)]">{hint}</p>
+        <p className="text-[10px] text-slate-400 font-medium">{hint}</p>
       </div>
 
       <input
@@ -66,17 +73,24 @@ export default function UploadZone({ label, hint, files, onFiles }: Props) {
 
       {/* File list with remove */}
       {files.length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap gap-2 max-h-40 overflow-y-auto p-1">
           {files.map((f, i) => (
-            <span key={`${f.name}-${i}`} className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 rounded text-xs text-[var(--color-text-secondary)]">
-              {f.name}
+            <span
+              key={`${f.name}-${i}`}
+              className="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 bg-white border border-slate-100 rounded-btn text-xs text-slate-600 shadow-sm animate-fadeIn"
+            >
+              <FileImage className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="truncate max-w-[120px] font-medium">{f.name}</span>
               <button
-                className="text-gray-400 hover:text-danger"
+                type="button"
+                className="w-4.5 h-4.5 rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all p-0.5"
                 onClick={(e) => {
                   e.stopPropagation();
                   onFiles(files.filter((_, j) => j !== i));
                 }}
-              >×</button>
+              >
+                <X className="w-3 h-3" />
+              </button>
             </span>
           ))}
         </div>

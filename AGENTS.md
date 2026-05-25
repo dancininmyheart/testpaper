@@ -160,3 +160,68 @@
 | Breaking Changes | 不兼容变更 |
 | SPA | 单页应用 |
 ---
+
+## Skill 驱动工作流（Agent Skills 集成）
+
+本项目的 `skills/` 目录包含 23 个生产级工程 skill，覆盖从需求到上线的完整生命周期。
+
+### 核心规则
+
+- 如果任务匹配某个 skill，**必须调用它**
+- skill 位于 `skills/<skill-name>/SKILL.md`
+- 如果存在适用的 skill，**禁止跳过直接实现**
+- 严格遵循 skill 中的步骤，不得部分应用
+
+### 意图 → Skill 自动映射
+
+| 用户意图 | 对应 Skill |
+|---------|-----------|
+| 新功能 / 新需求 | `spec-driven-development` → `incremental-implementation` + `test-driven-development` |
+| 制定计划 / 拆解任务 | `planning-and-task-breakdown` |
+| 修 Bug / 异常排查 | `debugging-and-error-recovery` |
+| 代码审查 | `code-review-and-quality` |
+| 重构 / 简化代码 | `code-simplification` |
+| API 或接口设计 | `api-and-interface-design` |
+| UI 开发 | `frontend-ui-engineering` |
+| 性能优化 | `performance-optimization` |
+| 安全检查 | `security-and-hardening` |
+| 部署上线 | `shipping-and-launch` |
+| Git 工作流 | `git-workflow-and-versioning` |
+| 架构决策 | `documentation-and-adrs` |
+| 浏览器测试 | `browser-testing-with-devtools` |
+| CI/CD | `ci-cd-and-automation` |
+| 废弃迁移 | `deprecation-and-migration` |
+| 源码驱动开发 | `source-driven-development` |
+| 上下文工程 | `context-engineering` |
+| 质疑驱动开发 | `doubt-driven-development` |
+
+### 隐式生命周期映射
+
+不使用 slash command，agent 内部遵循以下阶段：
+
+- **定义** → `spec-driven-development`
+- **规划** → `planning-and-task-breakdown`
+- **构建** → `incremental-implementation` + `test-driven-development`
+- **验证** → `debugging-and-error-recovery`
+- **审查** → `code-review-and-quality`
+- **发布** → `shipping-and-launch`
+
+### 执行模型
+
+对每个请求：
+
+1. 判断是否有适用的 skill（即使只有 1% 的可能）
+2. 使用 `skill` 工具加载对应 skill
+3. 严格遵循 skill 的工作流程
+4. 只有在完成必要步骤（spec、plan、test 等）后才进入实现
+
+### 反合理化
+
+以下想法是错误的，必须忽略：
+
+- "这个改动太小，不需要 skill"
+- "我可以直接快速实现"
+- "我先收集上下文再说"
+
+正确行为：**总是先检查并使用 skill。**
+---

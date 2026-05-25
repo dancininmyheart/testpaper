@@ -289,6 +289,20 @@ class AnalysisRepository:
             (now_iso(), job_id),
         )
 
+    def recover_stale_running_jobs(self) -> int:
+        ts = now_iso()
+        with self.db.with_lock():
+            cur = self.db.conn.execute(
+                """
+                UPDATE analysis_jobs
+                SET status='queued', updated_at=?, started_at=NULL, error_message='recovered after restart'
+                WHERE status='running'
+                """,
+                (ts,),
+            )
+            self.db.conn.commit()
+            return cur.rowcount
+
     def save_job_result(self, *, job_id: str, result: dict[str, Any]) -> None:
         ts = now_iso()
         payload = json.dumps(result, ensure_ascii=False)
@@ -362,6 +376,165 @@ class MasteryEventRepository:
             "INSERT INTO mastery_events(student_id, payload_json, created_by, created_at) VALUES(?, ?, ?, ?)",
             (student_id, json.dumps(payload, ensure_ascii=False), created_by, now_iso()),
         )
+
+
+class AnalysisReviewRepository:
+    def __init__(self, db: Database):
+        self.db = db
+
+    def approve_job(
+        self,
+        *,
+        job_id: str,
+        project_id: str,
+        student_id: str,
+        reviewed_by: int,
+    ) -> dict[str, Any]:
+        ts = now_iso()
+        exists = self.db.query_one("SELECT job_id FROM analysis_job_reviews WHERE job_id=?", (job_id,))
+        if exists is None:
+            self.db.execute(
+                """
+                INSERT INTO analysis_job_reviews(
+                  job_id, project_id, student_id, review_status, reviewed_by,
+                  reviewed_at, created_at, updated_at
+                ) VALUES (?, ?, ?, 'approved', ?, ?, ?, ?)
+                """,
+                (job_id, project_id, student_id, reviewed_by, ts, ts, ts),
+            )
+        else:
+            self.db.execute(
+                """
+                UPDATE analysis_job_reviews
+                SET project_id=?, student_id=?, review_status='approved',
+                    reviewed_by=?, reviewed_at=?, updated_at=?
+                WHERE job_id=?
+                """,
+                (project_id, student_id, reviewed_by, ts, ts, job_id),
+            )
+        row = self.db.query_one(
+            """
+            SELECT job_id, project_id, student_id, review_status, reviewed_by,
+                   reviewed_at, created_at, updated_at
+            FROM analysis_job_reviews
+            WHERE job_id=?
+            """,
+            (job_id,),
+        )
+        return dict(row) if row else {}
+
+    def list_approved_student_reports(self, *, student_id: str, created_by: int) -> list[dict[str, Any]]:
+        rows = self.db.query_all(
+            """
+            SELECT
+              r.job_id, r.project_id, r.student_id, r.reviewed_at,
+              j.created_at, j.updated_at, j.finished_at,
+              p.title, p.subject, p.grade,
+              ar.result_json
+            FROM analysis_job_reviews r
+            JOIN analysis_jobs j ON j.job_id = r.job_id
+            JOIN analysis_results ar ON ar.job_id = r.job_id
+            LEFT JOIN paper_projects p ON p.project_id = r.project_id
+            WHERE r.reviewed_by=? AND r.student_id=? AND r.review_status='approved'
+            ORDER BY r.reviewed_at DESC, r.job_id DESC
+            """,
+            (created_by, student_id),
+        )
+        items: list[dict[str, Any]] = []
+        for row in rows:
+            item = dict(row)
+            item["result"] = _decode_json(str(item.pop("result_json", "{}")), {})
+            items.append(item)
+        return items
+
+
+class StudentStateRepository:
+    def __init__(self, db: Database):
+        self.db = db
+
+    def save_snapshot(
+        self,
+        *,
+        student_id: str,
+        created_by: int,
+        summary: dict[str, Any],
+        mastery: list[dict[str, Any]],
+        literacy: list[dict[str, Any]],
+        evidence: dict[str, Any],
+        source_report_ids: list[str],
+        source_version: str,
+        updated_at: str,
+    ) -> None:
+        payload = (
+            student_id,
+            created_by,
+            json.dumps(summary, ensure_ascii=False),
+            json.dumps(mastery, ensure_ascii=False),
+            json.dumps(literacy, ensure_ascii=False),
+            json.dumps(evidence, ensure_ascii=False),
+            json.dumps(source_report_ids, ensure_ascii=False),
+            source_version,
+            updated_at,
+        )
+        exists = self.db.query_one(
+            "SELECT student_id FROM student_state_snapshots WHERE student_id=? AND created_by=?",
+            (student_id, created_by),
+        )
+        if exists is None:
+            self.db.execute(
+                """
+                INSERT INTO student_state_snapshots(
+                  student_id, created_by, summary_json, mastery_json, literacy_json,
+                  evidence_json, source_report_ids_json, source_version, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                payload,
+            )
+            return
+        self.db.execute(
+            """
+            UPDATE student_state_snapshots
+            SET summary_json=?, mastery_json=?, literacy_json=?, evidence_json=?,
+                source_report_ids_json=?, source_version=?, updated_at=?
+            WHERE student_id=? AND created_by=?
+            """,
+            (
+                payload[2],
+                payload[3],
+                payload[4],
+                payload[5],
+                payload[6],
+                payload[7],
+                payload[8],
+                student_id,
+                created_by,
+            ),
+        )
+
+    def get_snapshot(self, *, student_id: str, created_by: int) -> dict[str, Any] | None:
+        row = self.db.query_one(
+            """
+            SELECT student_id, created_by, summary_json, mastery_json, literacy_json,
+                   evidence_json, source_report_ids_json, source_version, updated_at
+            FROM student_state_snapshots
+            WHERE student_id=? AND created_by=?
+            """,
+            (student_id, created_by),
+        )
+        if row is None:
+            return None
+        data = dict(row)
+        return {
+            "student_id": data["student_id"],
+            "created_by": data["created_by"],
+            "summary": _decode_json(str(data["summary_json"]), {}),
+            "mastery": _decode_json(str(data["mastery_json"]), []),
+            "literacy": _decode_json(str(data["literacy_json"]), []),
+            "evidence": _decode_json(str(data["evidence_json"]), {}),
+            "source_report_ids": _decode_json(str(data["source_report_ids_json"]), []),
+            "source_version": data["source_version"],
+            "updated_at": data["updated_at"],
+        }
 
 
 class StudentRepository:
@@ -596,6 +769,14 @@ class PaperRepository:
             (now_iso(), project_id),
         )
 
+    def count_active_jobs_for_project(self, project_id: str) -> int:
+        """Return the number of queued or running jobs for a given paper project."""
+        row = self.db.query_one(
+            "SELECT COUNT(*) AS cnt FROM analysis_jobs WHERE paper_project_id=? AND status IN ('queued', 'running')",
+            (project_id,),
+        )
+        return int(row["cnt"]) if row else 0
+
     def delete_project(self, project_id: str) -> bool:
         """Delete a paper project and all associated data. Returns True if deleted."""
         existing = self.get_project(project_id)
@@ -805,15 +986,37 @@ class PaperRepository:
         """Update JSON data columns on a paper project."""
         set_parts: list[str] = ["updated_at=?"]
         params: list[Any] = [now_iso()]
+        extra_updates: dict[str, Any] = {}
         for key, value in fields.items():
             if key in {"score_review_data", "final_report_data"}:
                 set_parts.append(f"{key}=?")
                 params.append(json.dumps(value, ensure_ascii=False) if isinstance(value, dict) else value)
+            elif key in {"generated_paper_path", "generated_paper_pdf_path", "generated_paper_error"}:
+                extra_updates[key] = value
+        if extra_updates:
+            existing = self.get_project_extra(project_id) or {}
+            existing.update(extra_updates)
+            set_parts.append("extra_data=?")
+            params.append(json.dumps(existing, ensure_ascii=False))
         params.append(project_id)
         self.db.execute(
             f"UPDATE paper_projects SET {', '.join(set_parts)} WHERE project_id=?",
             tuple(params),
         )
+
+    def get_project_extra(self, project_id: str) -> dict[str, Any] | None:
+        row = self.db.query_one(
+            "SELECT extra_data FROM paper_projects WHERE project_id=?", (project_id,)
+        )
+        if row is None:
+            return None
+        raw = row["extra_data"]
+        if isinstance(raw, str):
+            try:
+                return json.loads(raw)
+            except (json.JSONDecodeError, TypeError):
+                return {}
+        return raw or {}
 
     def save_final_report(self, project_id: str, *, report_data: dict[str, Any]) -> None:
         ts = now_iso()

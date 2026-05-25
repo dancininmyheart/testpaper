@@ -52,7 +52,7 @@ def test_project_workspace_supports_fast_and_standard_model_modes_for_each_stage
     assert 'form.append("text_profile", profiles.textProfile)' in api_source
 
     assert '"model": "gemini-3-flash-preview"' in config_source
-    assert '"model": "gemini-3.1-pro-preview"' in config_source
+    assert '"model": "gemini-3.5-flash"' in config_source
 
 
 def test_mineru_frontend_requests_allow_long_running_extraction():
@@ -95,3 +95,43 @@ def test_frontend_supports_reusable_student_run_reviews():
     assert "getStudentRunScoreReview" in score_source
     assert "approveStudentRunScores" in score_source
     assert 'path="projects/:id/scoring/:jobId"' in app_source
+
+
+def test_frontend_displays_latest_student_state_after_score_approval():
+    student_api_source = Path("frontend/src/api/students.ts").read_text(encoding="utf-8")
+    student_detail_source = Path("frontend/src/pages/StudentDetailPage.tsx").read_text(encoding="utf-8")
+    score_source = Path("frontend/src/pages/ScoreReview.tsx").read_text(encoding="utf-8")
+
+    assert "StudentStateSnapshot" in student_api_source
+    assert "getStudentState" in student_api_source
+    assert "rebuildStudentState" in student_api_source
+    assert "/state:rebuild" in student_api_source
+    assert "getStudentState" in student_detail_source
+    assert 'queryKey: ["student-state", studentId]' in student_detail_source
+    assert "薄弱知识点" in student_detail_source
+    assert "数学素养" in student_detail_source
+    assert 'queryClient.invalidateQueries({ queryKey: ["student-state"' in score_source
+
+
+def test_frontend_score_review_derives_score_from_deducted_score():
+    source = Path("frontend/src/components/report/normalizeAnalysisReport.ts").read_text(encoding="utf-8")
+
+    assert "resolveQuestionScore" in source
+    assert "deducted_score" in source
+    assert "lost_score" in source
+    assert "maxScore - deductedScore" in source
+    assert "is_correct" in source
+    assert "acc.score += scoreInfo.score ?? 0" in source
+
+
+def test_project_workspace_supports_return_to_grading():
+    source = Path("frontend/src/pages/ProjectWorkspace.tsx").read_text(encoding="utf-8")
+    api_source = Path("frontend/src/api/projects.ts").read_text(encoding="utf-8")
+    router_source = Path("backend/api/routers/paper_projects.py").read_text(encoding="utf-8")
+
+    assert "resetProjectToReady" in source
+    assert "handleResetToReady" in source
+    assert "返回批改与分析" in source
+    assert "resetProjectToReady" in api_source
+    assert "/reset-to-ready" in api_source
+    assert "def reset_project_to_ready" in router_source

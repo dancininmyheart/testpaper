@@ -12,7 +12,7 @@ export interface ReportQuestionItem {
   knowledgePoints: string[];
   studentAnswer: string;
   result: string;
-  scoreText: string;
+  errorType: string;
   issue: string;
   suggestion: string;
   evidence: string;
@@ -128,14 +128,32 @@ function formatPercent(value: number | null): string {
   return `${Math.round(percent)}%`;
 }
 
-function formatScore(score: number | null, maxScore: number | null): string {
-  if (score == null && maxScore == null) return "暂无数据";
-  if (score != null && maxScore != null) return `${score}/${maxScore}`;
-  if (score != null) return `${score}`;
-  return `满分 ${maxScore}`;
+function resolveQuestionScore(item: UnknownRecord): { score: number | null; maxScore: number | null } {
+  const maxScore = numberValue(item.max_score ?? item.full_score ?? item.points);
+  const rawScore = numberValue(item.score);
+  if (rawScore != null) return { score: rawScore, maxScore };
+
+  const deductedScore = numberValue(item.deducted_score ?? item.lost_score ?? item.score_deduction);
+  if (maxScore != null && deductedScore != null) {
+    return { score: Math.max(0, maxScore - deductedScore), maxScore };
+  }
+
+  const correct = item.is_correct ?? item.correct;
+  if (typeof correct === "boolean" && maxScore != null) {
+    return { score: correct ? maxScore : 0, maxScore };
+  }
+
+  return { score: null, maxScore };
 }
 
 function readableStatus(item: UnknownRecord, score: number | null, maxScore: number | null): string {
+  const correct = item.is_correct ?? item.correct;
+  if (typeof correct === "boolean") {
+    if (correct) return "正确";
+    if (score != null && maxScore != null && score > 0 && score < maxScore) return "部分正确";
+    return "错误";
+  }
+
   const raw = firstText(item, ["status", "judgement", "result", "correctness"]);
   if (raw) {
     const lower = raw.toLowerCase();
@@ -143,7 +161,6 @@ function readableStatus(item: UnknownRecord, score: number | null, maxScore: num
     if (lower.includes("partial") || raw.includes("部分")) return "部分正确";
     if (lower.includes("wrong") || lower.includes("incorrect") || raw.includes("错误")) return "需订正";
     if (lower.includes("missing") || lower.includes("blank") || raw.includes("空")) return "未作答";
-    return raw;
   }
   if (score != null && maxScore != null) {
     if (maxScore > 0 && score >= maxScore) return "正确";
@@ -264,17 +281,63 @@ function normalizeQuestion(
   skillAliasMap: Map<string, string>,
 ): ReportQuestionItem {
   const trace = asRecord(item.trace);
-  const score = numberValue(item.score);
-  const maxScore = numberValue(item.max_score);
+  const scoreInfo = resolveQuestionScore(item);
+  const score = scoreInfo.score;
+  const maxScore = scoreInfo.maxScore;
   const id = firstText(item, ["display_question_id", "sub_question_id", "question_id"], `Q${index + 1}`);
   const parentId = firstText(item, ["parent_question_id", "question_id"]);
   const lookupText = questionTextLookup.get(questionLookupKey(id)) || questionTextLookup.get(questionLookupKey(parentId));
   const lookupSkills = questionSkillLookup.get(questionLookupKey(id)) || questionSkillLookup.get(questionLookupKey(parentId)) || [];
-  const issue = firstText(
-    trace,
-    ["reason", "reason_code", "diagnosis", "comment", "feedback"],
-    firstText(item, ["reason", "comment", "feedback"], "暂无数据"),
+
+  // 错因诊断来自盲诊断 / 错因分析 / 对错判断三层，优先取最深层的数据
+  const blindDiagnosis = asRecord(item.blind_diagnosis);
+  const errorAnalysis = asRecord(item.error_analysis);
+  const correctness = asRecord(item.correctness);
+
+  const errorType = firstText(
+    errorAnalysis,
+    ["error_type"],
+    firstText(blindDiagnosis, ["error_type"], ""),
   );
+
+  const issue = firstText(
+    errorAnalysis,
+    ["reason", "step_reason"],
+    firstText(
+      blindDiagnosis,
+      ["reason", "divergence_point"],
+      firstText(
+        correctness,
+        ["reason"],
+        firstText(
+          trace,
+          ["reason", "reason_code", "diagnosis", "comment", "feedback"],
+          firstText(item, ["reason", "comment", "feedback"], "暂无数据"),
+        ),
+      ),
+    ),
+  );
+
+  const studentAnswer = firstText(item, ["student_answer_text", "answer_text", "student_answer", "selected_answer"], "暂无数据");
+  const hasAnswer = studentAnswer && studentAnswer !== "暂无数据" && studentAnswer.trim() !== "";
+
+  // 当 AI 判定为错误但所有诊断源都为空时，给出有意义的兜底提示
+  const judgedWrong = correctness.by_answer_key === false;
+  const fallbackIssue = judgedWrong ? "AI 判定作答错误，但未生成详细错因（旧数据需重新运行分析）" : "暂无数据";
+
+  let resolvedIssue = issue;
+  if (hasAnswer && (issue === "no_answer_candidate_mapped" || issue === "未找到可映射到该题的作答痕迹")) {
+    const notes = text(trace.notes ?? item.notes);
+    if (notes && notes.toLowerCase().includes("inherited")) {
+      resolvedIssue = "已继承大题作答痕迹";
+    } else {
+      resolvedIssue = "";
+    }
+  }
+
+  if (!resolvedIssue || resolvedIssue === "暂无数据") {
+    resolvedIssue = fallbackIssue;
+  }
 
   return {
     id,
@@ -285,12 +348,24 @@ function normalizeQuestion(
       lookupText || "暂无题干",
     ),
     knowledgePoints: uniqueStrings([...resolveQuestionSkills(item, skillAliasMap), ...lookupSkills]),
-    studentAnswer: firstText(item, ["student_answer_text", "answer_text", "student_answer", "selected_answer"], "暂无数据"),
+    studentAnswer,
     result: readableStatus(item, score, maxScore),
-    scoreText: formatScore(score, maxScore),
-    issue,
-    suggestion: firstText(trace, ["suggestion", "next_step"], firstText(item, ["suggestion"], "暂无数据")),
-    evidence: firstText(trace, ["evidence"], firstText(item, ["evidence"], "")),
+    errorType,
+    issue: resolvedIssue,
+    suggestion: firstText(
+      errorAnalysis,
+      ["suggestion", "step_fix"],
+      firstText(
+        blindDiagnosis,
+        ["suggestion", "repair_suggestion"],
+        firstText(trace, ["suggestion", "next_step"], firstText(item, ["suggestion"], "暂无数据")),
+      ),
+    ),
+    evidence: firstText(
+      errorAnalysis,
+      ["evidence", "step_evidence"],
+      firstText(blindDiagnosis, ["evidence_span"], firstText(trace, ["evidence"], firstText(item, ["evidence"], ""))),
+    ),
   };
 }
 
@@ -416,20 +491,9 @@ export function normalizeAnalysisReport(input: unknown): NormalizedAnalysisRepor
   );
   const totalQuestions = numberValue(mapping.total_questions) ?? questions.length;
   const mappedQuestions = numberValue(mapping.mapped_questions) ?? questions.length;
-  const scorePairs = questions
-    .map((question) => question.scoreText)
-    .filter((value) => value !== "暂无数据");
   const weaknesses = asArray(profile.weaknesses).filter(isRecord).map((item) => normalizeWeakness(item, skillAliasMap));
   const mastery = asArray(profile.mastery).filter(isRecord).map((item) => normalizeMastery(item, skillAliasMap));
   const literacy = normalizeLiteracyItems(report);
-  const scoreSum = pickAnswerItems(report).reduce<{ score: number; max: number }>(
-    (acc, item) => {
-      acc.score += numberValue(item.score) ?? 0;
-      acc.max += numberValue(item.max_score) ?? 0;
-      return acc;
-    },
-    { score: 0, max: 0 },
-  );
 
   return {
     studentId: firstText(report, ["student_id"], "暂无数据"),
@@ -438,7 +502,6 @@ export function normalizeAnalysisReport(input: unknown): NormalizedAnalysisRepor
     metrics: [
       { label: "题目总数", value: String(totalQuestions), helper: "本次报告覆盖的题目数量", tone: "primary" },
       { label: "已匹配题目", value: `${mappedQuestions}/${totalQuestions || "暂无数据"}`, helper: "题目与作答匹配情况", tone: mappedQuestions < totalQuestions ? "warning" : "success" },
-      { label: "得分情况", value: scoreSum.max > 0 ? `${scoreSum.score}/${scoreSum.max}` : scorePairs[0] || "暂无数据", helper: "按逐题明细汇总", tone: "success" },
       { label: "主要薄弱点", value: String(weaknesses.length), helper: "系统识别出的重点提升方向", tone: weaknesses.length > 0 ? "warning" : "success" },
     ],
     questions,

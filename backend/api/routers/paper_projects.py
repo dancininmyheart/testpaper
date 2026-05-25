@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import os
+import threading
 from pathlib import Path
 from typing import Any
 
@@ -32,6 +34,31 @@ from backend.domain.state_machine import InvalidProjectTransition
 bp = Blueprint("paper_projects", __name__)
 
 
+def _enrich_questions_with_skill_display(questions: list[dict[str, Any]]) -> None:
+    """Map English skill IDs to Chinese names from key_word.json for display."""
+    from backend.config import AppSettings
+    from llm_knowledge_tagger import _load_key_word_payload, _extract_points_from_nodes
+
+    try:
+        settings = AppSettings.load()
+        payload = _load_key_word_payload(settings.keyword_path)
+        all_points = _extract_points_from_nodes(payload.get("nodes", []))
+        id_to_name = {
+            str(pt.get("id", "")): str(pt.get("name", ""))
+            for pt in all_points
+            if pt.get("id")
+        }
+    except Exception:
+        id_to_name = {}
+
+    for q in questions:
+        tags = q.get("skill_tags") or []
+        display = []
+        for t in tags:
+            display.append(id_to_name.get(t, t))
+        q["skill_tags_display"] = display
+
+
 def _read_mineru_artifact_questions(artifact_dir: str) -> list[dict[str, Any]]:
     try:
         return read_mineru_artifact_questions(artifact_dir)
@@ -45,11 +72,13 @@ def _create_mineru_service(vision_profile: str = "", text_profile: str = ""):
     from backend.application.mineru_extraction import MinerUExtractionService
     from backend.config import AppSettings
 
+    settings = AppSettings.load()
     try:
         return MinerUExtractionService(
-            AppSettings.load().llm_config_path,
+            settings.llm_config_path,
             vision_profile_name=vision_profile or None,
             text_profile_name=text_profile or None,
+            keyword_path=settings.keyword_path,
         )
     except (RuntimeError, ValueError) as exc:
         raise ApiError(status_code=400, message=str(exc), code="MINERU_CONFIG_ERROR") from exc
@@ -330,6 +359,14 @@ def mineru_step3_vlm_match(project_id: str):
     for q in matched_questions:
         q.pop("_candidate_images", None)
     state["questions"] = matched_questions
+    artifact_manifest = _persist_mineru_artifacts_to_disk(
+        storage_root=ctx.storage.root,
+        project_id=project_id,
+        state=state,
+    )
+    state["artifact_dir"] = artifact_manifest["artifact_dir"]
+    state["artifact_manifest_path"] = artifact_manifest["manifest_path"]
+    state["artifact_manifest"] = artifact_manifest
     ctx.paper_repo.update_mineru_state(project_id, state)
 
     results = [{"question_id": q.get("question_id", ""), "matched_images": q.get("matched_image_ids", [])}
@@ -337,6 +374,46 @@ def mineru_step3_vlm_match(project_id: str):
     return _json_response({
         "matched_count": len([r for r in results if r["matched_images"]]),
         "results": results,
+    })
+
+
+@bp.post("/api/v1/paper-projects/<project_id>/mineru/tag-knowledge")
+def mineru_tag_knowledge(project_id: str):
+    """Optional step: Tag structured questions with knowledge points from the curriculum graph.
+
+    Run after /mineru/llm-parse (step 2), before /mineru/vlm-match (step 3).
+    If skipped, questions are saved with empty skill_tags.
+    """
+    ctx = _get_ctx()
+    _require_user("teacher", "admin")
+    state = ctx.paper_repo.get_mineru_state(project_id)
+    questions_data = state.get("questions", [])
+    if not questions_data:
+        raise ApiError(status_code=400,
+                       message="no questions found, run /mineru/llm-parse first")
+
+    vision_profile = str(request.args.get("vision_profile", "") or "")
+    text_profile = str(request.args.get("text_profile", "") or "")
+    service = _create_mineru_service(vision_profile=vision_profile, text_profile=text_profile)
+    tagged = service.tag_knowledge_points(questions_data)
+    state["questions"] = tagged
+    artifact_manifest = _persist_mineru_artifacts_to_disk(
+        storage_root=ctx.storage.root,
+        project_id=project_id,
+        state=state,
+    )
+    state["artifact_dir"] = artifact_manifest["artifact_dir"]
+    state["artifact_manifest_path"] = artifact_manifest["manifest_path"]
+    state["artifact_manifest"] = artifact_manifest
+    ctx.paper_repo.update_mineru_state(project_id, state)
+
+    tagged_count = sum(
+        1 for q in tagged
+        if isinstance(q.get("skill_tags"), list) and len(q["skill_tags"]) > 0
+    )
+    return _json_response({
+        "question_count": len(tagged),
+        "tagged_count": tagged_count,
     })
 
 
@@ -368,6 +445,12 @@ def mineru_step4_save(project_id: str):
     result = service.step4_save(
         project_id=project_id, questions=questions_data,
         page_results=page_results, storage=ctx.storage, paper_repo=ctx.paper_repo,
+    )
+    # Persist the final questions with updated image refs to disk
+    _persist_mineru_artifacts_to_disk(
+        storage_root=ctx.storage.root,
+        project_id=project_id,
+        state=state,
     )
     try:
         ctx.state_service.transition(project_id, "review_questions", actor_user_id=user.id)
@@ -710,11 +793,26 @@ def approve_project_student_run_scores(project_id: str, job_id: str):
     result = ctx.analysis_service.repo.get_job_result(job_id)
     if not isinstance(result, dict):
         raise ApiError(status_code=404, message="score review not ready")
+    if ctx.student_state_service is None:
+        raise ApiError(status_code=500, message="student state service unavailable")
+    try:
+        review, state = ctx.student_state_service.approve_report_and_refresh(
+            job_id=job_id,
+            project_id=project_id,
+            student_id=str(run.get("student_id") or ""),
+            actor_user_id=user.id,
+        )
+    except LookupError as exc:
+        raise ApiError(status_code=404, message=str(exc)) from exc
+    except ValueError as exc:
+        raise ApiError(status_code=400, message=str(exc)) from exc
     return _json_response({
         "project_id": project_id,
         "job_id": job_id,
         "student_id": run.get("student_id"),
-        "status": "completed",
+        "status": review.get("review_status", "approved"),
+        "reviewed_at": review.get("reviewed_at"),
+        "student_state": state.get("summary", {}),
     })
 
 
@@ -796,7 +894,9 @@ def get_project_review(project_id: str):
     artifact_dir = ctx.paper_repo.get_mineru_artifact_dir(project_id)
     if artifact_dir:
         questions_raw = _read_mineru_artifact_questions(artifact_dir)
-        return _json_response(_build_mineru_review_payload(ctx, project_id, questions_raw))
+        payload = _build_mineru_review_payload(ctx, project_id, questions_raw)
+        _enrich_questions_with_skill_display(payload.get("questions", []))
+        return _json_response(payload)
 
     questions = ctx.paper_repo.get_questions(project_id)
     ref_answers = ctx.paper_repo.get_reference_answers(project_id)
@@ -888,6 +988,8 @@ def get_project_review(project_id: str):
     for q in questions_out:
         q["images"] = images_by_qid.get(q["question_id"], [])
 
+    _enrich_questions_with_skill_display(questions_out)
+
     return _json_response({
         "project_id": project_id,
         "question_count": len(questions),
@@ -927,7 +1029,9 @@ def get_mineru_review(project_id: str):
         raise ApiError(status_code=404, message="no mineru artifacts found for this project")
 
     questions_raw = _read_mineru_artifact_questions(artifact_dir)
-    return _json_response(_build_mineru_review_payload(ctx, project_id, questions_raw))
+    payload = _build_mineru_review_payload(ctx, project_id, questions_raw)
+    _enrich_questions_with_skill_display(payload.get("questions", []))
+    return _json_response(payload)
 
 
 # ---- Stage workflow endpoints (分步验证) ----
@@ -1042,3 +1146,187 @@ def stage_approve_recognition(project_id: str):
     if project.status == "review_recognition":
         ctx.paper_service.approve_recognition_and_transition(project_id=project_id, actor_user_id=user.id)
     return _json_response({"project_id": project_id, "status": "review_scores"})
+
+
+# ---- Exam Generation endpoints ----
+
+def _run_generation_in_background(
+    project_id: str,
+    *,
+    paper_repo: Any,
+    storage: Any,
+    state_service: Any,
+    host_url: str = "",
+) -> None:
+    import logging
+    import sys
+
+    # Ensure exam_generation loggers are visible in the background thread
+    for name in ("exam_generation", "exam_generator"):
+        logger = logging.getLogger(name)
+        logger.setLevel(logging.INFO)
+        if not logger.handlers:
+            h = logging.StreamHandler(sys.stdout)
+            h.setLevel(logging.INFO)
+            h.setFormatter(logging.Formatter(
+                "[%(asctime)s] %(name)s %(levelname)s %(message)s",
+                datefmt="%H:%M:%S",
+            ))
+            logger.addHandler(h)
+
+    _log = logging.getLogger(__name__)
+
+    _log.info("[exam_gen] Background thread started for project=%s", project_id)
+    print(f"[exam_gen] Background generation started for project={project_id}")
+    try:
+        from backend.application.exam_generation_service import ExamGenerationService
+
+        service = ExamGenerationService(
+            paper_repo=paper_repo,
+            storage=storage,
+        )
+        result_path = service.run_generation(project_id=project_id, host_url=host_url)
+        if result_path:
+            paper_repo.update_project_data(project_id, generated_paper_path=result_path)
+            pdf_path = os.path.splitext(result_path)[0] + ".pdf"
+            if os.path.exists(pdf_path):
+                paper_repo.update_project_data(project_id, generated_paper_pdf_path=pdf_path)
+            try:
+                state_service.transition(project_id, "paper_ready", actor_user_id=None)
+            except InvalidProjectTransition:
+                pass
+            _log.info("[exam_gen] Success for project=%s, result=%s", project_id, result_path)
+            print(f"[exam_gen] SUCCESS: project={project_id}, result={result_path}")
+        else:
+            raise RuntimeError("generation returned no output")
+    except Exception as exc:
+        _log.error("[exam_gen] Failed for project=%s: %s", project_id, exc, exc_info=True)
+        print(f"[exam_gen] FAILED: project={project_id}, error={exc}")
+        try:
+            paper_repo.update_project_data(project_id,
+                generated_paper_error=str(exc))
+            try:
+                state_service.transition(project_id, "error", actor_user_id=None)
+            except InvalidProjectTransition:
+                pass
+        except Exception:
+            pass
+
+
+@bp.post("/api/v1/paper-projects/<project_id>/generate-similar-paper")
+def generate_similar_paper(project_id: str):
+    ctx = _get_ctx()
+    user, _ = _require_user("teacher", "admin")
+    project = ctx.paper_service.get_project(project_id)
+    if project is None:
+        raise ApiError(status_code=404, message="project not found")
+    if project.status not in {"ready", "completed", "paper_ready", "generating_paper", "error"}:
+        raise ApiError(status_code=400,
+                       message=f"project status is {project.status}, expected ready, completed, paper_ready, or error")
+
+    questions = ctx.paper_repo.get_questions(project_id)
+    if not questions:
+        raise ApiError(status_code=400, message="no questions found in project")
+
+    try:
+        ctx.state_service.transition(project_id, "generating_paper", actor_user_id=user.id)
+    except InvalidProjectTransition:
+        pass
+
+    host_url = request.host_url
+    thread = threading.Thread(
+        target=_run_generation_in_background,
+        args=(project_id,),
+        kwargs={
+            "paper_repo": ctx.paper_repo,
+            "storage": ctx.storage,
+            "state_service": ctx.state_service,
+            "host_url": host_url,
+        },
+        name=f"exam-gen-{project_id}",
+        daemon=True,
+    )
+    thread.start()
+
+    return _json_response({"project_id": project_id, "status": "generating_paper"})
+
+
+@bp.post("/api/v1/paper-projects/<project_id>/reset-to-ready")
+def reset_project_to_ready(project_id: str):
+    ctx = _get_ctx()
+    user, _ = _require_user("teacher", "admin")
+    project = ctx.paper_service.get_project(project_id)
+    if project is None:
+        raise ApiError(status_code=404, message="project not found")
+    try:
+        ctx.state_service.transition(project_id, "ready", actor_user_id=user.id)
+    except InvalidProjectTransition as exc:
+        raise ApiError(status_code=400, message=str(exc))
+    return _json_response({"project_id": project_id, "status": "ready"})
+
+
+@bp.get("/api/v1/paper-projects/<project_id>/generated-paper")
+def get_generated_paper(project_id: str):
+    ctx = _get_ctx()
+    _require_user("teacher", "admin")
+    project = ctx.paper_service.get_project(project_id)
+    if project is None:
+        raise ApiError(status_code=404, message="project not found")
+
+    extra = ctx.paper_repo.get_project_extra(project_id) or {}
+    md_path = extra.get("generated_paper_path", "")
+    error_msg = extra.get("generated_paper_error", "")
+
+    if error_msg:
+        raise ApiError(status_code=500, message=error_msg, code="GENERATION_ERROR")
+    if not md_path or not Path(md_path).is_file():
+        raise ApiError(status_code=404, message="generated paper not found, may still be generating")
+
+    with open(md_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    return Response(content, mimetype="text/markdown; charset=utf-8", headers={
+        "Content-Disposition": 'attachment; filename="generated_exam.md"',
+        "Cache-Control": "private, max-age=3600",
+    })
+
+
+@bp.get("/api/v1/paper-projects/<project_id>/generated-paper/content")
+def get_generated_paper_content(project_id: str):
+    ctx = _get_ctx()
+    _require_user("teacher", "admin")
+    extra = ctx.paper_repo.get_project_extra(project_id) or {}
+    md_path = extra.get("generated_paper_path", "")
+    error_msg = extra.get("generated_paper_error", "")
+
+    if error_msg:
+        raise ApiError(status_code=500, message=error_msg, code="GENERATION_ERROR")
+    if not md_path or not Path(md_path).is_file():
+        raise ApiError(status_code=404, message="generated paper not found, may still be generating")
+
+    with open(md_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    return _json_response({"content": content})
+
+
+@bp.get("/api/v1/paper-projects/<project_id>/generated-paper/pdf")
+def get_generated_paper_pdf(project_id: str):
+    ctx = _get_ctx()
+    _require_user("teacher", "admin")
+    extra = ctx.paper_repo.get_project_extra(project_id) or {}
+    pdf_path = extra.get("generated_paper_pdf_path", "")
+    error_msg = extra.get("generated_paper_error", "")
+
+    if error_msg:
+        raise ApiError(status_code=500, message=error_msg, code="GENERATION_ERROR")
+    if not pdf_path or not Path(pdf_path).is_file():
+        raise ApiError(status_code=404, message="generated PDF not found, may still be generating")
+
+    with open(pdf_path, "rb") as f:
+        content = f.read()
+
+    return Response(content, mimetype="application/pdf", headers={
+        "Content-Disposition": 'attachment; filename="generated_exam.pdf"',
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+    })

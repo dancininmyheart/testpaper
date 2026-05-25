@@ -78,3 +78,27 @@ answer_sheet_crops/
 paper/
 all/
 major_seg_tool.zip
+
+# CodeGraph index
+.codegraph/
+
+# IDE / editor
+.cursor/
+
+# Dev scratch / checkpoint dirs
+checkpoint_1/
+
+# Root-level accidental files
+/package.json
+/package-lock.json
+/node_modules/
+
+# Utility scripts (local only)
+crop_image.py
+extract_detailed_text.py
+
+# Claude Code skills
+skills/
+
+# Sub-projects
+Test_to_Test_Paper_Generation/

@@ -29,5 +29,7 @@ class PaperProjectStatus(StrEnum):
     REVIEW_SCORES = "review_scores"
     PROFILING = "profiling"
     COMPLETED = "completed"
+    GENERATING_PAPER = "generating_paper"
+    PAPER_READY = "paper_ready"
     ERROR = "error"
 

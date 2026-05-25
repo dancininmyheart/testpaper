@@ -63,6 +63,8 @@ function cleanContent(raw: string): string {
     .trim();
 }
 
+import { ArrowLeft, ChevronLeft, ChevronRight, Check, Eye, Edit3, Image as ImageIcon, HelpCircle, Award, Sparkles, Loader2 } from "lucide-react";
+
 export default function QuestionReview() {
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
@@ -125,161 +127,311 @@ export default function QuestionReview() {
   }
 
   if (isLoading) {
-    return <div className="flex items-center justify-center py-20"><div className="text-sm text-[var(--color-text-muted)]">加载中...</div></div>;
+    return (
+      <div className="flex flex-col items-center justify-center py-32 space-y-4">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <div className="text-sm text-[var(--color-text-muted)] font-medium">智能试题提取数据载入中...</div>
+      </div>
+    );
   }
 
   return (
-    <div className="flex gap-0 h-[calc(100vh-100px)] -mx-6">
-      <div className="w-56 flex-shrink-0 border-r border-[var(--color-border)] overflow-auto bg-white">
-        <div className="p-3 border-b border-[var(--color-border)] sticky top-0 bg-white z-10">
-          <Link to={`/projects/${id}`} className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)]">← 返回项目</Link>
-          <h2 className="text-sm font-bold text-[var(--color-text)] mt-1">试题审查</h2>
-          <p className="text-[10px] text-[var(--color-text-muted)]">{questions.length} 道题</p>
+    <div className="flex gap-0 h-[calc(100vh-100px)] -mx-6 bg-slate-50/50">
+      {/* 左侧栏：试题快速导航 */}
+      <div className="w-64 flex-shrink-0 border-r border-slate-200/80 overflow-auto bg-white flex flex-col shadow-[1px_0_5px_rgba(0,0,0,0.02)]">
+        <div className="p-4 border-b border-slate-100 sticky top-0 bg-white z-10">
+          <Link to={`/projects/${id}`} className="inline-flex items-center gap-1 text-xs text-[var(--color-text-muted)] hover:text-primary transition-colors mb-2">
+            <ArrowLeft className="w-3 h-3" /> 返回项目
+          </Link>
+          <h2 className="text-sm font-bold text-slate-800 tracking-tight">试题审查</h2>
+          <div className="flex items-center justify-between mt-1">
+            <span className="text-[11px] text-[var(--color-text-muted)]">共 {questions.length} 道题</span>
+            {isMineru && <span className="text-[10px] bg-indigo-50 text-primary px-1.5 py-0.5 rounded font-medium">AI 深度提取</span>}
+          </div>
         </div>
-        <div className="p-2">
-          {questions.map((q, i) => (
-            <button key={q.question_id as string} onClick={() => setSelectedIdx(i)}
-              className={`w-full text-left px-3 py-2 rounded-btn text-xs mb-1 transition-colors ${
-                i === selectedIdx ? "bg-primary-light text-primary font-medium" : "text-[var(--color-text-secondary)] hover:bg-gray-50"
-              }`}>
-              <span className="text-[var(--color-text-muted)] font-mono text-[11px]">Q{String(q.question_no)}</span>
-              <span className="ml-1 truncate inline-block max-w-[140px] align-bottom">{(q.content as string || "").split("\n")[0].slice(0, 18)}</span>
-            </button>
-          ))}
+        <div className="p-2 space-y-1 overflow-y-auto flex-1">
+          {questions.map((q, i) => {
+            const isSelected = i === selectedIdx;
+            const contentText = q.content as string || "";
+            const isCompleted = false; // 可扩展未来标记已确认状态
+            return (
+              <button
+                key={q.question_id as string}
+                onClick={() => {
+                  setSelectedIdx(i);
+                  setIsEditingContent(false);
+                }}
+                className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs transition-all duration-200 group flex items-start gap-2.5 ${
+                  isSelected
+                    ? "bg-gradient-to-r from-primary/10 to-indigo-50/50 text-primary font-semibold shadow-sm border-l-4 border-primary pl-2"
+                    : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent pl-2 hover:pl-3"
+                }`}
+              >
+                <span className={`font-mono text-[10px] px-1.5 py-0.5 rounded ${
+                  isSelected ? "bg-primary/20 text-primary font-bold" : "bg-slate-100 text-slate-500"
+                }`}>
+                  Q{String(q.question_no)}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="truncate font-medium group-hover:text-slate-900 transition-colors">
+                    {contentText.split("\n")[0] || "空文本题目"}
+                  </div>
+                  <div className="text-[10px] text-[var(--color-text-muted)] mt-0.5 flex flex-wrap items-center gap-1.5">
+                    <span>{String(q.question_type || "问答题")}</span>
+                    {q.max_score != null && <span>• {q.max_score as number}分</span>}
+                    {Array.isArray(q.skill_tags_display || q.skill_tags) && ((q.skill_tags_display || q.skill_tags) as string[]).length > 0 && (
+                      <span className="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-[9px] scale-95 origin-left font-medium">
+                        {((q.skill_tags_display || q.skill_tags) as string[])[0]}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      <div className="flex-1 border-r border-[var(--color-border)] bg-gray-100 flex items-center justify-center p-4 overflow-auto">
+      {/* 中间栏：试卷图片区域 (防眩光、电影级视效) */}
+      <div className="flex-1 border-r border-slate-200/80 bg-slate-900/95 flex items-center justify-center p-6 overflow-auto relative group/canvas shadow-[inset_0_2px_12px_rgba(0,0,0,0.15)]">
+        <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-30 pointer-events-none"></div>
         {pageFileId ? (
-          <div className="relative">
+          <div className="relative max-w-full transition-transform duration-300">
             <ProjectFileImage
               projectId={id!}
               fileId={pageFileId}
-              alt="试卷页"
-              className="max-w-full max-h-[calc(100vh-180px)] rounded-lg shadow-md"
+              alt="试卷原图"
+              className="max-w-full max-h-[calc(100vh-160px)] rounded-xl shadow-2xl border border-slate-800 object-contain bg-white"
             />
-            <div className="absolute bottom-2 right-2 bg-black/50 text-white text-[10px] px-2 py-0.5 rounded-pill">第 {(current?.page_index as number ?? 0) + 1} 页</div>
+            <div className="absolute bottom-3 right-3 backdrop-blur-md bg-black/60 text-white/90 text-[10px] px-2.5 py-1 rounded-full border border-white/10 shadow-lg tracking-wider font-medium">
+              第 {(current?.page_index as number ?? 0) + 1} 页
+            </div>
           </div>
-        ) : <div className="text-sm text-[var(--color-text-muted)]">暂无试卷图片</div>}
+        ) : (
+          <div className="flex flex-col items-center space-y-2 text-slate-500">
+            <ImageIcon className="w-10 h-10 opacity-40" />
+            <div className="text-sm font-medium">暂无当前试卷的匹配图片</div>
+          </div>
+        )}
       </div>
 
-      <div className="w-[clamp(320px,38vw,520px)] min-w-0 flex-shrink-0 overflow-auto bg-white p-5">
+      {/* 右侧栏：试题详情与编辑区 (高精排版、色卡答案) */}
+      <div className="w-[480px] flex-shrink-0 overflow-auto bg-white p-6 flex flex-col shadow-[-2px_0_12px_rgba(0,0,0,0.01)] border-l border-slate-200/80">
         {current ? (
-          <div className="min-w-0 max-w-full">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-sm font-bold text-[var(--color-text)]">第 {current.question_no as string} 题</span>
-              <Badge color="purple">{(current.question_type as string) || "未知"}</Badge>
-              {current.max_score != null && <span className="text-xs text-[var(--color-text-muted)]">{current.max_score as number} 分</span>}
-            </div>
-
-            <div className="mb-5 min-w-0 max-w-full">
-              <div className="mb-2 flex items-center justify-between gap-2">
-                <label className="block text-xs font-medium text-[var(--color-text-secondary)]">题目内容</label>
-                {isQuestionReviewEditable && (
-                  <button
-                    type="button"
-                    onClick={() => setIsEditingContent((value) => !value)}
-                    className="text-xs font-medium text-primary hover:underline"
-                  >
-                    {isEditingContent ? "预览公式" : "编辑题目"}
-                  </button>
-                )}
-              </div>
-              {isQuestionReviewEditable && isEditingContent && (
-                <textarea
-                  value={currentContent}
-                  onChange={(event) => updateQuestionContent(event.target.value)}
-                  className="mb-2 w-full min-h-[140px] resize-y rounded-btn border border-primary/40 bg-white px-3 py-2.5 text-sm leading-relaxed outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-                />
-              )}
-              <div className="w-full min-w-0 max-w-full min-h-[80px] px-3 py-2.5 border border-[var(--color-border)] rounded-btn text-sm whitespace-pre-wrap break-words [overflow-wrap:anywhere] bg-gray-50">
-                <MathText text={isMineru ? cleanContent(currentContent) : currentContent} />
-              </div>
-            </div>
-
-            {matchedImages.length > 0 && (
-              <div className="mb-5 min-w-0 max-w-full">
-                <label className="block text-xs font-medium text-[var(--color-text-secondary)] mb-2">🖼 题目配图</label>
-                <div className="min-w-0 max-w-full overflow-hidden rounded-btn border border-[var(--color-border)] bg-gray-50 p-3">
-                  <div className="flex max-w-full flex-wrap gap-3">
-                    {matchedImages.map((image, i) => (
-                      <ProjectFileImage
-                        key={`${image.id ?? i}`}
-                        projectId={id!}
-                        fileId={typeof image.id === "number" ? image.id : null}
-                        alt={`配图${i + 1}`}
-                        className="h-[140px] w-[min(220px,100%)] max-w-full object-contain rounded-btn border border-[var(--color-border)] bg-white"
-                      />
-                    ))}
-                  </div>
+          <div className="flex flex-col h-full justify-between">
+            <div className="space-y-5 flex-1 overflow-y-auto pb-4">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-base font-bold text-slate-800">第 {current.question_no as string} 题</span>
+                  <Badge color="purple">{(current.question_type as string) || "试题"}</Badge>
+                  {current.max_score != null && (
+                    <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-medium">
+                      满分 {current.max_score as number} 分
+                    </span>
+                  )}
                 </div>
               </div>
-            )}
 
-            {current.reference_answer != null && (
-              (() => {
-                const ref = current.reference_answer as Record<string, unknown>;
-                const analysis = typeof ref.analysis === "string" ? ref.analysis.trim() : "";
-                const steps = Array.isArray(ref.steps) ? (ref.steps as string[]).filter((s: string) => s.trim()) : [];
-                const finalAnswer = typeof ref.final_answer === "string" ? ref.final_answer.trim() : "";
-                const answerText = typeof ref.answer_text === "string" ? ref.answer_text.trim() : "";
-                const hasStructured = analysis || steps.length > 0 || finalAnswer;
-                return (
-                  <div className="mb-5 p-4 bg-gray-50 rounded-card border border-[var(--color-border)]">
-                    <label className="block text-xs font-medium text-[var(--color-text-secondary)] mb-3">参考答案</label>
-                    {hasStructured ? (
-                      <div className="space-y-3">
-                        {analysis && (
-                          <div>
-                            <label className="block text-[11px] font-medium text-[var(--color-text-muted)] mb-1">解题分析</label>
-                            <div className="text-sm text-[var(--color-text)] whitespace-pre-wrap leading-relaxed">{analysis}</div>
-                          </div>
-                        )}
-                        {steps.length > 0 && (
-                          <div>
-                            <label className="block text-[11px] font-medium text-[var(--color-text-muted)] mb-1">解题步骤</label>
-                            <ol className="text-sm text-[var(--color-text)] space-y-0.5 list-decimal list-inside">
-                              {steps.map((step, i) => (
-                                <li key={i} className="whitespace-pre-wrap leading-relaxed">{step}</li>
-                              ))}
-                            </ol>
-                          </div>
-                        )}
-                        {finalAnswer && (
-                          <div>
-                            <label className="block text-[11px] font-medium text-[var(--color-text-muted)] mb-1">最终答案</label>
-                            <div className="text-sm font-bold text-[var(--color-text)] bg-green-50 border border-green-200 rounded-btn px-3 py-1.5">{finalAnswer}</div>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <p className="text-sm text-[var(--color-text)] whitespace-pre-wrap">{answerText || "无"}</p>
-                    )}
+              {/* 考查知识点 */}
+              {Array.isArray(current.skill_tags_display || current.skill_tags) && ((current.skill_tags_display || current.skill_tags) as string[]).length > 0 && (
+                <div className="flex flex-wrap gap-1.5 items-center bg-slate-50/50 border border-slate-100 rounded-xl px-3.5 py-2.5 animate-fadeIn">
+                  <span className="text-xs font-bold text-slate-500 mr-1 flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+                    考查知识点：
+                  </span>
+                  {((current.skill_tags_display || current.skill_tags) as string[]).map((tag: string, index: number) => (
+                    <Badge key={index} color="green">{tag}</Badge>
+                  ))}
+                </div>
+              )}
+
+              {/* 题目题干框 */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold text-slate-500 tracking-wider">题目题干</label>
+                  {isQuestionReviewEditable && (
+                    <button
+                      type="button"
+                      onClick={() => setIsEditingContent((value) => !value)}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary-dark transition-colors"
+                    >
+                      {isEditingContent ? (
+                        <>
+                          <Eye className="w-3 h-3" /> 预览公式
+                        </>
+                      ) : (
+                        <>
+                          <Edit3 className="w-3 h-3" /> 编辑题目
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
+                
+                {isQuestionReviewEditable && isEditingContent ? (
+                  <textarea
+                    value={currentContent}
+                    onChange={(event) => updateQuestionContent(event.target.value)}
+                    className="w-full min-h-[140px] resize-y rounded-xl border border-primary-light focus:border-primary focus:ring-4 focus:ring-primary/5 bg-slate-50/30 px-3.5 py-3 text-sm leading-relaxed outline-none transition-all font-mono"
+                    placeholder="请输入试题Markdown文本，支持LaTeX公式..."
+                  />
+                ) : (
+                  <div className="w-[clamp(320px,38vw,520px)] min-w-0 max-w-full min-h-[100px] px-4 py-3.5 border border-slate-200/80 rounded-xl text-sm whitespace-pre-wrap break-words [overflow-wrap:anywhere] bg-slate-50/50 shadow-inner leading-relaxed">
+                    <MathText text={isMineru ? cleanContent(currentContent) : currentContent} />
                   </div>
-                );
-              })()
-            )}
+                )}
+              </div>
 
-            <div className="flex justify-between border-t border-[var(--color-border)] pt-4">
-              <Button variant="ghost" size="sm" disabled={selectedIdx <= 0} onClick={() => setSelectedIdx(selectedIdx - 1)}>← 上一题</Button>
+              {/* 题目配图区 */}
+              {matchedImages.length > 0 && (
+                <div className="space-y-2">
+                  <label className="text-xs font-semibold text-slate-500 tracking-wider flex items-center gap-1">
+                    <ImageIcon className="w-3.5 h-3.5 text-slate-400" /> 题目配图
+                  </label>
+                  <div className="rounded-xl border border-slate-100 bg-slate-50/30 p-3">
+                    <div className="flex flex-wrap gap-3">
+                      {matchedImages.map((image, i) => (
+                        <div key={`${image.id ?? i}`} className="relative group/thumb rounded-lg overflow-hidden border border-slate-200 bg-white hover:shadow-md transition-all duration-200">
+                          <ProjectFileImage
+                            projectId={id!}
+                            fileId={typeof image.id === "number" ? image.id : null}
+                            alt={`配图${i + 1}`}
+                            className="h-[140px] w-[min(220px,100%)] object-contain p-1 transition-transform duration-300 hover:scale-105"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 参考答案分类色卡 */}
+              {current.reference_answer != null && (
+                (() => {
+                  const ref = current.reference_answer as Record<string, unknown>;
+                  const analysis = typeof ref.analysis === "string" ? ref.analysis.trim() : "";
+                  const steps = Array.isArray(ref.steps) ? (ref.steps as string[]).filter((s: string) => s.trim()) : [];
+                  const finalAnswer = typeof ref.final_answer === "string" ? ref.final_answer.trim() : "";
+                  const answerText = typeof ref.answer_text === "string" ? ref.answer_text.trim() : "";
+                  const hasStructured = analysis || steps.length > 0 || finalAnswer;
+                  
+                  return (
+                    <div className="space-y-3">
+                      <label className="text-xs font-semibold text-slate-500 tracking-wider">参考答案</label>
+                      {hasStructured ? (
+                        <div className="space-y-3">
+                          {/* 解题分析：淡蓝色卡片 */}
+                          {analysis && (
+                            <div className="bg-gradient-to-br from-blue-50/50 to-indigo-50/30 border border-blue-100/60 rounded-xl p-4 shadow-[0_2px_6px_rgba(59,130,246,0.02)]">
+                              <div className="flex items-center gap-1.5 text-blue-700 font-bold text-xs mb-1.5">
+                                <Sparkles className="w-3.5 h-3.5 text-blue-500" />
+                                <span>解题分析</span>
+                              </div>
+                              <div className="text-sm text-slate-700 leading-relaxed pl-5">
+                                <MathText text={analysis} />
+                              </div>
+                            </div>
+                          )}
+
+                          {/* 解题步骤：淡紫色卡片 */}
+                          {steps.length > 0 && (
+                            <div className="bg-gradient-to-br from-purple-50/50 to-pink-50/30 border border-purple-100/60 rounded-xl p-4 shadow-[0_2px_6px_rgba(147,51,234,0.02)]">
+                              <div className="flex items-center gap-1.5 text-purple-700 font-bold text-xs mb-2">
+                                <HelpCircle className="w-3.5 h-3.5 text-purple-500" />
+                                <span>详细步骤</span>
+                              </div>
+                              <ol className="text-sm text-slate-700 space-y-2 list-none pl-5">
+                                {steps.map((step, i) => (
+                                  <li key={i} className="relative leading-relaxed pl-5">
+                                    <span className="absolute left-0 top-[3px] flex items-center justify-center w-4 h-4 rounded-full bg-purple-100 text-[10px] text-purple-700 font-bold font-mono">
+                                      {i + 1}
+                                    </span>
+                                    <MathText text={step} />
+                                  </li>
+                                ))}
+                              </ol>
+                            </div>
+                          )}
+
+                          {/* 最终答案：淡绿色卡片 */}
+                          {finalAnswer && (
+                            <div className="bg-gradient-to-br from-emerald-50/60 to-teal-50/30 border border-emerald-100/80 rounded-xl p-4 shadow-[0_2px_8px_rgba(16,185,129,0.04)]">
+                              <div className="flex items-center gap-1.5 text-emerald-800 font-bold text-xs mb-2">
+                                <Award className="w-3.5 h-3.5 text-emerald-600" />
+                                <span>最终答案</span>
+                              </div>
+                              <div className="text-sm font-semibold text-emerald-900 bg-white/80 backdrop-blur-sm border border-emerald-100 rounded-lg px-3 py-2 pl-4 shadow-sm inline-block min-w-[120px]">
+                                <MathText text={finalAnswer} />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="bg-slate-50 border border-slate-200/60 rounded-xl p-4 text-sm text-slate-700 leading-relaxed">
+                          <MathText text={answerText || "暂无结构化答案"} />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()
+              )}
+            </div>
+
+            {/* 底部导航区 */}
+            <div className="flex items-center justify-between border-t border-slate-100 pt-4 mt-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                disabled={selectedIdx <= 0}
+                onClick={() => setSelectedIdx(selectedIdx - 1)}
+                className="gap-1 text-slate-600 hover:text-slate-800"
+              >
+                <ChevronLeft className="w-4 h-4" /> 上一题
+              </Button>
+              
               <div className="flex gap-2">
                 {isQuestionReviewEditable && (
-                  <Button variant="primary" size="sm" disabled={approveMut.isPending}
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    disabled={approveMut.isPending}
+                    className="shadow-premium px-5 py-2"
                     onClick={() => {
                       if (selectedIdx < questions.length - 1) {
                         setSelectedIdx(selectedIdx + 1);
                         setIsEditingContent(false);
-                      } else approveMut.mutate(questions);
-                    }}>
-                    {selectedIdx < questions.length - 1 ? "✓ 确认，下一题" : "✓ 全部确认"}
+                      } else {
+                        approveMut.mutate(questions);
+                      }
+                    }}
+                  >
+                    {approveMut.isPending ? (
+                      <span className="flex items-center gap-1"><Loader2 className="w-3 h-3 animate-spin" /> 保存中...</span>
+                    ) : selectedIdx < questions.length - 1 ? (
+                      <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5" /> 确认，下一题</span>
+                    ) : (
+                      <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5" /> 全部确认完成</span>
+                    )}
                   </Button>
                 )}
               </div>
-              <Button variant="ghost" size="sm" disabled={selectedIdx >= questions.length - 1} onClick={() => setSelectedIdx(selectedIdx + 1)}>下一题 →</Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                disabled={selectedIdx >= questions.length - 1}
+                onClick={() => setSelectedIdx(selectedIdx + 1)}
+                className="gap-1 text-slate-600 hover:text-slate-800"
+              >
+                下一题 <ChevronRight className="w-4 h-4" />
+              </Button>
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-center h-full text-sm text-[var(--color-text-muted)]">选择一道题目开始审查</div>
+          <div className="flex flex-col items-center justify-center h-full text-slate-400 space-y-2">
+            <HelpCircle className="w-10 h-10 opacity-30" />
+            <div className="text-sm font-medium">请在左侧选择一道试题开始审查</div>
+          </div>
         )}
       </div>
     </div>

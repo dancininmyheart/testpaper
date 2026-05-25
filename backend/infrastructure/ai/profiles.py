@@ -129,7 +129,7 @@ class AIProfile:
 
 
 def load_ai_profiles(config_path: Path) -> dict[str, dict[str, Any]]:
-    payload = json.loads(config_path.read_text(encoding="utf-8"))
+    payload = json.loads(config_path.read_text(encoding="utf-8-sig"))
     profiles = payload.get("openai_profiles")
     if not isinstance(profiles, dict):
         raise ValueError("Invalid LLM config: missing openai_profiles")
@@ -137,7 +137,7 @@ def load_ai_profiles(config_path: Path) -> dict[str, dict[str, Any]]:
 
 
 def load_ai_profile(config_path: Path, profile_name: str | None = None) -> AIProfile:
-    payload = json.loads(config_path.read_text(encoding="utf-8"))
+    payload = json.loads(config_path.read_text(encoding="utf-8-sig"))
     profiles = payload.get("openai_profiles")
     if not isinstance(profiles, dict):
         raise ValueError("Invalid LLM config: missing openai_profiles")

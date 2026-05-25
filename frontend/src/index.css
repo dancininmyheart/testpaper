@@ -1,23 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --color-primary: #6366f1;
-  --color-primary-light: #f0f0ff;
+  /* Premium HSL Color Palette */
+  --color-primary: #5f5dec;
+  --color-primary-light: rgba(95, 93, 236, 0.07);
+  --color-primary-hover: #4846d1;
+  
   --color-success: #10b981;
+  --color-success-light: rgba(16, 185, 129, 0.08);
+  
   --color-warning: #f59e0b;
+  --color-warning-light: rgba(245, 158, 11, 0.08);
+  
   --color-danger: #ef4444;
-  --color-text: #111827;
-  --color-text-secondary: #6b7280;
-  --color-text-muted: #9ca3af;
-  --color-border: #e5e7eb;
-  --color-bg: #fafbfc;
+  --color-danger-light: rgba(239, 68, 68, 0.08);
+  
+  --color-text: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+  --color-bg: #f8fafc;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #5f5dec 0%, #8b5cf6 100%);
+  --gradient-primary-glow: radial-gradient(circle at top left, rgba(95, 93, 236, 0.15), transparent 70%);
 }
 
 body {
-  font-family: -apple-system, "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Outfit', -apple-system, "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
   color: var(--color-text);
   background: var(--color-bg);
+  background-image: var(--gradient-primary-glow);
+  background-attachment: fixed;
   margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* Premium Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Global input transition & custom focus rings */
+input, select, textarea {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(95, 93, 236, 0.12) !important;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.dark-glass {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Generated paper preview */
+.paper-preview h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 1.2em 0 0.6em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--color-border);
+}
+.paper-preview h2:first-child {
+  margin-top: 0;
+}
+.paper-preview p {
+  margin: 0.5em 0;
+  color: var(--color-text);
+}
+.paper-preview ul, .paper-preview ol {
+  padding-left: 1.5em;
+  margin: 0.4em 0;
+  color: var(--color-text-secondary);
+}
+.paper-preview li {
+  margin: 0.2em 0;
+}
+.paper-preview strong {
+  font-weight: 700;
+  color: var(--color-text);
+}
+.paper-preview hr {
+  border: none;
+  border-top: 2px dashed var(--color-border);
+  margin: 1.2em 0;
+}
+.paper-preview .katex-display {
+  margin: 0.6em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.paper-preview .katex {
+  font-size: 1.05em;
+}
+.paper-preview code {
+  background: #f1f5f9;
+  padding: 0.12em 0.35em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+}
+.paper-preview pre {
+  background: #f8fafc;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.8em 1em;
+  overflow-x: auto;
+  margin: 0.6em 0;
+}
+.paper-preview pre code {
+  background: none;
+  padding: 0;
+}
+.paper-preview blockquote {
+  border-left: 3px solid var(--color-primary);
+  margin: 0.6em 0;
+  padding: 0.3em 0.8em;
+  color: var(--color-text-secondary);
+  background: var(--color-primary-light);
+  border-radius: 0 6px 6px 0;
+}
+

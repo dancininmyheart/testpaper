@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getProject, getProjectReview, generateReferenceAnswers, approveReferenceAnswers, type ModelProfiles } from "../api/projects";
 import Button from "../components/ui/Button";
+import MathText from "../components/MathText";
+import { ArrowLeft, Brain, Cpu, Check, Play, RefreshCw, Loader2, Sparkles, HelpCircle, Award } from "lucide-react";
 
 type ModelMode = "fast" | "standard";
 
@@ -53,104 +55,217 @@ export default function AnswerReview() {
   const canApproveReferenceAnswers = project?.status === "review_answers";
 
   if (isLoading) {
-    return <div className="flex items-center justify-center py-20"><div className="text-sm text-[var(--color-text-muted)]">加载中...</div></div>;
+    return (
+      <div className="flex flex-col items-center justify-center py-32 space-y-4">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <div className="text-sm text-[var(--color-text-muted)] font-medium">参考答案数据载入中...</div>
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <Link to={`/projects/${id}`} className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)]">← 返回项目</Link>
-      <h1 className="text-lg font-bold text-[var(--color-text)] mt-2 mb-6">审查参考答案</h1>
-      <div className="mb-4 flex flex-col gap-2 rounded-card border border-[var(--color-border)] bg-white p-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="text-xs text-[var(--color-text-muted)]">
-          模型模式：{selectedModelMode === "fast" ? "快速模式" : "标准模式"}
+    <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
+      {/* 头部导航与标题 */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <Link to={`/projects/${id}`} className="inline-flex items-center gap-1 text-xs text-[var(--color-text-muted)] hover:text-primary transition-colors mb-2">
+            <ArrowLeft className="w-3.5 h-3.5" /> 返回项目
+          </Link>
+          <div className="flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-primary shadow-sm">
+              <Brain className="w-5.5 h-5.5" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-slate-800 tracking-tight">审查参考答案</h1>
+              <p className="text-xs text-[var(--color-text-muted)] mt-0.5">大模型基于 OCR 提取的试题内容智能生成标准答案</p>
+            </div>
+          </div>
         </div>
-        <div className="inline-flex w-fit rounded-btn border border-[var(--color-border)] bg-gray-50 p-1">
+
+        <div className="flex items-center gap-2.5">
+          {canGenerateReferenceAnswers && (
+            <Button
+              variant="secondary"
+              onClick={() => genMut.mutate()}
+              disabled={genMut.isPending}
+              className="rounded-xl py-2.5 flex items-center gap-1.5 border-slate-200 text-slate-700 hover:text-slate-900 bg-white"
+            >
+              {genMut.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
+              <span>{questions.length === 0 ? "智能解答" : "重新生成"}</span>
+            </Button>
+          )}
+          
+          {canApproveReferenceAnswers && questions.length > 0 && (
+            <Button
+              variant="primary"
+              onClick={() => approveMut.mutate()}
+              disabled={approveMut.isPending}
+              className="shadow-premium px-6 py-2.5 rounded-xl flex items-center gap-1.5"
+            >
+              {approveMut.isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>提交确认中...</span>
+                </>
+              ) : (
+                <>
+                  <Check className="w-4 h-4" />
+                  <span>全部确认无误</span>
+                </>
+              )}
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* 模型参数配置 */}
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-[0_2px_12px_rgba(0,0,0,0.015)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <Cpu className="w-4 h-4 text-primary" />
+          <span className="text-xs font-semibold text-slate-700">解答大模型配置</span>
+          <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded font-mono">
+            {selectedModelMode === "fast" ? "Gemini 3 Flash" : "Gemini 3.1 Pro"}
+          </span>
+        </div>
+        <div className="inline-flex rounded-xl border border-slate-100 bg-slate-50/50 p-1 self-start sm:self-auto shadow-inner">
           <button
             type="button"
             onClick={() => setSelectedModelMode("fast")}
-            className={`px-3 py-1.5 text-xs font-medium rounded-btn ${selectedModelMode === "fast" ? "bg-white text-primary shadow-sm" : "text-[var(--color-text-secondary)]"}`}
+            className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${
+              selectedModelMode === "fast"
+                ? "bg-white text-primary shadow-sm"
+                : "text-slate-500 hover:text-slate-800"
+            }`}
           >
-            快速模式
+            快速模式 (Flash)
           </button>
           <button
             type="button"
             onClick={() => setSelectedModelMode("standard")}
-            className={`px-3 py-1.5 text-xs font-medium rounded-btn ${selectedModelMode === "standard" ? "bg-white text-primary shadow-sm" : "text-[var(--color-text-secondary)]"}`}
+            className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${
+              selectedModelMode === "standard"
+                ? "bg-white text-primary shadow-sm"
+                : "text-slate-500 hover:text-slate-800"
+            }`}
           >
-            标准模式
+            标准模式 (Pro)
           </button>
         </div>
       </div>
+
+      {/* 问题展示区 */}
       {questions.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-sm text-[var(--color-text-muted)] mb-4">尚未生成参考答案</p>
+        <div className="text-center py-24 bg-white rounded-3xl border border-slate-200/80 shadow-sm flex flex-col items-center justify-center space-y-4">
+          <Brain className="w-16 h-16 text-indigo-100 stroke-[1.5]" />
+          <div className="space-y-1">
+            <p className="text-sm font-bold text-slate-700">尚未生成参考答案</p>
+            <p className="text-xs text-[var(--color-text-muted)]">点击右上角“智能解答”按钮以调用大模型生成结构化答案与步骤</p>
+          </div>
           {canGenerateReferenceAnswers && (
-            <Button variant="primary" onClick={() => genMut.mutate()} disabled={genMut.isPending}>
-              {genMut.isPending ? "生成中..." : "🤖 生成参考答案"}
+            <Button
+              variant="primary"
+              onClick={() => genMut.mutate()}
+              disabled={genMut.isPending}
+              className="shadow-premium px-6 py-2.5 rounded-xl flex items-center gap-1.5"
+            >
+              {genMut.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
+              <span>开始智能解答</span>
             </Button>
           )}
         </div>
       ) : (
-        <>
-          <div className="space-y-3 mb-6">
-            {questions.map((q) => {
-              const ref = q.reference_answer as Record<string, unknown> | undefined;
-              const analysis = typeof ref?.analysis === "string" ? ref.analysis.trim() : "";
-              const steps = Array.isArray(ref?.steps) ? (ref.steps as string[]).filter((s: string) => s.trim()) : [];
-              const finalAnswer = typeof ref?.final_answer === "string" ? ref.final_answer.trim() : "";
-              const answerText = typeof ref?.answer_text === "string" ? ref.answer_text.trim() : "";
-              const hasStructured = analysis || steps.length > 0 || finalAnswer;
-              return (
-                <div key={q.question_id as string} className="bg-white border border-[var(--color-border)] rounded-card p-4">
-                  <div className="text-sm font-medium text-[var(--color-text)] mb-2">Q{q.question_no as string}. {(q.content as string || "").slice(0, 60)}...</div>
-                  <div className="bg-gray-50 rounded-btn p-3 text-xs text-[var(--color-text-secondary)]">
-                    <span className="font-medium">参考答案：</span>
-                    {ref ? (
-                      hasStructured ? (
-                        <div className="mt-1.5 space-y-1.5">
-                          {analysis && (
-                            <div>
-                              <span className="text-[var(--color-text-muted)]">分析：</span>
-                              <span className="text-[var(--color-text)]">{analysis.slice(0, 120)}{analysis.length > 120 ? "..." : ""}</span>
-                            </div>
-                          )}
-                          {steps.length > 0 && (
-                            <div>
-                              <span className="text-[var(--color-text-muted)]">步骤：</span>
-                              <ol className="mt-1 space-y-1 list-decimal list-inside text-[var(--color-text)]">
-                                {steps.map((step, i) => (
-                                  <li key={i} className="whitespace-pre-wrap leading-relaxed">{step}</li>
-                                ))}
-                              </ol>
-                            </div>
-                          )}
-                          {finalAnswer && (
-                            <div>
-                              <span className="text-[var(--color-text-muted)]">答案：</span>
-                              <span className="text-[var(--color-text)] font-bold">{finalAnswer}</span>
-                            </div>
-                          )}
-                        </div>
-                      ) : (
-                        <span>{answerText || "无"}</span>
-                      )
-                    ) : "尚未生成"}
-                  </div>
+        <div className="space-y-4">
+          {questions.map((q) => {
+            const ref = q.reference_answer as Record<string, unknown> | undefined;
+            const analysis = typeof ref?.analysis === "string" ? ref.analysis.trim() : "";
+            const steps = Array.isArray(ref?.steps) ? (ref.steps as string[]).filter((s: string) => s.trim()) : [];
+            const finalAnswer = typeof ref?.final_answer === "string" ? ref.final_answer.trim() : "";
+            const answerText = typeof ref?.answer_text === "string" ? ref.answer_text.trim() : "";
+            const hasStructured = analysis || steps.length > 0 || finalAnswer;
+            
+            return (
+              <div
+                key={q.question_id as string}
+                className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-[0_2px_12px_rgba(0,0,0,0.015)] space-y-4 hover:shadow-premium transition-all duration-300"
+              >
+                {/* 题干展示 (支持 LaTeX) */}
+                <div className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-50 pb-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
+                  <span>Q{q.question_no as string} 题干内容</span>
                 </div>
-              );
-            })}
-          </div>
-          <div className="flex justify-end gap-2">
-            {canGenerateReferenceAnswers && (
-              <Button variant="secondary" onClick={() => genMut.mutate()} disabled={genMut.isPending}>🔄 重新生成</Button>
-            )}
-            {canApproveReferenceAnswers && (
-              <Button variant="primary" onClick={() => approveMut.mutate()} disabled={approveMut.isPending}>
-                {approveMut.isPending ? "确认中..." : "✓ 全部确认"}
-              </Button>
-            )}
-          </div>
-        </>
+                <div className="text-sm font-semibold text-slate-800 leading-relaxed bg-slate-50/40 px-4 py-3 rounded-xl border border-slate-100/50">
+                  <MathText text={q.content as string || ""} />
+                </div>
+
+                {/* 答案卡片 (支持 LaTeX) */}
+                <div className="space-y-3 pt-2">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-primary" />
+                    <span>大模型结构化答案</span>
+                  </div>
+                  
+                  {ref ? (
+                    hasStructured ? (
+                      <div className="grid gap-3">
+                        {/* 解题分析 */}
+                        {analysis && (
+                          <div className="bg-gradient-to-br from-blue-50/40 to-indigo-50/20 border border-blue-100/40 rounded-xl p-4 shadow-[0_2px_6px_rgba(59,130,246,0.01)]">
+                            <div className="flex items-center gap-1.5 text-blue-700 font-bold text-xs mb-1.5">
+                              <Sparkles className="w-3.5 h-3.5 text-blue-500" />
+                              <span>解题分析</span>
+                            </div>
+                            <div className="text-xs text-slate-700 leading-relaxed pl-5">
+                              <MathText text={analysis} />
+                            </div>
+                          </div>
+                        )}
+
+                        {/* 解题步骤 */}
+                        {steps.length > 0 && (
+                          <div className="bg-gradient-to-br from-purple-50/40 to-pink-50/20 border border-purple-100/40 rounded-xl p-4 shadow-[0_2px_6px_rgba(147,51,234,0.01)]">
+                            <div className="flex items-center gap-1.5 text-purple-700 font-bold text-xs mb-2">
+                              <HelpCircle className="w-3.5 h-3.5 text-purple-500" />
+                              <span>解答步骤</span>
+                            </div>
+                            <ol className="text-xs text-slate-700 space-y-2.5 list-none pl-5">
+                              {steps.map((step, i) => (
+                                  <li key={i} className="relative leading-relaxed pl-5">
+                                    <span className="absolute left-0 top-[2px] flex items-center justify-center w-4.5 h-4.5 rounded-full bg-purple-100 text-[9px] text-purple-700 font-bold font-mono">
+                                      {i + 1}
+                                    </span>
+                                    <MathText text={step} />
+                                  </li>
+                              ))}
+                            </ol>
+                          </div>
+                        )}
+
+                        {/* 最终答案 */}
+                        {finalAnswer && (
+                          <div className="bg-gradient-to-br from-emerald-50/50 to-teal-50/20 border border-emerald-100/60 rounded-xl p-4 shadow-[0_2px_8px_rgba(16,185,129,0.02)]">
+                            <div className="flex items-center gap-1.5 text-emerald-800 font-bold text-xs mb-2">
+                              <Award className="w-3.5 h-3.5 text-emerald-600" />
+                              <span>最终答案</span>
+                            </div>
+                            <div className="text-xs font-semibold text-emerald-900 bg-white border border-emerald-100 rounded-lg px-3 py-2 pl-4 shadow-sm inline-block min-w-[120px]">
+                              <MathText text={finalAnswer} />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="bg-slate-50 border border-slate-200/60 rounded-xl p-4 text-xs text-slate-700 leading-relaxed pl-4 font-medium">
+                        <MathText text={answerText || "无"} />
+                      </div>
+                    )
+                  ) : (
+                    <div className="text-xs text-slate-400 font-medium pl-2 italic">答案待生成...</div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       )}
     </div>
   );

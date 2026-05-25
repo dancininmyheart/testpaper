@@ -215,7 +215,7 @@ def _build_runtime(profile: dict[str, Any]) -> LangChainAgentRuntime:
 def _resolve_text_profile_name(config_path: Path, vision_profile_name: str | None, explicit_text_profile: str | None) -> str | None:
     if explicit_text_profile:
         return explicit_text_profile
-    payload = json.loads(config_path.read_text(encoding="utf-8"))
+    payload = json.loads(config_path.read_text(encoding="utf-8-sig"))
     profiles = payload.get("openai_profiles", {})
     defaults = payload.get("defaults", {})
     if not vision_profile_name and isinstance(defaults, dict):

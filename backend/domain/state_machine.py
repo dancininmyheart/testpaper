@@ -31,6 +31,7 @@ _ALLOWED: dict[PaperProjectStatus, frozenset[PaperProjectStatus]] = {
     PaperProjectStatus.READY: frozenset({
         PaperProjectStatus.GENERATING_ANSWERS,
         PaperProjectStatus.RECOGNIZING,
+        PaperProjectStatus.GENERATING_PAPER,
         PaperProjectStatus.ERROR,
     }),
     PaperProjectStatus.GENERATING_ANSWERS: frozenset({
@@ -66,7 +67,17 @@ _ALLOWED: dict[PaperProjectStatus, frozenset[PaperProjectStatus]] = {
         PaperProjectStatus.COMPLETED,
         PaperProjectStatus.ERROR,
     }),
-    PaperProjectStatus.COMPLETED: frozenset(),
+    PaperProjectStatus.COMPLETED: frozenset({
+        PaperProjectStatus.GENERATING_PAPER,
+    }),
+    PaperProjectStatus.GENERATING_PAPER: frozenset({
+        PaperProjectStatus.PAPER_READY,
+        PaperProjectStatus.ERROR,
+    }),
+    PaperProjectStatus.PAPER_READY: frozenset({
+        PaperProjectStatus.READY,
+        PaperProjectStatus.GENERATING_PAPER,
+    }),
     PaperProjectStatus.ERROR: frozenset({
         PaperProjectStatus.DRAFT,
     }),

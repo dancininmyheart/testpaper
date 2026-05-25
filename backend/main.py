@@ -101,6 +101,12 @@ def create_app(*, start_worker: bool = True) -> Flask:
         """Serve React build static assets."""
         return send_from_directory(str(_REACT_DIST / "assets"), filename)
 
+    @app.get("/static/katex/<path:filename>")
+    def serve_katex(filename: str):
+        """Serve local KaTeX assets directly from node_modules."""
+        katex_path = Path(__file__).resolve().parent.parent / "node_modules" / "katex" / "dist"
+        return send_from_directory(str(katex_path), filename)
+
     @app.errorhandler(404)
     def fallback_to_react(_exc: Exception):
         if request.path.startswith("/api/"):

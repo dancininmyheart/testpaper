@@ -80,6 +80,91 @@ def _dedupe_strings(values: list[str]) -> list[str]:
     return result
 
 
+# ---------------------------------------------------------------------------
+# Knowledge point tagging helpers
+# ---------------------------------------------------------------------------
+
+def _chunk_list(items: list, size: int) -> list[list]:
+    """Split a list into chunks of at most *size* elements."""
+    chunks: list[list] = []
+    for i in range(0, len(items), size):
+        chunks.append(items[i : i + size])
+    return chunks
+
+
+def _compact_question_for_tagging(q: dict) -> dict:
+    """Extract only question_id / question_type / content for the tagging prompt.
+
+    Truncates content to ~500 chars to keep token usage under control."""
+    content = str(q.get("content") or "")
+    if len(content) > 500:
+        content = content[:497] + "..."
+    return {
+        "question_id": str(q.get("question_id") or ""),
+        "question_type": str(q.get("question_type") or "other"),
+        "content": content,
+    }
+
+
+def _pre_filter_candidates(
+    question: dict,
+    all_points: list[dict],
+    max_candidates: int = 25,
+) -> list[dict]:
+    """Score and rank knowledge-point candidates by keyword overlap with question content.
+
+    Pure Python, no LLM call.  Extracts Chinese bigrams/trigrams as well as
+    English tokens from the question content, then scores each knowledge point
+    by how many of those tokens appear in its name or id prefix.
+    """
+    content = str(question.get("content") or "")
+    if not content.strip():
+        return all_points[:max_candidates]
+
+    tokens: set[str] = set()
+
+    # Chinese character n-grams (bi + tri)
+    chinese_chars = [c for c in content if "一" <= c <= "鿿"]
+    for i in range(len(chinese_chars) - 1):
+        tokens.add(chinese_chars[i] + chinese_chars[i + 1])
+    for i in range(len(chinese_chars) - 2):
+        tokens.add(chinese_chars[i] + chinese_chars[i + 1] + chinese_chars[i + 2])
+
+    # English / numeric tokens
+    import re
+    en_tokens = re.findall(r"[a-zA-Z0-9_]+", content)
+    tokens.update(t.lower() for t in en_tokens if len(t) >= 2)
+
+    if not tokens:
+        return all_points[:max_candidates]
+
+    scored: list[tuple[int, dict]] = []
+    for pt in all_points:
+        pt_name = str(pt.get("name", ""))
+        pt_id = str(pt.get("id", ""))
+        score = 0
+        for token in tokens:
+            if token in pt_name:
+                score += 2
+            elif token in pt_id:
+                score += 1
+        if score > 0:
+            scored.append((score, pt))
+
+    scored.sort(key=lambda pair: pair[0], reverse=True)
+    result = [pt for _, pt in scored[:max_candidates]]
+
+    # If filtering was too aggressive, pad with top entries from all_points
+    if len(result) < min(5, max_candidates):
+        for pt in all_points:
+            if pt not in result:
+                result.append(pt)
+                if len(result) >= max_candidates:
+                    break
+
+    return result
+
+
 def _extract_image_name_from_block(block: dict) -> str:
     """Extract the image filename from a MinerU image block."""
     content = block.get("content")
@@ -321,6 +406,28 @@ VLM_MATCH_PROMPT = """以下是试卷中的一道题：
 若没有任何相关配图，返回 {{"related_image_indices": []}}"""
 
 
+KNOWLEDGE_TAGGING_PROMPT = """你是数学题目知识点标注助手。
+
+候选知识点列表（格式：id | name | type）：
+{candidate_points_text}
+
+题目列表：
+{compact_questions_json}
+
+任务：为每道题从候选列表中选取 0-4 个最相关的知识点 ID。
+- 只选择真正与题目内容匹配的知识点，宁缺毋滥。
+- 知识点 ID 必须严格从候选列表中选取，不得编造。
+- 如果题目与所有候选都不相关，返回空数组。
+
+只返回 JSON 对象，不要其他文字：
+{{
+  "items": [
+    {{"question_id": "Q1", "knowledge_points": ["arithmetic.fraction.simplify"]}},
+    {{"question_id": "Q2", "knowledge_points": []}}
+  ]
+}}"""
+
+
 class MinerUExtractionService:
     """Orchestrate MinerU + LLM + VLM for question extraction and image matching."""
 
@@ -330,6 +437,7 @@ class MinerUExtractionService:
         *,
         vision_profile_name: str | None = None,
         text_profile_name: str | None = None,
+        keyword_path: Path | None = None,
     ):
         self.config_path = config_path
         load_env_file(config_path.parent / ".env")
@@ -343,10 +451,17 @@ class MinerUExtractionService:
         self.vision_runtime = _build_runtime(self.vision_profile)
         self.mineru_parallel_workers = 4
 
+        # Knowledge graph for tagging
+        if keyword_path is None:
+            from backend.config import AppSettings
+            keyword_path = AppSettings.load().keyword_path
+        self.keyword_path = keyword_path
+        self._cached_knowledge_points: list[dict] | None = None
+
     def _resolve_text_profile_name(self) -> str | None:
         """Resolve the text profile name from config defaults."""
         try:
-            raw = self.config_path.read_text(encoding="utf-8")
+            raw = self.config_path.read_text(encoding="utf-8-sig")
             cfg = json.loads(raw)
         except Exception:
             return None
@@ -656,6 +771,160 @@ class MinerUExtractionService:
             q["matched_image_ids"] = normalized
             q.pop("_candidate_images", None)
         return questions
+
+    # ---- Knowledge point tagging ----
+
+    def _get_knowledge_points(self) -> list[dict]:
+        """Lazy-load knowledge points from key_word.json."""
+        if self._cached_knowledge_points is None:
+            from llm_knowledge_tagger import _load_key_word_payload, _extract_points_from_nodes
+
+            payload = _load_key_word_payload(self.keyword_path)
+            self._cached_knowledge_points = _extract_points_from_nodes(
+                payload.get("nodes", [])
+            )
+        return self._cached_knowledge_points
+
+    def _tag_chunk(
+        self,
+        chunk: list[dict],
+        all_points: list[dict],
+    ) -> dict[str, list[str]]:
+        """Tag one chunk of questions via a single LLM call.
+
+        Returns ``{question_id: [knowledge_point_ids]}``.
+        On failure returns an empty dict so the pipeline can continue.
+        """
+        # Collect union of pre-filtered candidates for the whole chunk
+        union_ids: set[str] = set()
+        for q in chunk:
+            filtered = _pre_filter_candidates(q, all_points)
+            for pt in filtered:
+                union_ids.add(str(pt.get("id", "")))
+
+        # Build compact candidate list
+        candidate_lines: list[str] = []
+        id_map: dict[str, dict] = {}
+        for pt in all_points:
+            pt_id = str(pt.get("id", ""))
+            if pt_id in union_ids:
+                candidate_lines.append(
+                    f"{pt_id} | {pt.get('name','')} | {pt.get('type','')}"
+                )
+                id_map[pt_id] = pt
+        # If no candidates matched, use first N
+        if not candidate_lines:
+            for pt in all_points[:25]:
+                pt_id = str(pt.get("id", ""))
+                candidate_lines.append(
+                    f"{pt_id} | {pt.get('name','')} | {pt.get('type','')}"
+                )
+                id_map[pt_id] = pt
+
+        compact = [_compact_question_for_tagging(q) for q in chunk]
+        prompt = KNOWLEDGE_TAGGING_PROMPT.format(
+            candidate_points_text="\n".join(candidate_lines),
+            compact_questions_json=json.dumps(compact, ensure_ascii=False, indent=2),
+        )
+
+        try:
+            raw = self.text_runtime.invoke_json(
+                prompt=prompt,
+                data_urls=[],
+                max_tokens=int(self.text_profile.get("max_tokens", 8192)),
+                enable_thinking=False,
+                thinking=None,
+                reasoning_effort=None,
+                detail=None,
+            )
+            data: dict = json.loads(raw) if isinstance(raw, str) else raw
+            if not isinstance(data, dict):
+                return {}
+            items = data.get("items", [])
+            if not isinstance(items, list):
+                return {}
+        except Exception:
+            return {}
+
+        valid_ids = {str(pt.get("id", "")) for pt in all_points}
+        tagged: dict[str, list[str]] = {}
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            qid = str(item.get("question_id") or "")
+            if not qid:
+                continue
+            pts = item.get("knowledge_points")
+            if not isinstance(pts, list):
+                continue
+            valid = [p for p in pts if isinstance(p, str) and p.strip() in valid_ids]
+            if valid:
+                tagged[qid] = valid
+        return tagged
+
+    def _tag_knowledge_points(self, questions: list[dict]) -> list[dict]:
+        """Orchestrate knowledge-point tagging across all questions.
+
+        - Skips questions that already have non-empty skill_tags.
+        - Chunks remaining questions and processes in parallel.
+        - On failure returns questions unchanged (graceful degradation).
+        """
+        all_points = self._get_knowledge_points()
+        if not all_points:
+            return questions
+
+        already_tagged: dict[str, list[str]] = {}
+        to_tag: list[dict] = []
+        for q in questions:
+            qid = str(q.get("question_id") or "")
+            tags = q.get("skill_tags")
+            if isinstance(tags, list) and any(isinstance(t, str) and t.strip() for t in tags):
+                if qid:
+                    already_tagged[qid] = [t for t in tags if isinstance(t, str) and t.strip()]
+            else:
+                to_tag.append(q)
+
+        if not to_tag:
+            return questions
+
+        try:
+            chunks = _chunk_list(to_tag, 12)
+            max_workers = min(4, max(1, len(chunks)))
+            tagged_by_id: dict[str, list[str]] = {}
+            if max_workers == 1 and chunks:
+                tagged_by_id = self._tag_chunk(chunks[0], all_points)
+            elif chunks:
+                from concurrent.futures import ThreadPoolExecutor
+                with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                    futures = {
+                        executor.submit(self._tag_chunk, chunk, all_points): idx
+                        for idx, chunk in enumerate(chunks)
+                    }
+                    for future in as_completed(futures):
+                        try:
+                            result = future.result()
+                            if isinstance(result, dict):
+                                tagged_by_id.update(result)
+                        except Exception:
+                            pass
+        except Exception:
+            tagged_by_id = {}
+
+        tagged_by_id.update(already_tagged)
+        result: list[dict] = []
+        for q in questions:
+            qid = str(q.get("question_id") or "")
+            q_copy = dict(q)
+            if qid in tagged_by_id:
+                q_copy["skill_tags"] = tagged_by_id[qid]
+            else:
+                q_copy.setdefault("skill_tags", [])
+            result.append(q_copy)
+        return result
+
+    def tag_knowledge_points(self, questions: list[dict]) -> list[dict]:
+        """Public API for knowledge-point tagging (called by the API endpoint)."""
+        return self._tag_knowledge_points(questions)
 
     def step4_save(
         self,

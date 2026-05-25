@@ -165,6 +165,12 @@ class AnalysisService:
         )
         return self.get_job(job_id)
 
+    def recover_stale_running_jobs(self) -> int:
+        count = self.repo.recover_stale_running_jobs()
+        if count:
+            print(f"[worker] recovered {count} stale running job(s) -> queued")
+        return count
+
     def _build_demo_payload(
         self,
         *,
@@ -315,12 +321,24 @@ class AnalysisService:
                 # Answer analysis jobs are reusable per student; the project keeps paper data,
                 # while each student's review data lives on its own job result.
                 self.repo.save_job_result(job_id=job_id, result=result)
-                try:
-                    self.state_service.transition(paper_project_id, "ready", actor_user_id=None)
-                except Exception:
-                    pass
-                self.paper_repo.increment_project_student_count(paper_project_id)
+                # Mark job as succeeded BEFORE checking remaining jobs, so it is
+                # not counted as "active" when we query the queue below.
                 self.repo.mark_job_succeeded(job_id, stage_logs=stage_logs)
+                self.paper_repo.increment_project_student_count(paper_project_id)
+                # Only transition the project state when all queued/running jobs for
+                # this project are finished.  Without this guard each successive job
+                # completion tried ready→ready (an illegal transition) and the
+                # exception was silently swallowed, leaving the project stuck.
+                try:
+                    remaining = self.paper_repo.count_active_jobs_for_project(paper_project_id)
+                    if remaining == 0:
+                        self.state_service.transition(paper_project_id, "ready", actor_user_id=None)
+                except Exception:
+                    # Project may already be in 'ready' or another non-recognizing
+                    # state (e.g. a concurrent transition won the race).  Safe to ignore.
+                    pass
+                # Job is already marked succeeded above — skip the outer except path.
+                return True
             else:
                 # Normal student analysis result
                 self.repo.save_job_result(job_id=job_id, result=result)

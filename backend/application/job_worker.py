@@ -17,6 +17,7 @@ class JobWorker:
         if self._thread is not None and self._thread.is_alive():
             return
         self._stop.clear()
+        self.analysis_service.recover_stale_running_jobs()
         self._thread = threading.Thread(target=self._loop, name="analysis-job-worker", daemon=True)
         self._thread.start()
 

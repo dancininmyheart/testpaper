@@ -12,15 +12,19 @@ from backend.application.mastery_service import MasteryService
 from backend.application.paper_service import PaperService
 from backend.application.project_state_service import ProjectStateService
 from backend.application.student_service import StudentService
+from backend.application.student_state_service import StudentStateService
 from backend.application.workflows import AnalysisWorkflow
+from backend.application.exam_generation_service import ExamGenerationService
 from backend.config import AppSettings
 from backend.infrastructure.db import Database
 from backend.infrastructure.repositories import (
     AnalysisRepository,
+    AnalysisReviewRepository,
     AuditRepository,
     MasteryEventRepository,
     PaperRepository,
     SessionRepository,
+    StudentStateRepository,
     StudentRepository,
     UserRepository,
 )
@@ -42,9 +46,11 @@ class AppContext:
     paper_service: PaperService | None = None
     paper_repo: PaperRepository | None = None
     student_service: StudentService | None = None
+    student_state_service: StudentStateService | None = None
     student_repo: StudentRepository | None = None
     storage: LocalFileStorage | None = None
     state_service: ProjectStateService | None = None
+    exam_generation_service: ExamGenerationService | None = None
 
     @classmethod
     def build(cls, settings: AppSettings) -> "AppContext":
@@ -55,6 +61,8 @@ class AppContext:
         audit_repo = AuditRepository(db)
         mastery_event_repo = MasteryEventRepository(db)
         student_repo = StudentRepository(db)
+        analysis_review_repo = AnalysisReviewRepository(db)
+        student_state_repo = StudentStateRepository(db)
         audit_service = AuditService(audit_repo)
         auth_service = AuthService(users=users, sessions=sessions, session_ttl_hours=settings.session_ttl_hours)
         auth_service.ensure_default_user(
@@ -86,6 +94,11 @@ class AppContext:
             state_service=state_service,
         )
         student_service = StudentService(repo=student_repo, paper_repo=paper_repo)
+        student_state_service = StudentStateService(
+            student_repo=student_repo,
+            review_repo=analysis_review_repo,
+            state_repo=student_state_repo,
+        )
         analysis_workflow = AnalysisWorkflow(legacy_runner=demo_service)
         analysis_service = AnalysisService(
             repo=analysis_repo,
@@ -104,6 +117,10 @@ class AppContext:
         )
         legacy_service = LegacyDemoApiService(demo_service=demo_service)
         worker = JobWorker(analysis_service=analysis_service, poll_sec=settings.worker_poll_sec)
+        exam_generation_service = ExamGenerationService(
+            paper_repo=paper_repo,
+            storage=storage,
+        )
         return cls(
             settings=settings,
             db=db,
@@ -117,9 +134,11 @@ class AppContext:
             paper_service=paper_service,
             paper_repo=paper_repo,
             student_service=student_service,
+            student_state_service=student_state_service,
             student_repo=student_repo,
             storage=storage,
             state_service=state_service,
+            exam_generation_service=exam_generation_service,
         )
 
     def close(self) -> None:
