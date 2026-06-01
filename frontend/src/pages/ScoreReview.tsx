@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -10,11 +11,13 @@ import {
 } from "../api/projects";
 import Button from "../components/ui/Button";
 import ReportView from "../components/report/ReportView";
-import { ArrowLeft, CheckCircle2, ClipboardCheck, Loader2 } from "lucide-react";
+import { AlertCircle, ArrowLeft, CheckCircle2, ClipboardCheck, Loader2 } from "lucide-react";
 
 export default function ScoreReview() {
   const { id, jobId } = useParams<{ id: string; jobId?: string }>();
   const queryClient = useQueryClient();
+  const [actionMessage, setActionMessage] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   const { data: scoreData, isLoading } = useQuery({
     queryKey: ["scores", id, jobId || "project"],
@@ -29,10 +32,19 @@ export default function ScoreReview() {
   });
 
   const isRecognitionReview = project?.status === "review_recognition";
+  const canApprove = !!jobId || project?.status === "review_recognition" || project?.status === "review_scores";
+  const approveLabel = isRecognitionReview ? "确认识别结果并发布" : "确认评分并发布";
+  const unavailableReason = !jobId && project && !canApprove
+    ? `当前项目状态为 ${project.status}，不能执行项目级评分发布。请从项目工作台的学生批改运行记录进入单个学生作答明细，或等待项目进入待审查评分状态。`
+    : "";
   const approveMut = useMutation({
     mutationFn: () => jobId
       ? approveStudentRunScores(id!, jobId)
       : isRecognitionReview ? approveRecognition(id!) : approveScores(id!),
+    onMutate: () => {
+      setActionMessage(null);
+      setActionError(null);
+    },
     onSuccess: (data) => {
       const studentId = typeof (data as any)?.student_id === "string" ? (data as any).student_id : "";
       queryClient.invalidateQueries({ queryKey: ["project", id] });
@@ -42,6 +54,16 @@ export default function ScoreReview() {
         queryClient.invalidateQueries({ queryKey: ["student-state", studentId] });
         queryClient.invalidateQueries({ queryKey: ["student-projects", studentId] });
       }
+      setActionMessage(
+        jobId
+          ? "评分已发布，学生学情已更新。"
+          : isRecognitionReview
+            ? "识别结果已确认，项目已进入评分审查。"
+            : "评分已发布，项目报告已生成。"
+      );
+    },
+    onError: (err: any) => {
+      setActionError(err?.message || "发布失败，请检查项目状态或后端服务。");
     },
   });
 
@@ -77,7 +99,7 @@ export default function ScoreReview() {
             <Button
               variant="primary"
               onClick={() => approveMut.mutate()}
-              disabled={approveMut.isPending}
+              disabled={approveMut.isPending || !canApprove}
               className="shadow-premium px-6 py-2.5 flex items-center gap-2"
             >
               {approveMut.isPending ? (
@@ -88,13 +110,32 @@ export default function ScoreReview() {
               ) : (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>{isRecognitionReview ? "确认识别结果并发布" : "确认评分并发布"}</span>
+                  <span>{approveLabel}</span>
                 </>
               )}
             </Button>
           )}
         </div>
       </div>
+
+      {unavailableReason && (
+        <div className="flex items-start gap-2.5 rounded-2xl border border-amber-100 bg-amber-50 px-4 py-3 text-xs font-medium text-amber-700">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          <span>{unavailableReason}</span>
+        </div>
+      )}
+      {actionError && (
+        <div className="flex items-start gap-2.5 rounded-2xl border border-rose-100 bg-rose-50 px-4 py-3 text-xs font-medium text-rose-700">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          <span>{actionError}</span>
+        </div>
+      )}
+      {actionMessage && (
+        <div className="flex items-start gap-2.5 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-xs font-medium text-emerald-700">
+          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
+          <span>{actionMessage}</span>
+        </div>
+      )}
 
       {scoreData ? (
         <div className="bg-slate-50/40 rounded-3xl p-1.5 border border-slate-100 shadow-sm">

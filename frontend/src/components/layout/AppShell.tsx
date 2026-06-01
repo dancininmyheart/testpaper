@@ -1,5 +1,6 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Users, LayoutDashboard, FolderOpen, ClipboardList, TrendingUp, FileSpreadsheet, LogOut } from "lucide-react";
+import { useAuthStore } from "../../stores/authStore";
 
 const NAV_ITEMS = [
   { to: "/", label: "工作台", icon: LayoutDashboard },
@@ -11,6 +12,18 @@ const NAV_ITEMS = [
 ];
 
 export default function AppShell() {
+  const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
+  const logout = useAuthStore((s) => s.logout);
+  const displayName = user?.username || "用户";
+  const roleLabel = user?.role === "admin" ? "管理员" : "教师";
+  const initials = displayName.slice(0, 2).toUpperCase();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <div className="flex h-screen bg-[#f8fafc]">
       {/* Sidebar */}
@@ -61,14 +74,19 @@ export default function AppShell() {
           <div className="flex items-center justify-between p-2 rounded-btn hover:bg-slate-50 transition-colors">
             <div className="flex items-center gap-3 min-w-0">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center text-primary text-xs font-bold font-mono">
-                TZ
+                {initials}
               </div>
               <div className="min-w-0">
-                <div className="text-xs font-bold text-slate-800 truncate">张老师</div>
-                <div className="text-[10px] text-slate-400 truncate">高级教师</div>
+                <div className="text-xs font-bold text-slate-800 truncate">{displayName}</div>
+                <div className="text-[10px] text-slate-400 truncate">{roleLabel}</div>
               </div>
             </div>
-            <button className="text-slate-400 hover:text-slate-600 transition-colors p-1" title="退出">
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="text-slate-400 hover:text-slate-600 transition-colors p-1"
+              title="退出"
+            >
               <LogOut className="w-3.5 h-3.5" />
             </button>
           </div>
