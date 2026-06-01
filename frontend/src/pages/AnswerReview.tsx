@@ -19,6 +19,20 @@ const MODEL_PROFILE_MODES: Record<ModelMode, ModelProfiles> = {
   },
 };
 
+const REFERENCE_STATUS_LABELS: Record<string, string> = {
+  uploaded: "上传答案提取",
+  generated_fallback: "AI 补齐",
+  generated: "AI 生成",
+  missing: "未提取",
+};
+
+const REFERENCE_STATUS_STYLES: Record<string, string> = {
+  uploaded: "bg-emerald-50 text-emerald-700 border-emerald-100",
+  generated_fallback: "bg-amber-50 text-amber-700 border-amber-100",
+  generated: "bg-indigo-50 text-indigo-700 border-indigo-100",
+  missing: "bg-slate-50 text-slate-500 border-slate-200",
+};
+
 export default function AnswerReview() {
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
@@ -182,6 +196,8 @@ export default function AnswerReview() {
             const finalAnswer = typeof ref?.final_answer === "string" ? ref.final_answer.trim() : "";
             const answerText = typeof ref?.answer_text === "string" ? ref.answer_text.trim() : "";
             const hasStructured = analysis || steps.length > 0 || finalAnswer;
+            const referenceStatus = typeof q.reference_answer_status === "string" ? q.reference_answer_status : (ref ? "unknown" : "missing");
+            const referenceWarning = typeof q.reference_answer_warning === "string" ? q.reference_answer_warning.trim() : "";
             
             return (
               <div
@@ -202,6 +218,14 @@ export default function AnswerReview() {
                   <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
                     <Sparkles className="w-3.5 h-3.5 text-primary" />
                     <span>大模型结构化答案</span>
+                    <span
+                      title={referenceWarning || undefined}
+                      className={`ml-auto border rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                        REFERENCE_STATUS_STYLES[referenceStatus] || "bg-slate-50 text-slate-500 border-slate-200"
+                      }`}
+                    >
+                      {REFERENCE_STATUS_LABELS[referenceStatus] || referenceStatus}
+                    </span>
                   </div>
                   
                   {ref ? (

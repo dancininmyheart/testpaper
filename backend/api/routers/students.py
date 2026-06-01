@@ -97,6 +97,30 @@ def rebuild_student_state(student_id: str) -> Response:
     return _json_response(state)
 
 
+@bp.get("/api/v1/students/<student_id>/timeline")
+def get_student_timeline(student_id: str) -> Response:
+    ctx = _get_ctx()
+    user, _ = _require_user("teacher", "admin")
+    if ctx.student_timeline_service is None:
+        raise ApiError(status_code=500, message="student timeline service unavailable")
+    limit_raw = request.args.get("limit", "12")
+    try:
+        safe_limit = max(1, min(50, int(limit_raw)))
+    except ValueError as exc:
+        raise ApiError(status_code=400, message="limit must be integer") from exc
+    try:
+        timeline = ctx.student_timeline_service.get_student_timeline(
+            student_id=student_id,
+            actor_user_id=user.id,
+            limit=safe_limit,
+        )
+    except LookupError as exc:
+        raise ApiError(status_code=404, message=str(exc)) from exc
+    except ValueError as exc:
+        raise ApiError(status_code=400, message=str(exc)) from exc
+    return _json_response(timeline)
+
+
 @bp.get("/api/v1/students/<student_id>/projects/<project_id>/report")
 def get_student_project_report(student_id: str, project_id: str) -> Response:
     ctx = _get_ctx()

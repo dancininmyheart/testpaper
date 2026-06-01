@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from backend.infrastructure.db import Database
 from backend.infrastructure.repositories import PaperRepository
+from backend.application.paper_project_artifacts import reference_answer_review_state
 
 
 def test_save_reference_answers_accepts_legacy_reference_field_names(tmp_path):
@@ -36,3 +37,13 @@ def test_save_reference_answers_accepts_legacy_reference_field_names(tmp_path):
     assert answers[0]["answer_text"] == "reference body"
     assert answers[0]["final_answer"] == "42"
     assert answers[0]["steps"] == ["step 1", "step 2"]
+
+
+def test_reference_answer_review_state_marks_uploaded_fallback():
+    status, warning = reference_answer_review_state(
+        answer={"question_id": "Q2", "source": "generated"},
+        answer_key_source="uploaded",
+    )
+
+    assert status == "generated_fallback"
+    assert "uploaded extraction missed" in warning

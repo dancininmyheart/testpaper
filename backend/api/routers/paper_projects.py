@@ -27,6 +27,7 @@ from backend.application.paper_project_artifacts import (
     dedupe_review_images as _dedupe_review_images,
     persist_mineru_artifacts_to_disk as _persist_mineru_artifacts_to_disk,
     read_mineru_artifact_questions,
+    reference_answer_review_state as _reference_answer_review_state,
 )
 from backend.application.paper_service import PaperProjectCreateInput
 from backend.domain.state_machine import InvalidProjectTransition
@@ -903,6 +904,7 @@ def get_project_review(project_id: str):
     files = ctx.paper_repo.list_project_files(project_id)
 
     # Build answer lookup by question_id
+    answer_key_source = str(getattr(project, "answer_key_source", "") or "")
     answer_by_qid: dict[str, dict] = {}
     for a in ref_answers:
         qid = str(a.get("question_id") or "")
@@ -963,6 +965,11 @@ def get_project_review(project_id: str):
                 if opt_text and line not in content:
                     content += "\n" + line
 
+        reference_answer = answer_by_qid.get(qid)
+        reference_answer_status, reference_answer_warning = _reference_answer_review_state(
+            answer=reference_answer,
+            answer_key_source=answer_key_source,
+        )
         questions_out.append({
             "question_id": qid,
             "question_no": q.get("question_no", ""),
@@ -971,7 +978,9 @@ def get_project_review(project_id: str):
             "max_score": q.get("max_score"),
             "page_index": page_idx,
             "skill_tags": q.get("skill_tags", []),
-            "reference_answer": answer_by_qid.get(qid),
+            "reference_answer": reference_answer,
+            "reference_answer_status": reference_answer_status,
+            "reference_answer_warning": reference_answer_warning,
             "paper_page_file_id": paper_file.get("id") if paper_file else None,
         })
 

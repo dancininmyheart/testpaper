@@ -12,7 +12,7 @@ from backend.application.mastery_service import MasteryService
 from backend.application.paper_service import PaperService
 from backend.application.project_state_service import ProjectStateService
 from backend.application.student_service import StudentService
-from backend.application.student_state_service import StudentStateService
+from backend.application.student_state_service import StudentStateService, StudentTimelineService
 from backend.application.workflows import AnalysisWorkflow
 from backend.application.exam_generation_service import ExamGenerationService
 from backend.config import AppSettings
@@ -47,6 +47,7 @@ class AppContext:
     paper_repo: PaperRepository | None = None
     student_service: StudentService | None = None
     student_state_service: StudentStateService | None = None
+    student_timeline_service: StudentTimelineService | None = None
     student_repo: StudentRepository | None = None
     storage: LocalFileStorage | None = None
     state_service: ProjectStateService | None = None
@@ -99,6 +100,11 @@ class AppContext:
             review_repo=analysis_review_repo,
             state_repo=student_state_repo,
         )
+        student_timeline_service = StudentTimelineService(
+            student_repo=student_repo,
+            review_repo=analysis_review_repo,
+            state_service=student_state_service,
+        )
         analysis_workflow = AnalysisWorkflow(legacy_runner=demo_service)
         analysis_service = AnalysisService(
             repo=analysis_repo,
@@ -135,6 +141,7 @@ class AppContext:
             paper_repo=paper_repo,
             student_service=student_service,
             student_state_service=student_state_service,
+            student_timeline_service=student_timeline_service,
             student_repo=student_repo,
             storage=storage,
             state_service=state_service,

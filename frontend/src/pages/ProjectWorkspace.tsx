@@ -5,6 +5,7 @@ import { ArrowLeft, Sparkles, Settings, Eye, CheckCircle2, ChevronRight, UploadC
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import rehypeRaw from "rehype-raw";
 import { getProject, uploadProjectFiles, uploadAnswerKeyFiles, triggerExtraction, generateReferenceAnswers, analyzeAnswerSheet, listProjectStudentRuns, mineruParse, mineruLlmParse, mineruTagKnowledge, mineruVlmMatch, mineruSave, generateSimilarPaper, downloadGeneratedPaper, fetchGeneratedPaperContent, downloadGeneratedPaperPdf, resetProjectToReady, type ModelProfiles } from "../api/projects";
 import { listStudents } from "../api/students";
 import Badge from "../components/ui/Badge";
@@ -524,9 +525,8 @@ export default function ProjectWorkspace() {
           <PhaseCard key={phase.phase} phase={phase}>
             {phase.phase === 1 && phase.status === "active" && !fileUploaded && (
               <div className="space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 gap-5">
                   <UploadZone label="试卷图片" hint="支持 JPG/PNG，可多张选择" files={paperFiles} onFiles={setPaperFiles} />
-                  <UploadZone label="标准答案图片 (可选)" hint="用于辅助AI匹配更高精度" files={[]} onFiles={() => {}} />
                 </div>
                 <div className="flex items-center gap-3">
                   <Button variant="primary" onClick={handleUpload} disabled={paperFiles.length === 0 || uploading} className="shadow-md shadow-indigo-100">
@@ -825,7 +825,7 @@ export default function ProjectWorkspace() {
                   <div className="paper-preview bg-white border border-gray-200 rounded-btn p-6 max-h-[500px] overflow-y-auto text-sm leading-relaxed">
                     <ReactMarkdown
                       remarkPlugins={[remarkMath as any]}
-                      rehypePlugins={[rehypeKatex as any]}
+                      rehypePlugins={[rehypeKatex as any, rehypeRaw]}
                     >
                       {paperContent.content}
                     </ReactMarkdown>

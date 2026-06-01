@@ -150,4 +150,13 @@ input:focus, select:focus, textarea:focus {
   background: var(--color-primary-light);
   border-radius: 0 6px 6px 0;
 }
+.paper-preview svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0.8em auto;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: #fafafa;
+}
 

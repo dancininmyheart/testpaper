@@ -987,6 +987,49 @@ def _has_strong_answer_page_hint(context: Dict[str, Any]) -> bool:
     return isinstance(evidence, str) and evidence.strip() and evidence != "fallback_to_question_page"
 
 
+def _group_contexts_by_answer_key_page(
+    answer_contexts: List[Dict[str, Any]],
+    *,
+    page_count: int,
+) -> Dict[int, List[Dict[str, Any]]]:
+    grouped: Dict[int, List[Dict[str, Any]]] = {}
+    if page_count <= 1:
+        return {0: list(answer_contexts)}
+
+    unhinted: List[tuple[int, Dict[str, Any]]] = []
+    for fallback_index, context in enumerate(answer_contexts):
+        page_hint = context.get("answer_page_hint")
+        if (
+            isinstance(page_hint, int)
+            and 0 <= page_hint < page_count
+            and _has_strong_answer_page_hint(context)
+        ):
+            grouped.setdefault(page_hint, []).append(context)
+            continue
+        order_index = context.get("question_order_index")
+        if not isinstance(order_index, int):
+            order_index = fallback_index
+        unhinted.append((order_index, context))
+
+    unhinted.sort(key=lambda item: item[0])
+    total = len(unhinted)
+    for position, (_, context) in enumerate(unhinted):
+        page_index = min(page_count - 1, int(position * page_count / max(1, total)))
+        grouped.setdefault(page_index, []).append(context)
+    return grouped or {0: list(answer_contexts)}
+
+
+def _reference_answer_question_ids(reference_answers: List[Dict[str, Any]]) -> set[str]:
+    ids: set[str] = set()
+    for item in reference_answers:
+        if not isinstance(item, dict):
+            continue
+        qid = item.get("question_id")
+        if isinstance(qid, str) and qid.strip():
+            ids.add(qid.strip())
+    return ids
+
+
 def _select_answer_contexts_for_slice(
     *,
     page_index: int,
@@ -6159,17 +6202,12 @@ class DemoService:
                 elapsed_ms=round((perf_counter() - started) * 1000, 1),
             )
 
-        # 2. Group contexts by answer key page (fallback to distributing evenly)
-        by_page: Dict[int, List[Dict[str, Any]]] = {}
-        for ctx in answer_contexts:
-            page_hint = ctx.get("answer_page_hint")
-            if isinstance(page_hint, int) and page_hint in page_data:
-                by_page.setdefault(page_hint, []).append(ctx)
-            else:
-                by_page.setdefault(0, []).append(ctx)
-
-        if not any(by_page.values()):
-            by_page = {0: list(answer_contexts)}
+        # 2. Group contexts by answer key page. Strong page hints win; otherwise
+        # distribute by question order so later pages are not starved.
+        by_page = _group_contexts_by_answer_key_page(
+            answer_contexts,
+            page_count=len(page_data),
+        )
 
         # 3. Build prompt and call VLM per page
         context_map = _build_answer_context_map(answer_contexts)
@@ -6530,7 +6568,41 @@ class DemoService:
                 warnings=warnings,
             )
             if extracted:
-                return extracted, "uploaded"
+                extracted_ids = _reference_answer_question_ids(extracted)
+                missing_contexts = [
+                    context
+                    for context in answer_contexts
+                    if isinstance(context.get("question_id"), str)
+                    and context["question_id"].strip()
+                    and context["question_id"].strip() not in extracted_ids
+                ]
+                generated_missing: List[Dict[str, Any]] = []
+                if missing_contexts:
+                    warnings.append(
+                        "reference answers uploaded extract missed "
+                        f"{len(missing_contexts)} question(s), falling back to generation"
+                    )
+                    generated_missing = self._run_reference_answer_generate(
+                        answer_contexts=missing_contexts,
+                        paper_urls=paper_urls,
+                        warnings=warnings,
+                    )
+                stats = getattr(self, "_last_reference_generate_stats", {})
+                if not isinstance(stats, dict):
+                    stats = {}
+                stats.update(
+                    {
+                        "uploaded_answer_count": len(extracted),
+                        "fallback_answer_count": len(generated_missing),
+                        "missing_reference_count": max(
+                            0,
+                            len(missing_contexts)
+                            - len(_reference_answer_question_ids(generated_missing)),
+                        ),
+                    }
+                )
+                self._last_reference_generate_stats = stats
+                return extracted + generated_missing, "uploaded"
             warnings.append("reference answers minerv extract produced no results, falling back to generation")
             generated = self._run_reference_answer_generate(
                 answer_contexts=answer_contexts,
@@ -7707,6 +7779,81 @@ class DemoService:
                 preferred_source=answer_key_source,
                 warnings=warnings,
             )
+        if payload.get("_stage_type") == "generate_answers":
+            reference_generate_stats: Dict[str, Any] = {}
+            if reference_future is not None:
+                try:
+                    reference_answers, answer_key_source = reference_future.result()
+                    reference_generate_stats = getattr(self, "_last_reference_generate_stats", {})
+                    if not isinstance(reference_generate_stats, dict):
+                        reference_generate_stats = {}
+                    record_stage(
+                        "reference_answer",
+                        "ok" if reference_answers else ("partial" if answer_key_source != "none" else "skipped"),
+                        answer_key_source=answer_key_source,
+                        reference_answer_count=len(reference_answers),
+                        answer_key_page_count=len(answer_key_urls),
+                        parallel_group="post_question",
+                        input_item_count=len(answer_contexts),
+                        chunk_count=reference_generate_stats.get("chunk_count", 0),
+                        chunk_size=reference_generate_stats.get("chunk_size", 0),
+                        generated_question_count=reference_generate_stats.get("generated_question_count", 0),
+                        skipped_question_count=reference_generate_stats.get("skipped_question_count", 0),
+                        uploaded_answer_count=reference_generate_stats.get("uploaded_answer_count", 0),
+                        fallback_answer_count=reference_generate_stats.get("fallback_answer_count", 0),
+                        missing_reference_count=reference_generate_stats.get("missing_reference_count", 0),
+                        elapsed_ms=round((perf_counter() - reference_stage_start) * 1000, 1),
+                    )
+                except Exception as exc:
+                    warnings.append(f"reference_answer failed: {exc}")
+                    reference_answers, answer_key_source = [], "none"
+                    record_stage(
+                        "reference_answer",
+                        "failed",
+                        answer_key_source=answer_key_source,
+                        reference_answer_count=0,
+                        answer_key_page_count=len(answer_key_urls),
+                        parallel_group="post_question",
+                        input_item_count=len(answer_contexts),
+                        elapsed_ms=round((perf_counter() - reference_stage_start) * 1000, 1),
+                        error=str(exc),
+                    )
+            post_question_executor.shutdown(wait=False)
+            bootstrap_executor.shutdown(wait=False)
+            run_finished_at = _now_iso()
+            self._debug_active_run_dir = None
+            return {
+                "student_id": student_id,
+                "input_mode": input_mode,
+                "answer_key_source": answer_key_source,
+                "model_selection": model_selection,
+                "reference_answers": reference_answers,
+                "question_analysis": questions,
+                "structured_questions_full": questions,
+                "answer_trace": [],
+                "answer_trace_display": [],
+                "mapping_report": {
+                    "reference_answer_count": len(reference_answers),
+                    "reference_generate_chunk_count": int(reference_generate_stats.get("chunk_count", 0) or 0),
+                    "reference_generate_skipped_count": int(reference_generate_stats.get("skipped_question_count", 0) or 0),
+                    "answer_key_source": answer_key_source,
+                },
+                "student_profile": {},
+                "new_knowledge_points": [],
+                "skill_alias_map": skill_alias_map,
+                "selected_answer_blocks_summary": {
+                    "count": len(selected_answer_blocks),
+                    "source_counts": selected_block_source_counts,
+                },
+                "warnings": warnings,
+                "analysis_process": {
+                    "started_at": run_started_at,
+                    "finished_at": run_finished_at,
+                    "mock_mode": False,
+                    "stages": stage_logs,
+                },
+                "stage_debug_dir": str(debug_run_dir) if debug_run_dir else None,
+            }
         new_points_stage_start = perf_counter()
         def _ensure_new_points_timed() -> tuple[List[Dict[str, Any]], float]:
             started = perf_counter()

@@ -11,6 +11,7 @@ from backend.infrastructure.repositories import (
 
 
 SOURCE_VERSION = "student_state_v1"
+TIMELINE_SOURCE_VERSION = "student_profile_timeline_v1"
 
 
 def _clamp01(value: Any, default: float = 0.0) -> float:
@@ -41,6 +42,15 @@ def _first_text(item: dict[str, Any], keys: list[str]) -> str:
         if isinstance(value, str) and value.strip():
             return value.strip()
     return ""
+
+
+def _latest_reports_for_state(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    latest_by_project: dict[str, dict[str, Any]] = {}
+    for report in reports:
+        project_id = _clean_id(report.get("project_id"))
+        if project_id and project_id not in latest_by_project:
+            latest_by_project[project_id] = report
+    return list(reversed(list(latest_by_project.values())))
 
 
 class StudentStateService:
@@ -92,17 +102,8 @@ class StudentStateService:
             raise ValueError("student_id is required")
         if self.student_repo.get_student(student_id=clean_student_id, created_by=actor_user_id) is None:
             raise LookupError("student not found")
-        reports = self.review_repo.list_approved_student_reports(
-            student_id=clean_student_id,
-            created_by=actor_user_id,
-        )
-        latest_by_project: dict[str, dict[str, Any]] = {}
-        for report in reports:
-            project_id = _clean_id(report.get("project_id"))
-            if project_id and project_id not in latest_by_project:
-                latest_by_project[project_id] = report
-        selected_reports = list(reversed(list(latest_by_project.values())))
-        state = self._build_state(student_id=clean_student_id, reports=selected_reports)
+        reports = self.prepare_reports_for_state(student_id=clean_student_id, actor_user_id=actor_user_id)
+        state = self.build_state_from_reports(student_id=clean_student_id, reports=reports)
         self.state_repo.save_snapshot(
             student_id=clean_student_id,
             created_by=actor_user_id,
@@ -115,6 +116,21 @@ class StudentStateService:
             updated_at=state["updated_at"],
         )
         return state
+
+    def prepare_reports_for_state(self, *, student_id: str, actor_user_id: int) -> list[dict[str, Any]]:
+        clean_student_id = _clean_id(student_id)
+        if not clean_student_id:
+            raise ValueError("student_id is required")
+        if self.student_repo.get_student(student_id=clean_student_id, created_by=actor_user_id) is None:
+            raise LookupError("student not found")
+        reports = self.review_repo.list_approved_student_reports(
+            student_id=clean_student_id,
+            created_by=actor_user_id,
+        )
+        return _latest_reports_for_state(reports)
+
+    def build_state_from_reports(self, *, student_id: str, reports: list[dict[str, Any]]) -> dict[str, Any]:
+        return self._build_state(student_id=student_id, reports=reports)
 
     def approve_report_and_refresh(
         self,
@@ -132,7 +148,6 @@ class StudentStateService:
         )
         state = self.refresh_student_state(student_id=student_id, actor_user_id=actor_user_id)
         return review, state
-
     def _build_state(self, *, student_id: str, reports: list[dict[str, Any]]) -> dict[str, Any]:
         if not reports:
             return self.empty_state(student_id=student_id)
@@ -337,3 +352,128 @@ class StudentStateService:
     def _recommendations(mastery: list[dict[str, Any]]) -> list[str]:
         weak = [item for item in mastery if float(item.get("value") or 0.0) < 0.6]
         return [f"优先复习：{item.get('name') or item.get('skill_id')}" for item in weak[:3]]
+
+
+class StudentTimelineService:
+    def __init__(
+        self,
+        *,
+        student_repo: StudentRepository,
+        review_repo: AnalysisReviewRepository,
+        state_service: StudentStateService,
+    ) -> None:
+        self.student_repo = student_repo
+        self.review_repo = review_repo
+        self.state_service = state_service
+
+    def get_student_timeline(
+        self,
+        *,
+        student_id: str,
+        actor_user_id: int,
+        limit: int = 12,
+    ) -> dict[str, Any]:
+        clean_student_id = _clean_id(student_id)
+        if not clean_student_id:
+            raise ValueError("student_id is required")
+        if self.student_repo.get_student(student_id=clean_student_id, created_by=actor_user_id) is None:
+            raise LookupError("student not found")
+        reports = self.state_service.prepare_reports_for_state(
+            student_id=clean_student_id,
+            actor_user_id=actor_user_id,
+        )
+        if limit > 0:
+            reports = reports[-limit:]
+        points: list[dict[str, Any]] = []
+        previous_state: dict[str, Any] | None = None
+        for index, report in enumerate(reports, start=1):
+            current_state = self.state_service.build_state_from_reports(
+                student_id=clean_student_id,
+                reports=reports[:index],
+            )
+            points.append(self._build_point(report=report, state=current_state, previous_state=previous_state))
+            previous_state = current_state
+        return {
+            "student_id": clean_student_id,
+            "source_version": TIMELINE_SOURCE_VERSION,
+            "items": points,
+            "next_cursor": None,
+        }
+
+    def _build_point(
+        self,
+        *,
+        report: dict[str, Any],
+        state: dict[str, Any],
+        previous_state: dict[str, Any] | None,
+    ) -> dict[str, Any]:
+        summary = state.get("summary") if isinstance(state.get("summary"), dict) else {}
+        mastery = state.get("mastery") if isinstance(state.get("mastery"), list) else []
+        literacy = state.get("literacy") if isinstance(state.get("literacy"), list) else []
+        evidence = state.get("evidence") if isinstance(state.get("evidence"), dict) else {}
+
+        weak_skills = sorted(
+            [item for item in mastery if float(item.get("value") or 0.0) < 0.6],
+            key=lambda item: (float(item.get("value") or 0.0), str(item.get("skill_id") or "")),
+        )[:5]
+        strong_skills = sorted(
+            [item for item in mastery if float(item.get("value") or 0.0) >= 0.8],
+            key=lambda item: (-float(item.get("value") or 0.0), str(item.get("skill_id") or "")),
+        )[:5]
+
+        previous_weak_ids: set[str] = set()
+        previous_summary: dict[str, Any] = {}
+        if previous_state is not None:
+            prev_mastery = previous_state.get("mastery") if isinstance(previous_state.get("mastery"), list) else []
+            previous_weak_ids = {
+                str(item.get("skill_id") or "")
+                for item in prev_mastery
+                if float(item.get("value") or 0.0) < 0.6
+            }
+            previous_summary = previous_state.get("summary") if isinstance(previous_state.get("summary"), dict) else {}
+
+        delta = {
+            "overall_mastery": round(
+                float(summary.get("overall_mastery") or 0.0) - float(previous_summary.get("overall_mastery") or 0.0),
+                4,
+            ),
+            "overall_literacy": round(
+                float(summary.get("overall_literacy") or 0.0) - float(previous_summary.get("overall_literacy") or 0.0),
+                4,
+            ),
+            "weak_skill_count": int(summary.get("weak_skill_count") or 0) - int(previous_summary.get("weak_skill_count") or 0),
+            "strong_skill_count": int(summary.get("strong_skill_count") or 0) - int(previous_summary.get("strong_skill_count") or 0),
+        }
+        new_weak_skills = [item for item in weak_skills if str(item.get("skill_id") or "") not in previous_weak_ids]
+        improved_skills = [
+            item
+            for item in mastery
+            if str(item.get("skill_id") or "") in previous_weak_ids and float(item.get("value") or 0.0) >= 0.6
+        ]
+        return {
+            "report_id": _clean_id(report.get("job_id")),
+            "project_id": _clean_id(report.get("project_id")),
+            "title": _clean_id(report.get("title")),
+            "subject": _clean_id(report.get("subject")),
+            "grade": _clean_id(report.get("grade")),
+            "reviewed_at": _clean_id(report.get("reviewed_at")),
+            "summary": {
+                "overall_mastery": float(summary.get("overall_mastery") or 0.0),
+                "overall_literacy": float(summary.get("overall_literacy") or 0.0),
+                "risk_level": _clean_id(summary.get("risk_level")) or "unknown",
+                "exam_count": int(summary.get("exam_count") or 0),
+                "weak_skill_count": int(summary.get("weak_skill_count") or 0),
+                "strong_skill_count": int(summary.get("strong_skill_count") or 0),
+                "recommendations": list(summary.get("recommendations") or []),
+            },
+            "delta": delta,
+            "weak_skills": weak_skills,
+            "strong_skills": strong_skills,
+            "improved_skills": improved_skills[:5],
+            "new_weak_skills": new_weak_skills[:5],
+            "literacy": literacy[:5],
+            "evidence": {
+                "recent_reports": list(evidence.get("recent_reports") or [])[:5],
+                "weak_questions": list(evidence.get("weak_questions") or [])[:10],
+            },
+        }

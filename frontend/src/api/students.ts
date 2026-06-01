@@ -67,6 +67,40 @@ export interface StudentStateSnapshot {
   updated_at: string;
 }
 
+export interface StudentTimelineDelta {
+  overall_mastery: number;
+  overall_literacy: number;
+  weak_skill_count: number;
+  strong_skill_count: number;
+}
+
+export interface StudentTimelineItem {
+  report_id: string;
+  project_id: string;
+  title: string;
+  subject: string;
+  grade: string;
+  reviewed_at: string;
+  summary: StudentStateSummary;
+  delta: StudentTimelineDelta;
+  weak_skills: StudentStateMasteryItem[];
+  strong_skills: StudentStateMasteryItem[];
+  improved_skills: StudentStateMasteryItem[];
+  new_weak_skills: StudentStateMasteryItem[];
+  literacy: StudentStateLiteracyItem[];
+  evidence: {
+    recent_reports: Array<Record<string, unknown>>;
+    weak_questions: Array<Record<string, unknown>>;
+  };
+}
+
+export interface StudentTimelineResponse {
+  student_id: string;
+  source_version: string;
+  items: StudentTimelineItem[];
+  next_cursor: string | null;
+}
+
 export async function listStudents(): Promise<StudentData[]> {
   const data = await apiGet<{ items: StudentData[] }>("/students");
   return data.items;
@@ -109,4 +143,10 @@ export async function getStudentState(studentId: string): Promise<StudentStateSn
 
 export async function rebuildStudentState(studentId: string): Promise<StudentStateSnapshot> {
   return apiPost<StudentStateSnapshot>(`/students/${encodeURIComponent(studentId)}/state:rebuild`);
+}
+
+export async function getStudentTimeline(studentId: string, limit = 12): Promise<StudentTimelineResponse> {
+  return apiGet<StudentTimelineResponse>(
+    `/students/${encodeURIComponent(studentId)}/timeline?limit=${encodeURIComponent(String(limit))}`,
+  );
 }

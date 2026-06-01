@@ -1,6 +1,10 @@
 from __future__ import annotations
 
-from demo.service import DemoService, _normalize_reference_answer_item
+from demo.service import (
+    DemoService,
+    _group_contexts_by_answer_key_page,
+    _normalize_reference_answer_item,
+)
 
 
 def test_reference_answer_generate_routes_text_items_to_text_profile_and_image_items_to_vision_profile():
@@ -116,3 +120,61 @@ def test_reference_answer_single_question_normalization_uses_target_question_id(
     assert parsed is not None
     assert parsed["question_id"] == "Q1"
     assert parsed["reference_final_answer"] == "A"
+
+
+def test_prepare_reference_answers_generates_missing_uploaded_items():
+    service = DemoService.__new__(DemoService)
+    service._log_progress = lambda *args, **kwargs: None
+
+    generated_calls = []
+
+    def fake_generate(**kwargs):
+        generated_calls.append(kwargs)
+        return [
+            {
+                "question_id": item["question_id"],
+                "reference_answer_text": f"generated {item['question_id']}",
+                "source": "generated",
+            }
+            for item in kwargs["answer_contexts"]
+        ]
+
+    service._run_reference_answer_extract_via_mineru = lambda **kwargs: [
+        {
+            "question_id": "Q1",
+            "reference_answer_text": "uploaded Q1",
+            "source": "uploaded",
+        }
+    ]
+    service._run_reference_answer_generate = fake_generate
+
+    answers, source = service._prepare_reference_answers(
+        answer_key_urls=["answer-page-1"],
+        answer_contexts=[
+            {"question_id": "Q1", "question_type": "choice", "problem_text": "first"},
+            {"question_id": "Q2", "question_type": "choice", "problem_text": "second"},
+            {"question_id": "Q3", "question_type": "choice", "problem_text": "third"},
+        ],
+        paper_urls=["paper-page-1"],
+        preferred_source="uploaded",
+        warnings=[],
+    )
+
+    assert source == "uploaded"
+    assert {item["question_id"] for item in answers} == {"Q1", "Q2", "Q3"}
+    assert [item["question_id"] for item in generated_calls[0]["answer_contexts"]] == ["Q2", "Q3"]
+
+
+def test_group_contexts_by_answer_key_page_distributes_unhinted_contexts():
+    grouped = _group_contexts_by_answer_key_page(
+        [
+            {"question_id": "Q1", "question_order_index": 0},
+            {"question_id": "Q2", "question_order_index": 1},
+            {"question_id": "Q3", "question_order_index": 2},
+            {"question_id": "Q4", "question_order_index": 3},
+        ],
+        page_count=2,
+    )
+
+    assert [item["question_id"] for item in grouped[0]] == ["Q1", "Q2"]
+    assert [item["question_id"] for item in grouped[1]] == ["Q3", "Q4"]

@@ -66,6 +66,21 @@ def read_mineru_artifact_questions(artifact_dir: str) -> list[dict[str, Any]]:
     return [q for q in questions_raw if isinstance(q, dict)]
 
 
+def reference_answer_review_state(
+    *,
+    answer: dict[str, Any] | None,
+    answer_key_source: str,
+) -> tuple[str, str]:
+    if not isinstance(answer, dict):
+        return "missing", "no saved reference answer"
+    source = str(answer.get("source") or "").strip()
+    if source == "generated" and answer_key_source == "uploaded":
+        return "generated_fallback", "uploaded extraction missed this question; generated fallback used"
+    if source in {"uploaded", "generated"}:
+        return source, ""
+    return source or "unknown", ""
+
+
 def guess_content_type(file_name: str) -> str:
     suffix = Path(str(file_name or "")).suffix.lower().lstrip(".")
     return {
@@ -237,6 +252,8 @@ def build_mineru_review_payload(ctx: Any, project_id: str, questions_raw: list[d
     question_images = ctx.paper_repo.get_question_images(project_id)
     ref_answers = ctx.paper_repo.get_reference_answers(project_id)
     files = ctx.paper_repo.list_project_files(project_id)
+    project = ctx.paper_service.get_project(project_id)
+    answer_key_source = str(getattr(project, "answer_key_source", "") or "")
     artifact_dir = ctx.paper_repo.get_mineru_artifact_dir(project_id)
     artifact_images = load_mineru_cached_image_lookup(artifact_dir) if artifact_dir else {}
     answer_by_qid: dict[str, dict] = {}
@@ -322,6 +339,11 @@ def build_mineru_review_payload(ctx: Any, project_id: str, questions_raw: list[d
                 if opt_text and line not in content:
                     content += "\n" + line
 
+        reference_answer = answer_by_qid.get(qid)
+        reference_answer_status, reference_answer_warning = reference_answer_review_state(
+            answer=reference_answer,
+            answer_key_source=answer_key_source,
+        )
         questions_out.append({
             "question_id": qid,
             "question_no": q.get("question_no", ""),
@@ -333,7 +355,9 @@ def build_mineru_review_payload(ctx: Any, project_id: str, questions_raw: list[d
             "image_refs": q.get("image_refs", []) or q.get("matched_image_ids", []),
             "paper_page_file_id": paper_file.get("id") if paper_file else None,
             "images": images_by_qid.get(qid, []),
-            "reference_answer": answer_by_qid.get(qid),
+            "reference_answer": reference_answer,
+            "reference_answer_status": reference_answer_status,
+            "reference_answer_warning": reference_answer_warning,
         })
 
     return {
