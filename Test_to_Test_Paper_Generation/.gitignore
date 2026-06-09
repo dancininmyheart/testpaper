@@ -1,0 +1,13 @@
+checkpoint_0/
+checkpoint_1/
+input/
+output/
+pdf_extracted/
+api_key.txt
+demo.pdf
+extracted_questions.json
+mineru_get.py
+mineru_test.py
+test.docx
+test.md
+word_test.py

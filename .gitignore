@@ -100,5 +100,14 @@ extract_detailed_text.py
 # Claude Code skills
 skills/
 
-# Sub-projects
-Test_to_Test_Paper_Generation/
+# Similar paper generation module
+Test_to_Test_Paper_Generation/.env
+Test_to_Test_Paper_Generation/api_key.txt
+Test_to_Test_Paper_Generation/checkpoint_*/
+Test_to_Test_Paper_Generation/input/
+Test_to_Test_Paper_Generation/output/
+Test_to_Test_Paper_Generation/pdf_extracted/
+Test_to_Test_Paper_Generation/demo.pdf
+Test_to_Test_Paper_Generation/extracted_questions.json
+Test_to_Test_Paper_Generation/test.docx
+Test_to_Test_Paper_Generation/test.md

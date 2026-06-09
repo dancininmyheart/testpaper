@@ -1,0 +1,52 @@
+# Global Configuration for Exam Generator
+
+api:
+  active_provider: "${EXAM_GEN_ACTIVE_PROVIDER:-packy}"
+  mineru_token: ""
+  zhichuang_key: "${ZHICHUANG_KEY:-}"
+  zhichuang_base_url: "${ZHICHUANG_BASE_URL:-https://s.lconai.com/v1}"
+  ds_key: "${DEEPSEEK_KEY:-}"
+  ds_base_url: "${DEEPSEEK_BASE_URL:-https://api.deepseek.com}"
+  packy_key: "${PACKY_KEY:-}"
+  packy_base_url: "${PACKY_BASE_URL:-https://www.packyapi.com/v1}"
+
+models:
+  pdf_parser: "deepseek-v4-flash"
+  analyzer: "deepseek-v4-flash"
+  scenario: "deepseek-v4-flash"
+  generator: "deepseek-v4-flash"
+  assembler: "deepseek-v4-flash"
+
+model_providers:
+  pdf_parser: "ds"
+  analyzer: "ds"
+  scenario: "ds"
+  generator: "ds"
+  assembler: "ds"
+
+temperature:
+  pdf_parser: 0.0
+  analyzer: 0.1
+  scenario: 0.6
+  generator: 0.3
+  assembler: 0.1
+
+paths:
+  output_dir: "output"
+
+batch_size:
+  analyzer: 10
+  scenario: 5
+  generation: 16
+
+scenario_threshold: 6
+
+curriculum_level: "Junior High"
+graph_mode: "svg"
+
+# === Prompt 双轨切流 ===
+prompts:
+  analyzer: "${EXAM_GEN_PROMPT_ANALYZER:-v2}"
+  scenario: "${EXAM_GEN_PROMPT_SCENARIO:-v2}"
+  generator: "${EXAM_GEN_PROMPT_GENERATOR:-v2}"
+  assembler: "${EXAM_GEN_PROMPT_ASSEMBLER:-v2}"
