@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Users, LayoutDashboard, FolderOpen, ClipboardList, TrendingUp, FileSpreadsheet, LogOut } from "lucide-react";
+import { Users, LayoutDashboard, FolderOpen, ClipboardList, LogOut } from "lucide-react";
 import { useAuthStore } from "../../stores/authStore";
 
 const NAV_ITEMS = [
@@ -7,8 +7,6 @@ const NAV_ITEMS = [
   { to: "/projects", label: "项目", icon: FolderOpen },
   { to: "/students", label: "学生管理", icon: Users },
   { to: "/tasks", label: "任务", icon: ClipboardList },
-  { to: "/mastery", label: "学情追踪", icon: TrendingUp },
-  { to: "/reports", label: "报告中心", icon: FileSpreadsheet },
 ];
 
 export default function AppShell() {

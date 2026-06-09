@@ -1,5 +1,4 @@
 import katex from "katex";
-import "katex/dist/katex.min.css";
 
 type Segment = {
   kind: "text" | "math";
@@ -55,7 +54,7 @@ function renderMath(value: string, displayMode = false): string {
   });
 }
 
-export default function MathText({ text }: { text: string }) {
+export default function MathText({ text, inline = false }: { text: string; inline?: boolean }) {
   const segments = splitMathText(text);
 
   return (
@@ -64,11 +63,12 @@ export default function MathText({ text }: { text: string }) {
         if (segment.kind === "text") {
           return <span key={index}>{segment.value}</span>;
         }
+        const displayMode = inline ? false : segment.displayMode;
         return (
           <span
             key={index}
-            className={segment.displayMode ? "block my-2 overflow-x-auto" : "inline-block max-w-full align-baseline"}
-            dangerouslySetInnerHTML={{ __html: renderMath(segment.value, segment.displayMode) }}
+            className={displayMode ? "block my-2 overflow-x-auto" : "inline-block max-w-full align-baseline"}
+            dangerouslySetInnerHTML={{ __html: renderMath(segment.value, displayMode) }}
           />
         );
       })}

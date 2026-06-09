@@ -80,8 +80,8 @@ export default function ScoreReview() {
     <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <Link to={`/projects/${id}`} className="inline-flex items-center gap-1 text-xs text-[var(--color-text-muted)] hover:text-primary transition-colors mb-2">
-            <ArrowLeft className="w-3.5 h-3.5" /> 返回项目
+          <Link to={`/projects/${id}`} className="inline-flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:border-primary/30 hover:bg-primary/5 hover:text-primary mb-3">
+            <ArrowLeft className="w-4 h-4" /> 返回项目
           </Link>
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center text-primary">

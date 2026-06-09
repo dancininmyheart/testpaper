@@ -99,6 +99,7 @@ class AppContext:
             student_repo=student_repo,
             review_repo=analysis_review_repo,
             state_repo=student_state_repo,
+            keyword_path=settings.keyword_path,
         )
         student_timeline_service = StudentTimelineService(
             student_repo=student_repo,

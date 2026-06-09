@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 from backend.infrastructure.repositories import (
@@ -44,6 +45,60 @@ def _first_text(item: dict[str, Any], keys: list[str]) -> str:
     return ""
 
 
+def _contains_chinese(value: str) -> bool:
+    return any("\u4e00" <= char <= "\u9fff" for char in value)
+
+
+def _load_keyword_skill_alias_map(keyword_path: Path | None) -> dict[str, str]:
+    if keyword_path is None:
+        return {}
+    try:
+        from llm_knowledge_tagger import _extract_points_from_nodes, _load_key_word_payload
+
+        payload = _load_key_word_payload(keyword_path)
+        points = _extract_points_from_nodes(payload.get("nodes", []))
+    except Exception:
+        return {}
+    return {
+        _clean_id(point.get("id")): _clean_id(point.get("name"))
+        for point in points
+        if _clean_id(point.get("id")) and _clean_id(point.get("name"))
+    }
+
+
+def _build_skill_alias_map(result: dict[str, Any], base_aliases: dict[str, str] | None = None) -> dict[str, str]:
+    aliases: dict[str, str] = dict(base_aliases or {})
+    raw_aliases = result.get("skill_alias_map")
+    if isinstance(raw_aliases, dict):
+        for key, value in raw_aliases.items():
+            alias_key = _clean_id(key)
+            alias_value = _clean_id(value)
+            if alias_key and alias_value:
+                aliases[alias_key] = alias_value
+
+    new_points = result.get("new_knowledge_points")
+    if isinstance(new_points, list):
+        for point in new_points:
+            if not isinstance(point, dict):
+                continue
+            point_id = _first_text(point, ["id", "skill_id", "knowledge_id"])
+            point_name = _first_text(point, ["name", "short_name", "label", "skill_name", "knowledge_name"])
+            if point_id and point_name:
+                aliases[point_id] = point_name
+    return aliases
+
+
+def _resolve_skill_name(skill_id: str, raw_name: str, skill_alias_map: dict[str, str]) -> str:
+    clean_skill_id = _clean_id(skill_id)
+    clean_name = _clean_id(raw_name)
+    if clean_name and _contains_chinese(clean_name):
+        return clean_name
+    alias = skill_alias_map.get(clean_skill_id) or skill_alias_map.get(clean_name)
+    if alias:
+        return alias
+    return clean_name or clean_skill_id
+
+
 def _latest_reports_for_state(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
     latest_by_project: dict[str, dict[str, Any]] = {}
     for report in reports:
@@ -60,10 +115,18 @@ class StudentStateService:
         student_repo: StudentRepository,
         review_repo: AnalysisReviewRepository,
         state_repo: StudentStateRepository,
+        keyword_path: Path | None = None,
     ) -> None:
         self.student_repo = student_repo
         self.review_repo = review_repo
         self.state_repo = state_repo
+        self.keyword_path = keyword_path
+        self._keyword_skill_alias_map: dict[str, str] | None = None
+
+    def _skill_alias_base(self) -> dict[str, str]:
+        if self._keyword_skill_alias_map is None:
+            self._keyword_skill_alias_map = _load_keyword_skill_alias_map(self.keyword_path)
+        return self._keyword_skill_alias_map
 
     def empty_state(self, *, student_id: str) -> dict[str, Any]:
         return {
@@ -160,6 +223,7 @@ class StudentStateService:
 
         for index, report in enumerate(reports, start=1):
             result = report.get("result") if isinstance(report.get("result"), dict) else {}
+            skill_alias_map = _build_skill_alias_map(result, self._skill_alias_base())
             weight = float(index)
             job_id = _clean_id(report.get("job_id"))
             if job_id:
@@ -172,10 +236,10 @@ class StudentStateService:
                     "reviewed_at": _clean_id(report.get("reviewed_at")),
                 }
             )
-            self._collect_profile_mastery(skill_samples, result, weight, report)
+            self._collect_profile_mastery(skill_samples, result, weight, report, skill_alias_map)
             self._collect_profile_literacy(literacy_samples, result, weight, report)
             if not skill_samples:
-                self._collect_trace_mastery(skill_samples, weak_questions, result, weight, report)
+                self._collect_trace_mastery(skill_samples, weak_questions, result, weight, report, skill_alias_map)
 
         mastery = self._summarize_samples(skill_samples, id_key="skill_id")
         literacy = self._summarize_samples(literacy_samples, id_key="literacy_id")
@@ -212,6 +276,7 @@ class StudentStateService:
         result: dict[str, Any],
         weight: float,
         report: dict[str, Any],
+        skill_alias_map: dict[str, str],
     ) -> None:
         profile = result.get("student_profile") if isinstance(result.get("student_profile"), dict) else {}
         mastery = profile.get("mastery") if isinstance(profile, dict) else []
@@ -228,7 +293,11 @@ class StudentStateService:
                 {
                     "value": value,
                     "weight": weight,
-                    "name": _first_text(item, ["skill_name", "name", "knowledge_name"]) or skill_id,
+                    "name": _resolve_skill_name(
+                        skill_id,
+                        _first_text(item, ["skill_name", "name", "knowledge_name"]),
+                        skill_alias_map,
+                    ),
                     "last_seen_at": _clean_id(report.get("reviewed_at")),
                 }
             )
@@ -267,6 +336,7 @@ class StudentStateService:
         result: dict[str, Any],
         weight: float,
         report: dict[str, Any],
+        skill_alias_map: dict[str, str],
     ) -> None:
         traces = result.get("answer_trace_display") or result.get("answer_trace") or []
         if not isinstance(traces, list):
@@ -293,7 +363,7 @@ class StudentStateService:
                     {
                         "value": score_ratio,
                         "weight": weight,
-                        "name": skill_id,
+                        "name": _resolve_skill_name(skill_id, "", skill_alias_map),
                         "last_seen_at": _clean_id(report.get("reviewed_at")),
                     }
                 )

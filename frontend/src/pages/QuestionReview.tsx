@@ -140,8 +140,8 @@ export default function QuestionReview() {
       {/* 左侧栏：试题快速导航 */}
       <div className="w-64 flex-shrink-0 border-r border-slate-200/80 overflow-auto bg-white flex flex-col shadow-[1px_0_5px_rgba(0,0,0,0.02)]">
         <div className="p-4 border-b border-slate-100 sticky top-0 bg-white z-10">
-          <Link to={`/projects/${id}`} className="inline-flex items-center gap-1 text-xs text-[var(--color-text-muted)] hover:text-primary transition-colors mb-2">
-            <ArrowLeft className="w-3 h-3" /> 返回项目
+          <Link to={`/projects/${id}`} className="inline-flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:border-primary/30 hover:bg-primary/5 hover:text-primary mb-3">
+            <ArrowLeft className="w-4 h-4" /> 返回项目
           </Link>
           <h2 className="text-sm font-bold text-slate-800 tracking-tight">试题审查</h2>
           <div className="flex items-center justify-between mt-1">
@@ -174,7 +174,7 @@ export default function QuestionReview() {
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="truncate font-medium group-hover:text-slate-900 transition-colors">
-                    {contentText.split("\n")[0] || "空文本题目"}
+                    <MathText text={contentText.split("\n")[0] || "空文本题目"} inline />
                   </div>
                   <div className="text-[10px] text-[var(--color-text-muted)] mt-0.5 flex flex-wrap items-center gap-1.5">
                     <span>{String(q.question_type || "问答题")}</span>

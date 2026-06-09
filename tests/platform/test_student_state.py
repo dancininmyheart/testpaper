@@ -71,6 +71,7 @@ def _seed_job(
 def _profile_result(student_id: str, mastery_value: float) -> dict:
     return {
         "student_id": student_id,
+        "skill_alias_map": {"linear_equation": "一元一次方程"},
         "student_profile": {
             "mastery": [
                 {
@@ -139,9 +140,57 @@ def test_student_state_updates_only_after_teacher_approves_scores(monkeypatch, t
     assert state["summary"]["exam_count"] == 1
     assert state["summary"]["overall_mastery"] == 0.82
     assert state["mastery"][0]["skill_id"] == "linear_equation"
+    assert state["mastery"][0]["name"] == "一元一次方程"
     assert state["mastery"][0]["value"] == 0.82
+    assert state["summary"]["recommendations"] == []
     assert state["literacy"][0]["literacy_id"] == "logical_reasoning"
     assert state["source_report_ids"] == ["job_s001"]
+
+
+def test_student_state_resolves_standard_skill_ids_from_keyword_graph(monkeypatch, tmp_path: Path):
+    monkeypatch.setenv("APP_DB_PATH", str(tmp_path / "app.db"))
+    monkeypatch.setenv("APP_STORAGE_ROOT", str(tmp_path / "storage"))
+    monkeypatch.setenv("WORKER_ENABLED", "false")
+
+    from backend.main import create_app
+
+    app = create_app(start_worker=False)
+    try:
+        client = app.test_client()
+        headers = _login_headers(client)
+        _create_student(client, headers)
+        ctx = app.config["ctx"]
+        _seed_project(ctx)
+        _seed_job(
+            ctx,
+            job_id="job_standard_ids",
+            result={
+                "student_id": "S001",
+                "student_profile": {
+                    "mastery": [
+                        {"skill_id": "geom.theorem.congruence", "value": 0.45},
+                        {"skill_id": "root.method.add_sub", "value": 0.92},
+                        {"skill_id": "eq.theorem.vieta", "value": 0.95},
+                    ],
+                },
+            },
+        )
+
+        approve = client.post(
+            "/api/v1/paper-projects/project_1/student-runs/job_standard_ids/approve-scores",
+            headers=headers,
+        )
+        state_response = client.get("/api/v1/students/S001/state", headers=headers)
+    finally:
+        app.config["ctx"].close()
+
+    assert approve.status_code == 200
+    assert state_response.status_code == 200
+    state = state_response.get_json()["data"]
+    names_by_id = {item["skill_id"]: item["name"] for item in state["mastery"]}
+    assert names_by_id["geom.theorem.congruence"] == "全等三角形的判定"
+    assert names_by_id["root.method.add_sub"] == "二次根式的加减"
+    assert names_by_id["eq.theorem.vieta"] == "韦达定理（根与系数的关系）"
 
 
 def test_student_state_uses_latest_approved_run_per_project(monkeypatch, tmp_path: Path):

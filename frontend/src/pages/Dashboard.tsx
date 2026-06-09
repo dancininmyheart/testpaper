@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { FolderKanban, CheckCircle2, RefreshCw, BarChart3, Plus, ArrowRight, ClipboardList, TrendingUp } from "lucide-react";
+import { FolderKanban, CheckCircle2, RefreshCw, BarChart3, Plus, ArrowRight } from "lucide-react";
 import { listProjects } from "../api/projects";
 import Button from "../components/ui/Button";
 
@@ -122,16 +122,6 @@ export default function Dashboard() {
             <Link to="/projects/new" className="block">
               <Button className="w-full justify-center py-2.5 shadow-md shadow-indigo-100 hover:shadow-lg" variant="primary">
                 <Plus className="w-4 h-4 mr-1" /> 新建项目
-              </Button>
-            </Link>
-            <Link to="/reports" className="block">
-              <Button className="w-full justify-center py-2.5 text-slate-600 hover:bg-slate-50 border-slate-200" variant="secondary">
-                <ClipboardList className="w-4 h-4 mr-1 text-slate-400" /> 查看报告
-              </Button>
-            </Link>
-            <Link to="/mastery" className="block">
-              <Button className="w-full justify-center py-2.5 text-slate-600 hover:bg-slate-50 border-slate-200" variant="secondary">
-                <TrendingUp className="w-4 h-4 mr-1 text-slate-400" /> 学情追踪
               </Button>
             </Link>
           </div>

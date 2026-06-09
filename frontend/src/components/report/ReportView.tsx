@@ -209,7 +209,11 @@ export default function ReportView({ report, project, studentId, mode = "student
                       {item.levelLabel}
                     </span>
                   </div>
-                  {item.definition && <p className="text-[11px] leading-relaxed text-slate-500">{item.definition}</p>}
+                  {item.definition && (
+                    <p className="text-[11px] leading-relaxed text-slate-500">
+                      <MathText text={item.definition} />
+                    </p>
+                  )}
                 </div>
                 
                 <div className="mt-4 pt-2 border-t border-slate-100/50">
@@ -226,7 +230,7 @@ export default function ReportView({ report, project, studentId, mode = "student
                   {item.evidence.length > 0 && (
                     <div className="mt-3 text-[11px] text-slate-600 bg-white/70 px-2.5 py-1.5 rounded-lg border border-slate-100 flex items-start gap-1">
                       <span className="text-primary font-bold">•</span>
-                      <span><strong className="text-slate-500 font-semibold">分析证据：</strong>{item.evidence.join("、")}</span>
+                      <span><strong className="text-slate-500 font-semibold">分析证据：</strong><MathText text={item.evidence.join("、")} /></span>
                     </div>
                   )}
                   {item.reason && (
@@ -255,7 +259,9 @@ export default function ReportView({ report, project, studentId, mode = "student
                 <summary className="cursor-pointer p-4 select-none flex items-center justify-between gap-4 hover:bg-slate-50/50 transition-colors">
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-bold text-slate-800">{item.skill}</div>
-                    <div className="text-[11px] text-[var(--color-text-muted)] mt-1 truncate">{item.symptom}</div>
+                    <div className="text-[11px] text-[var(--color-text-muted)] mt-1 truncate">
+                      <MathText text={item.symptom} inline />
+                    </div>
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
                     <span className="rounded-full bg-amber-50 px-2.5 py-0.5 text-[10px] font-bold text-amber-700 border border-amber-200/40">
@@ -333,7 +339,9 @@ export default function ReportView({ report, project, studentId, mode = "student
                           </span>
                         )}
                       </div>
-                      <div className="text-[11px] text-[var(--color-text-muted)] mt-1 truncate">{item.questionText}</div>
+                      <div className="text-[11px] text-[var(--color-text-muted)] mt-1 truncate">
+                        <MathText text={item.questionText} inline />
+                      </div>
                       {item.knowledgePoints.length > 0 && (
                         <div className="mt-2.5 flex flex-wrap gap-1">
                           {item.knowledgePoints.map((point) => (
