@@ -792,7 +792,7 @@ export default function ProjectWorkspace() {
               </div>
             )}
 
-            {project.status === "generating_paper" && (
+            {phase.phase === 2 && project.status === "generating_paper" && (
               <div className="p-5 bg-amber-50/50 border border-amber-100 rounded-card animate-fadeIn space-y-3">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center">
@@ -809,7 +809,7 @@ export default function ProjectWorkspace() {
               </div>
             )}
 
-            {project.status === "paper_ready" && (
+            {phase.phase === 2 && project.status === "paper_ready" && (
               <div className="p-5 bg-emerald-50/50 border border-emerald-100 rounded-card animate-fadeIn space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">

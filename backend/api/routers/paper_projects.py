@@ -1319,18 +1319,60 @@ def get_generated_paper_content(project_id: str):
     return _json_response({"content": content})
 
 
+def _ensure_generated_pdf_current(project_id: str, paper_repo: Any, extra: dict[str, Any]) -> Path:
+    md_path_raw = str(extra.get("generated_paper_path") or "")
+    if not md_path_raw:
+        raise ApiError(status_code=404, message="generated paper not found, may still be generating")
+
+    md_path = Path(md_path_raw)
+    if not md_path.is_file():
+        raise ApiError(status_code=404, message="generated paper not found, may still be generating")
+
+    pdf_path_raw = str(extra.get("generated_paper_pdf_path") or "")
+    pdf_path = Path(pdf_path_raw) if pdf_path_raw else md_path.with_suffix(".pdf")
+    html_path = pdf_path.with_suffix(".html")
+    needs_refresh = (
+        not pdf_path.is_file()
+        or md_path.stat().st_mtime >= pdf_path.stat().st_mtime
+        or not html_path.is_file()
+        or html_path.stat().st_mtime > pdf_path.stat().st_mtime
+    )
+    if not needs_refresh:
+        return pdf_path
+
+    try:
+        from backend.application.exam_generation_service import _ensure_in_syspath
+
+        _ensure_in_syspath()
+        from exam_generator.pdf_export import render_markdown_to_pdf
+
+        markdown = md_path.read_text(encoding="utf-8")
+        render_markdown_to_pdf(markdown, pdf_path)
+        paper_repo.update_project_data(project_id, generated_paper_pdf_path=str(pdf_path))
+    except ApiError:
+        raise
+    except Exception as exc:
+        raise ApiError(
+            status_code=500,
+            message=f"generated PDF refresh failed: {exc}",
+            code="PDF_RENDER_ERROR",
+        ) from exc
+
+    if not pdf_path.is_file():
+        raise ApiError(status_code=404, message="generated PDF not found, may still be generating")
+    return pdf_path
+
+
 @bp.get("/api/v1/paper-projects/<project_id>/generated-paper/pdf")
 def get_generated_paper_pdf(project_id: str):
     ctx = _get_ctx()
     _require_user("teacher", "admin")
     extra = ctx.paper_repo.get_project_extra(project_id) or {}
-    pdf_path = extra.get("generated_paper_pdf_path", "")
     error_msg = extra.get("generated_paper_error", "")
 
     if error_msg:
         raise ApiError(status_code=500, message=error_msg, code="GENERATION_ERROR")
-    if not pdf_path or not Path(pdf_path).is_file():
-        raise ApiError(status_code=404, message="generated PDF not found, may still be generating")
+    pdf_path = _ensure_generated_pdf_current(project_id, ctx.paper_repo, extra)
 
     with open(pdf_path, "rb") as f:
         content = f.read()
