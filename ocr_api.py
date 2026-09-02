@@ -191,7 +191,7 @@ def ocr_answer_sheet_crops(
 
 if __name__ == "__main__":
     # 使用示例：通过 image_url 调用
-    API_KEY = "sk_9f3A2KxR7MZQwD8hP5YcLJtV4BNeU6mS"
+    API_KEY = ""
     IMAGE_URL = "https://statics.aiecnu.net/ocr-math/20250917/efa4486e-4a3b-4d61-952e-c5c890601dc0.png"
 
     result = call_math_ocr(
