@@ -8,13 +8,13 @@ import glob
 from openai import OpenAI
 
 # Mineru API Configuration
-MINERU_TOKEN = "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJqdGkiOiI2MjQwMTU5OCIsInJvbCI6IlJPTEVfUkVHSVNURVIiLCJpc3MiOiJPcGVuWExhYiIsImlhdCI6MTc3NjMwNjk1OSwiY2xpZW50SWQiOiJsa3pkeDU3bnZ5MjJqa3BxOXgydyIsInBob25lIjoiMTM3OTg2MDIwNjkiLCJvcGVuSWQiOm51bGwsInV1aWQiOiIyODUzMmZmYi01MzM1LTRkNjItODhiNC0xMjdlYzc1YWRlYjAiLCJlbWFpbCI6IjExMzkwNjE1MjVAcXEuY29tIiwiZXhwIjoxNzg0MDgyOTU5fQ.2cP9TA3sKRpFBIfRYy30BVVmh5MKSAmtCb-A-G6p2XJB81awvOjF5CG2T0kxd0j9pfsaOBuLXo-wb-o6gQGIOw"
+MINERU_TOKEN = ""
 MINERU_HEADERS = {
     "Content-Type": "application/json",
     "Authorization": f"Bearer {MINERU_TOKEN}"
 }
 
-API_KEY_ZHICHUANG = "sk-u7ACbqmaQ5Ij187iYT9fUjwYsjIGcZi1qQtfHMXXKuu0TALc"
+API_KEY_ZHICHUANG = ""
 BASE_URL_ZHICHUANG = "https://s.lconai.com/v1"
 MODEL_ZHICHUANG = "gpt-4o-mini"
 
